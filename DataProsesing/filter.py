@@ -40,10 +40,10 @@ class Filter:
 
 def newFilter(num_points, filter_type="average"):
     """
-    Factory function to create a new filter.
+    Factory to create a new filter.
     
     :param num_points: Number of data points the filter should remember
-    :param filter_type: Type of filter to create (e.g., "average", "newWeighted", "oldWeighted")
+    :param filter_type: Type of filter to create ("average", "newWeighted", "oldWeighted")
     :return: A callable filter instance
     """
     return Filter(num_points, filter_type)
