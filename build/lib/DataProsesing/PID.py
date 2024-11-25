@@ -1,4 +1,4 @@
-from ..Utility import DeltaTime as DT
+import DeltaTime as DT
 
 class PID:
     def __init__(self, P=0, I=0, D=0): #P = proportional , I = integral , D = derivitive
@@ -81,4 +81,3 @@ def NewPID(P=0, I=0, D=0):
     newPID = PID(P, I, D)
     newPID.startPID()
     return newPID
-

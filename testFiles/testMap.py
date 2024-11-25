@@ -1,4 +1,4 @@
-import map
+import GabrielsPythonToolBox.DataProsesing.map as GTB
 
 def test():
     inputMin = 0
@@ -14,21 +14,21 @@ def test():
 
 
     for x in range(inputMin-diff,inputMax+1+diff):
-        mapOutput = map.Map(x,inputMin,inputMax,OutputMin,OutputMax)
+        mapOutput = GTB.Map(x,inputMin,inputMax,OutputMin,OutputMax)
         print(f"input : {x}, Output {mapOutput}")
 
     print(f"\n--------------------------\n")
     print(f"ClampMap; minInput: {inputMin}, MaxInput: {inputMax} minOutput: {OutputMin}, maxOutput {OutputMax}\n")
 
     for x in range(inputMin-diff,inputMax+1+diff):
-        clampMapOutput = map.ClampMap(x,inputMin,inputMax,OutputMin,OutputMax)
+        clampMapOutput = GTB.ClampMap(x,inputMin,inputMax,OutputMin,OutputMax)
         print(f"input : {x}, Output {clampMapOutput}")  
     
     print(f"\n--------------------------\n")
     print(f"Clamp; min: {OutputMin}, max {OutputMax}")
 
     for x in range(inputMin-diff,inputMax+1+diff):
-        clampOutput = map.Clamp(x,OutputMin,OutputMax)
+        clampOutput = GTB.Clamp(x,OutputMin,OutputMax)
         print(f"input : {x}, Output {clampOutput}")  
     
     print(f"\n--------------------------\n")

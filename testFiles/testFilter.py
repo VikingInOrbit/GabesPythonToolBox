@@ -1,4 +1,4 @@
-import Filter
+import GabrielsPythonToolBox.DataProsesing.filter as GTB
 
 
 def test():
@@ -8,7 +8,7 @@ def test():
     dataPoints = 5
 
 
-    avarageFilter = Filter.newFilter(dataPoints, "average")
+    avarageFilter = GTB.newFilter(dataPoints, "average")
     avarageFiltered = 0
 
     for x in range(startInt,endInt):
@@ -18,7 +18,7 @@ def test():
 
     print(f"\n--------------------------\n")
 
-    newWeightedFilter = Filter.newFilter(dataPoints, "newWeighted")
+    newWeightedFilter = GTB.newFilter(dataPoints, "newWeighted")
     newWeightedFiltered = 0
     
     for x in range(startInt,endInt):
@@ -28,7 +28,7 @@ def test():
 
     print(f"\n--------------------------\n")
 
-    oldWeightedFilter = Filter.newFilter(dataPoints, "oldWeighted")
+    oldWeightedFilter = GTB.newFilter(dataPoints, "oldWeighted")
     oldWeightedFiltered = 0
     
     for x in range(startInt,endInt):
