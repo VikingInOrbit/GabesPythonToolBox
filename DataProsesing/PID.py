@@ -65,12 +65,12 @@ class PID:
         Change the proportional gain.
         """
         self.P = P_
-    def ChangeP(self, I_):
+    def ChangeI(self, I_):
         """
         Change the integral gain.
         """
         self.I = I_
-    def ChangeP(self, D_):
+    def ChangeD(self, D_):
         """
         Change the derivitive gain.
         """
@@ -79,6 +79,6 @@ class PID:
 # Factory function to create a new PID controller instance
 def NewPID(P=0, I=0, D=0):
     newPID = PID(P, I, D)
-    newPID.startPID()
+    newPID.start()
     return newPID
 
