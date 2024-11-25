@@ -1,3 +1,5 @@
+import DeltaTime as DT
+
 class PID:
     def __init__(self, P=0, I=0, D=0): #P = proportional , I = integral , D = derivitive
         self.P = P
@@ -5,6 +7,8 @@ class PID:
         self.D = D
         self.prev_error = 0  # To store previous error for derivative calculation
         self.integral = 0  # To store accumulated error for integral calculation
+
+        self.deltaTimer = None
 
     def __call__(self, current_value, set_value):
         """
@@ -15,7 +19,13 @@ class PID:
         dt: The time difference between the current and the previous value.
         """
 
-        dt = deltaTime()
+        return self.Update(current_value, set_value)
+    
+    def start(self):
+        self.deltaTimer = DT.StartDeltaTime()
+
+    def Update(self,current_value, set_value):
+        dt = self.deltaTimer()
 
         # Calculate the error
         error = set_value - current_value
@@ -68,4 +78,6 @@ class PID:
 
 # Factory function to create a new PID controller instance
 def NewPID(P=0, I=0, D=0):
-    return PID(P, I, D)
+    newPID = PID(P, I, D)
+    newPID.startPID()
+    return newPID
