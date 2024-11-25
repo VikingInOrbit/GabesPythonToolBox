@@ -4,28 +4,41 @@ import time
 # Import the PID implementation
 import GabrielsPythonToolBox.DataProsesing.PID as GTB
 
-# A simple system simulation (e.g., a heater temperature control)
+# A simple system simulation (heater cartrage)
 class SimpleSystem:
-    def __init__(self, initial_value=0, gain=1):
+    def __init__(self, initial_value=0, gain=1, resistance=0.1, delay=0.1):
         self.current_value = initial_value
-        self.gain = gain  # How quickly the system responds
+        self.gain = gain
+        self.resistance = resistance  # Resistance to change
+        self.delay = delay  # Time lag effect
+        self.previous_value = initial_value
 
     def update(self, control_signal):
         """
-        Updates the system's state based on the control signal.
+        Updates the system's state based on the control signal with optional resistance and lag.
         """
-        # Simulate the system response (basic proportional system with gain)
-        self.current_value += self.gain * control_signal
+        print(f"state: {self.current_value}")
+        # Apply resistance if resistance > 0
+        resistance_effect = self.resistance * self.current_value if self.resistance > 0 else 0
+
+        # Calculate the next value considering gain and resistance
+        next_value = self.gain * control_signal - resistance_effect
+        # Apply delay if delay > 0
+        if self.delay > 0:
+            self.current_value = (1 - self.delay) * self.previous_value + self.delay * next_value
+            self.previous_value = self.current_value
+        else:
+            self.current_value = next_value
 
     def get_value(self):
         return self.current_value
 
 def test():
     # New PID controller
-    pid = GTB.NewPID(P=1, I=0, D=0)
+    pid = GTB.NewPID(P=0.5, I=0, D=0.001)
     
     # Simulated system
-    system = SimpleSystem(initial_value=0, gain=1)
+    system = SimpleSystem(initial_value=00, gain=1, resistance=1, delay=1)
     
     # Target setpoint
     setpoint = 100
@@ -33,7 +46,7 @@ def test():
     required_hits = 5
 
     # Simulation parameters
-    time_steps = 50
+    time_steps = 100
     time_delay = 0.1  # 100 ms per step
 
     # Simulate the system
