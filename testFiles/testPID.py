@@ -35,10 +35,11 @@ class SimpleSystem:
 
 def test():
     # New PID controller
-    pid = GTB.NewPID(P=0.5, I=0, D=0.001)
+    pid = GTB.NewPID(P=9, I=20, D=0.005)
+    SetResetIntegral = True #flag to enable reset integer on setpoint change
     
     # Simulated system
-    system = SimpleSystem(initial_value=00, gain=1, resistance=1, delay=1)
+    system = SimpleSystem(initial_value=00, gain=1, resistance=.1, delay=.1)
     
     # Target setpoint
     setpoint = 100
@@ -50,19 +51,20 @@ def test():
     time_delay = 0.1  # 100 ms per step
 
     # Simulate the system
-    results = simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,required_hits)
+    results = simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,required_hits, SetResetIntegral)
 
     # Plot the results
     graph(results)
 
-def simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,required_hits):
+def simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,required_hits,SetResetIntegral):
     orgSetpoint = setpoint
     tolerance = 0.1  # Define tolerance for hitting the setpoint
     results = []
     consecutive_hits = 0  # Track how many consecutive steps are within the tolerance
+    resetIntegral = False
 
     for t in range(time_steps):
-        hitTarget, result = simulateStep(system, pid, setpoint, tolerance, time_delay, t)
+        hitTarget, result = simulateStep(system, pid, setpoint, tolerance, time_delay, t, resetIntegral)
         results.append(result)
 
         if hitTarget:
@@ -70,20 +72,27 @@ def simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,require
         else:
             consecutive_hits = 0  # Reset if the tolerance is missed
 
+        if resetIntegral:
+            resetIntegral = False
+
         # Change setpoint only if the target is maintained for the required number of steps
         if consecutive_hits >= required_hits:
             if setpoint == orgSetpoint:
                 setpoint += setpointDiff
+                if SetResetIntegral:
+                    resetIntegral = True
             else:
                 setpoint = orgSetpoint
+                if SetResetIntegral:
+                    resetIntegral = False
             consecutive_hits = 0  # Reset after switching setpoints
 
     return results
 
-def simulateStep(system, pid, setpoint, tolerance, time_delay, t):
+def simulateStep(system, pid, setpoint, tolerance, time_delay, t, resetIntegral):
     print(f"Step: {t}")
     current_value = system.get_value()
-    control_signal = pid(current_value, setpoint)
+    control_signal = pid(current_value, setpoint, resetIntegral)
       
     # Update the system state
     system.update(control_signal)
