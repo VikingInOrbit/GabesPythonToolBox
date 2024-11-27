@@ -1,4 +1,4 @@
-import GabrielsPythonToolBox.DataProsesing.map as GTB
+import GabesPythonToolBox.DataProsesing.map as GTB
 
 def test():
     inputMin = 0

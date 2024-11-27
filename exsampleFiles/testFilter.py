@@ -1,4 +1,4 @@
-import GabrielsPythonToolBox.DataProsesing.filter as GTB
+import GabesPythonToolBox.DataProsesing.filter as GTB
 
 
 def test():

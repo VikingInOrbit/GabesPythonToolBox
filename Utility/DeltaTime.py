@@ -16,7 +16,14 @@ class DeltaTime():
         return dt
         
 def StartDeltaTime():
+    """
+    ceates a DeltaTime Object that returns the time elapsed between calls
+    
+    :return: DeltaTime Object
+    """
     return DeltaTime()
+
+
 class DeltaTimer(): 
     def __init__(self,duration):
         self.timeLeft = 0
@@ -94,5 +101,11 @@ class DeltaTimer():
             self.Update()
         
 
-def StartDeltaTimer(input):
-    return DeltaTimer(input)
+def StartDeltaTimer(time):
+    """
+    ceates a DeltaTimer Object that returns true if time elapsed is more or equal to set time
+    
+    :param time: number of secunds until timer is finished
+    :return: DeltaTimer Object
+    """
+    return DeltaTimer(time)

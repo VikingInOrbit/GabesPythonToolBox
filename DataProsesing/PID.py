@@ -87,6 +87,14 @@ class PID:
 
 # Factory function to create a new PID controller instance
 def NewPID(P=0, I=0, D=0):
+    """
+    make a new PID Controller with starting values P,I,D
+    
+    :param P: Proporsional Gain
+    :param I: Integral Gain
+    :param D: Derivitive Gain
+    :return: A PID Controller
+    """
     newPID = PID(P, I, D)
     newPID.start()
     return newPID

@@ -1,4 +1,4 @@
-import GabrielsPythonToolBox.Utility.DeltaTime as DT
+import GabesPythonToolBox.Utility.DeltaTime as DT
 
 def test():
     deltaTime = DT.StartDeltaTime()

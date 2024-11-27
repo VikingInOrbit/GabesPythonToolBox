@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import time
 
 # Import the PID implementation
-import GabrielsPythonToolBox.DataProsesing.PID as GTB
+import GabesPythonToolBox.DataProsesing.PID as GTB
 
 # A simple system simulation (heater cartrage)
 class SimpleSystem:
