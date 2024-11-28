@@ -1,0 +1,22 @@
+{
+    "robot_legs": {
+        "leg_1": {
+            "joints": [
+                {
+                    "type": "rotational_continuous",
+                    "length_to_next": 0.5,
+                    "pid": {"kp": 1.0, "ki": 0.1, "kd": 0.05}
+                },
+                {
+                    "type": "rotational_endpoints",
+                    "length_to_next": 0.3,
+                    "pid": {"kp": 0.8, "ki": 0.2, "kd": 0.1}
+                }
+            ],
+            "movement_plan": {
+                "type": "future_acceleration",
+                "inputs": {"max_acc": 2.0, "trajectory": "sine"}
+            }
+        }
+    }
+}
