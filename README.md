@@ -4,16 +4,20 @@ Think of this as your coding Swiss Army knife. Gabe's Python Toolbox is a collec
 
 If you're tired of writing the same functions over and over, this might save you a few headaches (and keystrokes).
 
-## 🔧 Setup Guide
+## Setup Guide
 Clone this repo.
 Install dependencies with:
 bash
 Copy code
-pip install -r requirements.txt
-Import what you need, when you need it.
+cd into "GabesPythonToolBox"
+"pip install ."
+
+Import what you need, when you need it. 
+using "import GabesPythonToolBox as GTB" for all
+or import "GabesPythonToolBox.Category.lib as (XX)"
 That’s it. You're good to go.
 
-## 📦 Current Features
+## Current Features
 
 ### Utility Functions
 Documentation Here(in progress)
@@ -24,9 +28,15 @@ Documentation Here(in progress)
 - signal Filtering
 - input to data managment
 
-## 🛠️ What's Next?
-- data visualization
+## What's Next?
 - debugging and testing
+- future code i need and want to shere
+- QuaternionTools
+- SensorFusion
+- arduinio lib
+- InverseKinematics
+- config reader/writer
+- StateMachine
 
-## 🚀 Why Should You Use This?
+##  Why Should You Use This?
 It's modular, use waht you need, grab the function you need and move on.
