@@ -15,6 +15,7 @@ setup(
     url="https://github.com/NorgeSkiFollo/GabrielsPythonToolBox.git",  # Replace with your repo URL
     classifiers=[                          # Classifiers for your library
         'Programming Language :: Python :: 3',
+        "License :: OSI Approved :: MIT License",
         'Operating System :: OS Independent',
     ],
 )
