@@ -22,6 +22,7 @@ That’s it. You're good to go.
 ### Utility Functions
 Documentation Here(in progress)
 - Time Managment
+- configManager
 
 ### Data Processing
 Documentation Here(in progress)
@@ -29,8 +30,7 @@ Documentation Here(in progress)
 - input to data managment
 
 ## Working on
-- ConfigManager
-    - StateMachine
+- StateMachine
 
 ## What's Next?
 - debugging and testing
@@ -39,7 +39,6 @@ Documentation Here(in progress)
 - SensorFusion
 - arduinio lib
 - InverseKinematics
-- config reader/writer
 - StateMachine
 
 ##  Why Should You Use This?
