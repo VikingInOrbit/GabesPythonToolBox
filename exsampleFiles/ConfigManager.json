@@ -1,0 +1,45 @@
+{
+    "game_settings": {
+        "difficulty": "normal",
+        "graphics": {
+            "resolution": "1920x1080",
+            "fullscreen": true
+        },
+        "sound": {
+            "music_volume": 70,
+            "effects_volume": 80
+        }
+    },
+    "player": {
+        "name": "Arthas",
+        "class": "Paladin",
+        "level": 5,
+        "stats": {
+            "strength": 15,
+            "dexterity": 12,
+            "intelligence": 8,
+            "charisma": 10
+        },
+        "inventory": [
+            "sword",
+            "shield",
+            "healing potion"
+        ]
+    },
+    "quests": {
+        "active": [
+            {
+                "title": "Defeat the Dragon",
+                "progress": 20
+            },
+            {
+                "title": "Rescue the Princess",
+                "progress": 50
+            }
+        ],
+        "completed": [
+            "Find the Lost Amulet",
+            "Clear the Bandit Camp"
+        ]
+    }
+}
