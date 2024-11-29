@@ -1,5 +1,12 @@
 # Updates
 
+## 1.2.0 Config Manager update 
+
+### new things
+
+- Config Manager
+
+
 ## 1.1.1 doc update
 
 ### new things

@@ -8,8 +8,8 @@ config = config_manager()
 print("Loaded Configuration:")
 print(config)
 
-# Update the player's name to "Sylvanas"
-config_manager.update("player.name", "Sylvanas")
+# Update the player's name to "Opydian"
+config_manager.update("player.name", "Opydian")
 print("\nUpdated Player Name:", config_manager()["player"]["name"])
 
 # Change the game difficulty to "hard"
@@ -18,7 +18,7 @@ print("\nUpdated Game Difficulty:", config_manager()["game_settings"]["difficult
 
 # Add a new item to the player's inventory
 current_inventory = config_manager()["player"]["inventory"]
-current_inventory.append("magic ring")
+current_inventory.append("Dragon Scale")
 config_manager.update("player.inventory", current_inventory)
 print("\nUpdated Inventory:", config_manager()["player"]["inventory"])
 
