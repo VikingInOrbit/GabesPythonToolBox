@@ -28,6 +28,10 @@ Documentation Here(in progress)
 - signal Filtering
 - input to data managment
 
+## Working on
+- ConfigManager
+    - StateMachine
+
 ## What's Next?
 - debugging and testing
 - future code i need and want to shere
