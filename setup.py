@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='GabrielsPythonToolBox',          # Name of your package
-    version='1.4.0',                       # fundemental change.finished feature.bug fix
+    version='1.5.0',                       # fundemental change.finished feature.bug fix
     packages=find_packages(),              # Automatically finds all packages
     install_requires=[                     # List your dependencies here
         
