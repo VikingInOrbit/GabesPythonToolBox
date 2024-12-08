@@ -25,6 +25,7 @@ Documentation Here(in progress)
 - configManager
 - Collor
 - UnitConverter
+- Debug.log
 
 ### Data Processing
 Documentation Here(in progress)
@@ -33,7 +34,6 @@ Documentation Here(in progress)
 
 ## Working on
 - StateMachine
-- Debug.log
 
 ## What's Next?
 - debugging and testing

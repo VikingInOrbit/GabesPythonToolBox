@@ -1,3 +1,5 @@
+from ..Utility.Debug import *
+
 def Map(input,minInput,maxInput,minOutput,maxOutput):
     """ Maps a value from one range to another. 
     
@@ -33,12 +35,13 @@ def Clamp(input,minOutput,maxOutput):
     """ Clamps the input between 2 values
     
     :param minOutput: the lovest value of the output will have
-    :param max: the higest value the output will have
+    :param maxOutput: the higest value the output will have
     :return: Returns input between max,min
     """
 
     if not all(isinstance(arg, (int, float)) for arg in (input, minOutput, maxOutput)):
         raise TypeError("All arguments must be numbers (int or float).")
-
+    
+    Debug.log(f"input value: {input}","Info",group="LIB")
     output = max(min(input,maxOutput),minOutput)
     return output
