@@ -22,11 +22,18 @@ That’s it. You're good to go.
 ### Utility Functions
 Documentation Here(in progress)
 - Time Managment
+- configManager
+- Collor
+- UnitConverter
+- Debug.log
 
 ### Data Processing
 Documentation Here(in progress)
 - signal Filtering
 - input to data managment
+
+## Working on
+- StateMachine
 
 ## What's Next?
 - debugging and testing
@@ -35,8 +42,8 @@ Documentation Here(in progress)
 - SensorFusion
 - arduinio lib
 - InverseKinematics
-- config reader/writer
 - StateMachine
+
 
 ##  Why Should You Use This?
 It's modular, use waht you need, grab the function you need and move on.

@@ -1,31 +1,40 @@
 import json
 import os
 import copy
+from ..Utility.Debug import *
 
 class ConfigManager:
     """
     A utility class to manage JSON configuration files.
     """
 
-    def __init__(self, configFilePath):
+    def __init__(self, configFilePath: str = None):
         """
         Initialize the ConfigManager.
 
         :param configFilePath: (str) Path to the JSON configuration file.
         """
-        self.configFilePath = os.path.abspath(configFilePath)
-        self.config = self._loadConfig()
-        self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
+        Debug.log(f"ConfigManager init","Header",group="LIB")
+        Debug.log(f"config File Path: {configFilePath}, num_points: {self.num_points}","Info",group="LIB")
+        Debug.log(f"ConfigManager init","End",group="LIB")
+        self.loadConfig(configFilePath)
 
     def __call__(self):
         """
-        Reload the configuration file.
+        Get the configuration file.
 
         :return: (dict) The current configuration data.
         """
-        return self.config
+        Debug.log(f"ConfigManager call","Header",group="LIB")
+        
+        if self.config:
+            Debug.log(f"ConfigManager call","End",group="LIB")
+            return self.config
+        else:
+            Debug.log("no Config Loaded","Info",group="LIB")
+            Debug.log(f"ConfigManager call","End",group="LIB")
 
-    def _loadConfig(self):
+    def loadConfig(self, configFilePath: str = None):
         """
         Load and parse the JSON configuration file.
 
@@ -33,14 +42,23 @@ class ConfigManager:
         :raises FileNotFoundError: If the file does not exist.
         :raises ValueError: If the file contains invalid JSON.
         """
-        if not os.path.exists(self.configFilePath):
-            raise FileNotFoundError(f"Configuration file {self.configFilePath} not found.")
+        Debug.log(f"loadConfig","Header",group="LIB")
         
-        with open(self.configFilePath, 'r') as file:
+        
+        if not os.path.exists(configFilePath):
+            Debug.log(f"loadConfig","End",group="LIB")
+            raise FileNotFoundError(f"Configuration file {configFilePath} not found.")
+        
+        with open(configFilePath, 'r') as file:
             try:
-                return json.load(file)
+                self.config = json.load(file)
+                self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
+                Debug.log(f"loaded config","Info",group="LIB")
             except json.JSONDecodeError:
-                raise ValueError(f"Failed to decode JSON in {self.configFilePath}.")
+                Debug.log(f"loadConfig","End",group="LIB")
+                raise ValueError(f"Failed to decode JSON in {configFilePath}.")
+            
+        Debug.log(f"loadConfig","End",group="LIB")
 
     def update(self, key, value):
         """ 
@@ -50,6 +68,8 @@ class ConfigManager:
         :param value: New value to set.
         :raises KeyError: If the key does not exist in the configuration.
         """
+        Debug.log(f"ConfigManager update","Header",group="LIB")
+        
         keys = key.split('.')
         config_section = self.config
 
@@ -71,6 +91,7 @@ class ConfigManager:
                 final_key = int(final_key) if final_key.isdigit() else final_key
                 config_section[final_key] = value
 
+        Debug.log(f"ConfigManager update","End",group="LIB")
 
     def reset(self):
         """
@@ -80,26 +101,31 @@ class ConfigManager:
         """
         self.config = self.defaultConfig
         
-    def save(self):
+    def save(self,configFilePath: str = None):
         """
-        Save the current configuration back to the file.
+        Save the current configuration to a file.
         """
-        with open(self.configFilePath, 'w') as file:
+
+        Debug.log(f"ConfigManager save","Header",group="LIB")
+
+        if not configFilePath:
+            Debug.log(f"no fIle Path given","Info",group="LIB")
+            Debug.log(f"ConfigManager save","End",group="LIB")
+            return
+
+        with open(configFilePath, 'w') as file:
             json.dump(self.config, file, indent=4)
+            Debug.log(f"Save","Info",group="LIB")
+
+        Debug.log(f"ConfigManager save","End",group="LIB")
     
-    def saveNew(self,FileName):
-        """
-        Save the current configuration back to the file.
-        """
-        with open(os.path.abspath(FileName), 'w') as file:
-            json.dump(self.config, file, indent=4)
-
-
-def startConfigManager(configFilePath):
+def startConfigManager(configFilePath: str = None):
     """
     Create and return a ConfigManager instance.
 
     :param configFilePath: (str) Path to the JSON configuration file.
     :return: (ConfigManager) An instance of the ConfigManager.
     """
+    Debug.log(f"start ConfigManager","Header",group="LIB")
+    Debug.log(f"start ConfigManager","End",group="LIB")
     return ConfigManager(configFilePath)

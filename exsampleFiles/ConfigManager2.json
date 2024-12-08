@@ -11,7 +11,7 @@
         }
     },
     "player": {
-        "name": "Sylvanas",
+        "name": "Opydian",
         "class": "Paladin",
         "level": 5,
         "stats": {
@@ -24,7 +24,7 @@
             "sword",
             "shield",
             "healing potion",
-            "magic ring"
+            "Dragon Scale"
         ]
     },
     "quests": {

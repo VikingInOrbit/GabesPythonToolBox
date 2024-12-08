@@ -1,3 +1,6 @@
+from GabesPythonToolBox.Utility.Debug import Debug
+#Debug.add_group('LIB', True) #Uncoment for the debug mesages
+
 import GabesPythonToolBox.DataProsesing.map as GTB
 
 def test():
