@@ -1,5 +1,15 @@
 # Updates
 
+## 1.4.0 update 
+
+### new things
+
+- UnitConverter
+
+### changes
+
+- changed how the interaction with config manager works
+
 ## 1.3.0 Collor update 
 
 ### new things

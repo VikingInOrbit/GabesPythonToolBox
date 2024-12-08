@@ -1,7 +1,11 @@
 import GabesPythonToolBox.Utility.SIUnitsConverter as SI
+import GabesPythonToolBox.Utility.ConfigManager as CM
+
+# Initialize the ConfigManager to get config
+config_manager = CM.startConfigManager("exsampleFiles\SIUnitsConvertions.json") #a config manager shood be in the converter insted
 
 # Create an instance of the SIUnitsConverter
-converter = SI.SIUnitsConverter()
+converter = SI.SIUnitsConverter(config_manager())
 
 # Example 1: Convert length from meters to kilometers
 length_in_meters = 1500  # 1500 meters
@@ -20,5 +24,5 @@ print(f"{time_in_minutes} minutes is equal to {time_in_seconds} seconds.")
 
 # Example 4: Convert temperature from Celsius to Fahrenheit
 temp_in_celsius = 25  # 25 degrees Celsius
-temp_in_fahrenheit = converter.convert(temp_in_celsius, '°C', '°F', 'temperature')
-print(f"{temp_in_celsius}°C is equal to {temp_in_fahrenheit}°F.")
+temp_in_fahrenheit = converter.convert(temp_in_celsius, 'C', 'F', 'temperature')
+print(f"{temp_in_celsius}°C is equal to {temp_in_fahrenheit}°F.") #temp dont work yet

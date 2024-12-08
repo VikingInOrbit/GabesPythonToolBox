@@ -7,15 +7,13 @@ class ConfigManager:
     A utility class to manage JSON configuration files.
     """
 
-    def __init__(self, configFilePath):
+    def __init__(self, configFilePath: str = None):
         """
         Initialize the ConfigManager.
 
         :param configFilePath: (str) Path to the JSON configuration file.
         """
-        self.configFilePath = os.path.abspath(configFilePath)
-        self.config = self._loadConfig()
-        self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
+        self.loadConfig(configFilePath)
 
     def __call__(self):
         """
@@ -23,9 +21,12 @@ class ConfigManager:
 
         :return: (dict) The current configuration data.
         """
-        return self.config
+        if self.config:
+            return self.config
+        else:
+            print("no Config Loaded")
 
-    def _loadConfig(self):
+    def loadConfig(self, configFilePath: str = None):
         """
         Load and parse the JSON configuration file.
 
@@ -33,14 +34,15 @@ class ConfigManager:
         :raises FileNotFoundError: If the file does not exist.
         :raises ValueError: If the file contains invalid JSON.
         """
-        if not os.path.exists(self.configFilePath):
-            raise FileNotFoundError(f"Configuration file {self.configFilePath} not found.")
+        if not os.path.exists(configFilePath):
+            raise FileNotFoundError(f"Configuration file {configFilePath} not found.")
         
-        with open(self.configFilePath, 'r') as file:
+        with open(configFilePath, 'r') as file:
             try:
-                return json.load(file)
+                self.config = json.load(file)
+                self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
             except json.JSONDecodeError:
-                raise ValueError(f"Failed to decode JSON in {self.configFilePath}.")
+                raise ValueError(f"Failed to decode JSON in {configFilePath}.")
 
     def update(self, key, value):
         """ 
@@ -71,7 +73,6 @@ class ConfigManager:
                 final_key = int(final_key) if final_key.isdigit() else final_key
                 config_section[final_key] = value
 
-
     def reset(self):
         """
         Reset the configuration to a default state.
@@ -80,22 +81,19 @@ class ConfigManager:
         """
         self.config = self.defaultConfig
         
-    def save(self):
+    def save(self,configFilePath: str = None):
         """
-        Save the current configuration back to the file.
+        Save the current configuration to a file.
         """
-        with open(self.configFilePath, 'w') as file:
+
+        if not configFilePath:
+            print("no fIle Path given")
+            return
+
+        with open(configFilePath, 'w') as file:
             json.dump(self.config, file, indent=4)
     
-    def saveNew(self,FileName):
-        """
-        Save the current configuration back to the file.
-        """
-        with open(os.path.abspath(FileName), 'w') as file:
-            json.dump(self.config, file, indent=4)
-
-
-def startConfigManager(configFilePath):
+def startConfigManager(configFilePath: str = None):
     """
     Create and return a ConfigManager instance.
 

@@ -27,7 +27,7 @@ config_manager.update("quests.active[0].progress", 80)
 print("\nUpdated Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
 
 # Save the updated configuration back to the Newfile
-config_manager.saveNew("exsampleFiles\ConfigManager2.json")
+config_manager.save("exsampleFiles\ConfigManager2.json")
 print("\nnew file saved:")
 print(config_manager())
 
@@ -37,5 +37,5 @@ print("\nConfiguration Reset:")
 print(config_manager())
 
 # Save the updated configuration back to the file
-config_manager.save()
+config_manager.save("exsampleFiles\ConfigManager.json")
 print("\nConfiguration has been saved back to the file.")
