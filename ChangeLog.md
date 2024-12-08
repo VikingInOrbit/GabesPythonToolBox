@@ -1,5 +1,11 @@
 # Updates
 
+## 1.3.0 Collor update 
+
+### new things
+
+- Collor Lib
+
 ## 1.2.0 Config Manager update 
 
 ### new things
