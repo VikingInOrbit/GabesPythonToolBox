@@ -33,6 +33,7 @@ Documentation Here(in progress)
 
 ## Working on
 - StateMachine
+- Debug.log
 
 ## What's Next?
 - debugging and testing
