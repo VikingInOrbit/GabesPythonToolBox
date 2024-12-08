@@ -1,3 +1,7 @@
+from GabesPythonToolBox.Utility.Debug import Debug
+#Debug.add_group('LIB', True) #Uncoment for the debug mesages
+
+
 import GabesPythonToolBox.Utility.UnitConverter as UC
 import GabesPythonToolBox.Utility.ConfigManager as CM
 

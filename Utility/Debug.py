@@ -6,18 +6,22 @@ class Debug:
     
     # DbugType
     Type = {
-        "Header": GTB.FG_Blue + GTB.BG_Black,
+        "Header": GTB.FG_B_White + GTB.BG_Black,
         "Error": GTB.BG_B_Red,
         "Fail": GTB.BG_Black + GTB.FG_B_Red,
         "Success": GTB.BG_Black + GTB.FG_B_Green,
-        "Warning": GTB.BG_Black + GTB.FG_Yellow,
-        "Info": GTB.BG_Black + GTB.FG_Cyan,
-        "InProgress": GTB.BG_Cyan + GTB.FG_Black,
+        "Warning": GTB.BG_Yellow + GTB.FG_Black,
+        "Info": GTB.BG_Black + GTB.FG_B_White,
+        "InProgress": GTB.BG_Black + GTB.FG_Yellow,
+        "None": None,
+        "End": GTB.FG_B_White + GTB.BG_Black,
+
+        "-": GTB.FG_Black + GTB.BG_Red,
     }
 
     # Static settings for the Debug class
     debug_enabled = True
-    groups = {"LIB": False}  # Always have a default group enabled
+    groups = {"LIB": False, "exsampleFiles": False}  # Always have a default group enabled
 
     @classmethod
     def set_debug_enabled(cls, enabled: bool = True):
@@ -51,7 +55,7 @@ class Debug:
         cls.groups[group] = False  # Set the group's status to disabled
 
     @classmethod
-    def log(cls, message: str, message_type: str = "Info", group: str = None, verbosity: int = 1):
+    def log(cls, message: str, message_type: str = "-", group: str = None, verbosity: int = 1):
         """Log a message."""
         if not cls.debug_enabled:
             return  # Debugging is turned off
@@ -65,20 +69,24 @@ class Debug:
         
         match message_type:
             case "Header":
-                print(f"{Type}------ {message} ------{cls.R}")
+                print(f"{cls.R}{Type}------ {message} ------{cls.R}")
             case "Error":
-                print(f"{Type}_-_-_- {message} -_-_-_{cls.R}")
+                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
             case "Fail":
-                print(f"{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{cls.R}")
             case "Success":
-                print(f"{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{cls.R}")
             case "Warning":
-                print(f"{Type}_-_-_- {message} -_-_-_{cls.R}")
+                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
             case "Info":
-                print(f"{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{cls.R}")
             case "InProgress":
-                print(f"{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{cls.R}")
+            case "None":
+                print(f"{cls.R}{cls.R}{message}{cls.R}")
+            case "End":
+                print(f"{cls.R}{Type}............{message}{cls.R}")
             case _:
                 # Default case if the message type doesn't match any of the above
-                print(f"{message}...{cls.R}")
+                print(f"{cls.R}{Type}{message}...{cls.R}")
         

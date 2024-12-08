@@ -1,8 +1,10 @@
+from GabesPythonToolBox.Utility.Debug import Debug
+#Debug.add_group('LIB', True) #Uncoment for the debug mesages
+
 import matplotlib.pyplot as plt
 import time
-
-# Import the PID implementation
-import GabesPythonToolBox.DataProsesing.PID as GTB
+from GabesPythonToolBox import DeltaTime as DT
+import GabesPythonToolBox.Utility.DeltaTime as DT
 
 # A simple system simulation (heater cartrage)
 class SimpleSystem:
@@ -34,6 +36,8 @@ class SimpleSystem:
         return self.current_value
 
 def test():
+    deltaTime = DT.StartDeltaTime()
+    deltaTime()
     # New PID controller
     pid = GTB.NewPID(P=9, I=20, D=0.005)
     SetResetIntegral = True #flag to enable reset integer on setpoint change
@@ -52,6 +56,9 @@ def test():
 
     # Simulate the system
     results = simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps,required_hits, SetResetIntegral)
+
+    #real time used
+    print(f"\nreal time since start: {deltaTime()}s\n")
 
     # Plot the results
     graph(results)

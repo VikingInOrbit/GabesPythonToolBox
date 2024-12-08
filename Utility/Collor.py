@@ -1,3 +1,5 @@
+#just a refrence to anci terminal Collor
+
 R ='\033[0m' #reset
 
 #texst collor

@@ -1,5 +1,15 @@
 # Updates
 
+## 1.5.1 Debug update 
+
+### bug Fix
+
+- __init__ file update
+
+### changes
+
+- Added lib debug mesages to entire librery (not exsamples will be added soon)
+
 ## 1.5.0 Debug update 
 
 ### new things
