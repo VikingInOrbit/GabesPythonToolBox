@@ -1,11 +1,11 @@
-import GabesPythonToolBox.Utility.SIUnitsConverter as SI
+import GabesPythonToolBox.Utility.UnitConverter as UC
 import GabesPythonToolBox.Utility.ConfigManager as CM
 
 # Initialize the ConfigManager to get config
 config_manager = CM.startConfigManager("exsampleFiles\SIUnitsConvertions.json") #a config manager shood be in the converter insted
 
 # Create an instance of the SIUnitsConverter
-converter = SI.SIUnitsConverter(config_manager())
+converter = UC.UnitsConverter(config_manager())
 
 # Example 1: Convert length from meters to kilometers
 length_in_meters = 1500  # 1500 meters
