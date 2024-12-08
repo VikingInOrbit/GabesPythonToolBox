@@ -23,6 +23,7 @@ That’s it. You're good to go.
 Documentation Here(in progress)
 - Time Managment
 - configManager
+- Collor
 
 ### Data Processing
 Documentation Here(in progress)
@@ -41,7 +42,7 @@ Documentation Here(in progress)
 - InverseKinematics
 - StateMachine
 - SIUnitConverter
-- Collor
+- 
 
 ##  Why Should You Use This?
 It's modular, use waht you need, grab the function you need and move on.
