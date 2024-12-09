@@ -3,7 +3,7 @@ from GabesPythonToolBox.Utility.Debug import Debug
 
 import matplotlib.pyplot as plt
 import time
-from GabesPythonToolBox import DeltaTime as DT
+import GabesPythonToolBox.DataProsesing.PID as GTB
 import GabesPythonToolBox.Utility.DeltaTime as DT
 
 # A simple system simulation (heater cartrage)
