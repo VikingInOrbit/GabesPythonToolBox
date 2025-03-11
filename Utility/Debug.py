@@ -3,12 +3,14 @@ import GabesPythonToolBox.Utility.Collor as GTB
 
 class Debug:
     R = GTB.R
+    depth = 0
     
     # DbugType
     Type = {
         "Header": GTB.FG_B_White + GTB.BG_Black,
         "Error": GTB.BG_B_Red,
         "Fail": GTB.BG_Black + GTB.FG_B_Red,
+        "Unachievable": GTB.BG_Black + GTB.FG_B_Yellow,
         "Success": GTB.BG_Black + GTB.FG_B_Green,
         "Warning": GTB.BG_Yellow + GTB.FG_Black,
         "Info": GTB.BG_Black + GTB.FG_B_White,
@@ -69,10 +71,13 @@ class Debug:
         
         match message_type:
             case "Header":
-                print(f"{cls.R}{Type}------ {message} ------{cls.R}")
+                cls.depth += 1
+                print(f"\n{cls.R}{Type}------ {message} ------Depth:{cls.depth}{cls.R}")
             case "Error":
                 print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
             case "Fail":
+                print(f"{cls.R}{Type}{message}{cls.R}")
+            case "Unachievable":
                 print(f"{cls.R}{Type}{message}{cls.R}")
             case "Success":
                 print(f"{cls.R}{Type}{message}{cls.R}")
@@ -85,7 +90,8 @@ class Debug:
             case "None":
                 print(f"{cls.R}{cls.R}{message}{cls.R}")
             case "End":
-                print(f"{cls.R}{Type}............{message}{cls.R}")
+                print(f"{cls.R}{Type}............{message} - {cls.depth}{cls.R}\n")
+                cls.depth -= 1
             case _:
                 # Default case if the message type doesn't match any of the above
                 print(f"{cls.R}{Type}{message}...{cls.R}")

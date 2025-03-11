@@ -1,5 +1,12 @@
 # Updates
 
+## 1.5.2 update 
+
+### changes
+
+- script ducumentation
+- Dbug collors
+
 ## 1.5.1 Debug update 
 
 ### bug Fix
