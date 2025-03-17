@@ -1,5 +1,15 @@
 # Updates
 
+## 1.5.3 update 
+
+### changes
+
+- exsample configmanager json files
+
+### new things
+
+- add function in config manager
+
 ## 1.5.2 update 
 
 ### changes

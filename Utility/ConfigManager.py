@@ -15,7 +15,7 @@ class ConfigManager:
         :param configFilePath: (str) Path to the JSON configuration file.
         """
         Debug.log(f"ConfigManager init","Header",group="LIB")
-        Debug.log(f"config File Path: {configFilePath}, num_points: {self.num_points}","Info",group="LIB")
+        Debug.log(f"config File Path: {configFilePath}","Info",group="LIB")
         Debug.log(f"ConfigManager init","End",group="LIB")
         self.loadConfig(configFilePath)
 
@@ -92,6 +92,26 @@ class ConfigManager:
                 config_section[final_key] = value
 
         Debug.log(f"ConfigManager update","End",group="LIB")
+
+    def add(self, data):
+        """
+        Add a new data set to the current configuration.
+        This method will add a new dictionary (data) to the existing configuration.
+    
+        :param data: (dict) The new configuration data to be appended.
+        """
+        Debug.log(f"ConfigManager add", "Header", group="LIB")
+
+        if isinstance(data, dict):
+            # Check if the data is a dictionary before appending
+            self.config.update(data)  # Append the new data to the existing configuration
+            Debug.log(f"Add new data", "Info", group="LIB")
+        else:
+            # Handle the case where data is not a dictionary
+            Debug.log(f"Invalid data format. Expected dict, got {type(data)}", "Error", group="LIB")
+
+        Debug.log(f"ConfigManager add", "End", group="LIB")
+
 
     def reset(self):
         """

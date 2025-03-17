@@ -36,6 +36,13 @@ Debug.log("This should now be shown since 'Database' is enabled", message_type="
 Debug.disable_group('LIB')
 Debug.log("This should NOT be shown since 'LIB' is now disabled", message_type="Info", group="LIB")
 
+Debug.set_group('LIB',False)
+Debug.log("This should NOT be shown since 'LIB' is now disabled", message_type="Info", group="LIB")
+
+Debug.set_group('LIB',True)
+Debug.log("This should be shown since 'LIB' is now enabled", message_type="Info", group="LIB")
+
+
 #list group
 print("List Group")
 print(Debug.list_groups())

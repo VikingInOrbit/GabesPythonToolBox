@@ -42,3 +42,23 @@ print(config_manager())
 # Save the updated configuration back to the file
 config_manager.save("exsampleFiles\ConfigManager.json")
 print("\nConfiguration has been saved back to the file.")
+
+
+# Initialize the ConfigManager with another configuration to add to the current one
+add_config_manager = CM.startConfigManager("exsampleFiles\ConfigManager3.json")
+
+# Load and display the configuration that will be added
+add_config = add_config_manager()
+print("\nLoaded Configuration to Add:")
+print(add_config)
+
+# Add the new configuration to the current configuration
+# Assuming the `add()` method uses `self.config.update(new_config)` to merge the configurations
+config_manager.add(add_config)
+print("\nConfiguration After Adding New Data:")
+print(config_manager())
+
+# Save the updated configuration to a new file after the addition
+config_manager.save("exsampleFiles\ConfigManager4.json")
+print("\nNew file saved after addition:")
+print(config_manager())

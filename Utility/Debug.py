@@ -57,6 +57,11 @@ class Debug:
         cls.groups[group] = False  # Set the group's status to disabled
 
     @classmethod
+    def set_group(cls, group: str, State: bool = False):
+        """Disable a specific message group."""
+        cls.groups[group] = State  # Set the group's status to disabled
+
+    @classmethod
     def log(cls, message: str, message_type: str = "-", group: str = None, verbosity: int = 1):
         """Log a message."""
         if not cls.debug_enabled:
