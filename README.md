@@ -5,12 +5,11 @@ Think of this as your coding Swiss Army knife. Gabe's Python Toolbox is a collec
 If you're tired of writing the same functions over and over, this might save you a few headaches (and keystrokes).
 
 ## Setup Guide
-Clone this repo.
-Install dependencies with:
-bash
-Copy code
-cd into "GabesPythonToolBox"
-"pip install ."
+in terminal for project 
+
+'''
+py -m pip install git+https://github.com/VikingInOrbit/GabesPythonToolBox.git
+'''
 
 Import what you need, when you need it. 
 using "import GabesPythonToolBox as GTB" for all
