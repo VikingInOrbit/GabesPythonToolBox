@@ -3,6 +3,7 @@ from GabesPythonToolBox.Utility.Debug import Debug
 
 import matplotlib.pyplot as plt
 import time
+import GabesPythonToolBox as GTB
 from GabesPythonToolBox import DeltaTime as DT
 import GabesPythonToolBox.Utility.DeltaTime as DT
 
@@ -100,6 +101,7 @@ def simulateStep(system, pid, setpoint, tolerance, time_delay, t, resetIntegral)
     print(f"Step: {t}")
     current_value = system.get_value()
     control_signal = pid(current_value, setpoint, resetIntegral)
+    print(f"control_signal: {control_signal}, current_value: {current_value}, setpoint: {setpoint}")
       
     # Update the system state
     system.update(control_signal)
