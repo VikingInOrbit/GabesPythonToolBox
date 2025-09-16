@@ -1,6 +1,6 @@
 from ..Utility.Debug import *
 
-def Map(input,minInput,maxInput,minOutput,maxOutput):
+def Map(input:float,minInput:float,maxInput:float,minOutput:float,maxOutput:float):
     """ Maps a value from one range to another. 
     
     :param minInput: the lovest value the input shood have
@@ -23,7 +23,7 @@ def Map(input,minInput,maxInput,minOutput,maxOutput):
 
     return output
 
-def ClampMap(input,minInput,maxInput,minOutput,maxOutput):
+def ClampMap(input:float,minInput:float,maxInput:float,minOutput:float,maxOutput:float):
     """ Maps a value from one range to another. and clamps it to min max output
     
     :param minInput: the lovest value the input shood have
@@ -43,7 +43,7 @@ def ClampMap(input,minInput,maxInput,minOutput,maxOutput):
     Debug.log(f"ClampMap","End",group="LIB")
     return output
 
-def Clamp(input,minOutput,maxOutput):
+def Clamp(input:float,minOutput:float,maxOutput:float):
     """ Clamps the input between 2 values
     
     :param minOutput: the lovest value of the output will have
