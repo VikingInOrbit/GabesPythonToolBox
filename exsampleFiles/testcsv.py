@@ -2,7 +2,8 @@ from GabesPythonToolBox.Utility.Debug import Debug
 from GabesPythonToolBox.DataProsesing.csvDataPipeline import * 
 
 
-def main(path):
+def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_from: str = "", read_n_lines: int = 0,Topper:str=""):
+    
     #Simple test bed
     print()
     print("Combine all into a data pipeline.")
@@ -11,7 +12,7 @@ def main(path):
 
     #-----------------first we need data
 
-    data = read_csv(path,seperator_symbol=";") 
+    data = read_csv(file_path, seperator_symbol, float_symbol, read_from, read_n_lines)
     
     #-----------------then we need to process the data
 
@@ -31,9 +32,9 @@ def main(path):
 
     #-----------------finally we format and present the data
     line = format_data(data)
-    print_table(line,n=0,Topper="test table")
+    print_table(line,n=0,Topper=Topper)
 
 
 if __name__ == "__main__":
     path="exsampleFiles\party_distribution_2021-09-30.csv"
-    main(path)
+    main(path,seperator_symbol = ';', float_symbol=',',)
