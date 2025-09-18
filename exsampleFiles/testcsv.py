@@ -2,7 +2,7 @@ from GabesPythonToolBox.Utility.Debug import Debug
 from GabesPythonToolBox.DataProsesing.csvDataPipeline import * 
 
 
-def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_from: str = "", read_n_lines: int = 0,Topper:str=""):
+def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_from: str = "head", read_n_lines: int = 4,Topper:str=""):
     
     #Simple test bed
     print()
@@ -36,5 +36,8 @@ def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_f
 
 
 if __name__ == "__main__":
+    
+
     path="exsampleFiles\party_distribution_2021-09-30.csv"
-    main(path,seperator_symbol = ';', float_symbol=',',)
+    main(path,seperator_symbol = ';', float_symbol=',',Topper="test data")
+    

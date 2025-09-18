@@ -45,6 +45,8 @@ Documentation Here(in progress)
 - InverseKinematics
 - StateMachine
 - csv telemetry frame reader ,w multipex suport
+- config manager gui
+- debug logfile
 
 
 ##  Why Should You Use This?
