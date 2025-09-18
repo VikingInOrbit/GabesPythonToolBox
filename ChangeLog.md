@@ -1,5 +1,21 @@
 # Updates
 
+## 1.6.0 update 
+
+### new things
+
+- Added csv data handeling
+
+### bug Fix
+
+- debug.py "case _:" fixsed to show color
+
+### changes
+
+- debug.py fromating changes
+- debug.py reading to log mesages
+- updated __init__
+
 ## 1.5.1 Debug update 
 
 ### bug Fix

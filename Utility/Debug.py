@@ -21,7 +21,7 @@ class Debug:
 
     # Static settings for the Debug class
     debug_enabled = True
-    groups = {"LIB": False, "exsampleFiles": False}  # Always have a default group enabled
+    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False}  # Always have a default group enabled
 
     @classmethod
     def set_debug_enabled(cls, enabled: bool = True):
@@ -55,6 +55,18 @@ class Debug:
         cls.groups[group] = False  # Set the group's status to disabled
 
     @classmethod
+    def start_debug_loger(cls, file_path:str = "debug/In_relative_dir"):
+        """start save log objects to a file"""
+        #set cls.file_path
+        NotImplementedError
+
+    @classmethod
+    def save_to_file(cls, ):
+        """save log objects to a file"""
+        #save to cls.file_path
+        NotImplementedError
+
+    @classmethod
     def log(cls, message: str, message_type: str = "-", group: str = None, verbosity: int = 1):
         """Log a message."""
         if not cls.debug_enabled:
@@ -66,18 +78,18 @@ class Debug:
 
         # Retrieve the type for the message type
         Type = cls.Type.get(message_type, "")
-        
+
         match message_type:
             case "Header":
-                print(f"{cls.R}{Type}------ {message} ------{cls.R}")
+                print(f"\n{cls.R}{Type}------ {message} ------{cls.R}")
             case "Error":
-                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
+                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}\n")
             case "Fail":
-                print(f"{cls.R}{Type}{message}{cls.R}")
+                print(f"\n{cls.R}{Type}{message}{cls.R}\n")
             case "Success":
                 print(f"{cls.R}{Type}{message}{cls.R}")
             case "Warning":
-                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
+                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
             case "Info":
                 print(f"{cls.R}{Type}{message}{cls.R}")
             case "InProgress":
@@ -88,5 +100,12 @@ class Debug:
                 print(f"{cls.R}{Type}............{message}{cls.R}")
             case _:
                 # Default case if the message type doesn't match any of the above
-                print(f"{cls.R}{Type}{message}...{cls.R}")
+                message_type="-"
+                # Retrieve the type for the message type
+                Type = cls.Type.get(message_type, "")
+
+                print(f"\n{cls.R}{Type}{message}...{cls.R}\n")
+        
+        #cls.save_to_file(message,message_type,group,verbosity)
+
         

@@ -26,10 +26,12 @@ Documentation Here(in progress)
 - UnitConverter
 - Debug.log
 
+
 ### Data Processing
 Documentation Here(in progress)
 - signal Filtering
 - input to data managment
+- csv reding, handeling and consol printing
 
 ## Working on
 - StateMachine
@@ -42,6 +44,9 @@ Documentation Here(in progress)
 - arduinio lib
 - InverseKinematics
 - StateMachine
+- csv telemetry frame reader ,w multipex suport
+- config manager gui
+- debug logfile
 
 
 ##  Why Should You Use This?

@@ -1,5 +1,4 @@
 from GabesPythonToolBox.Utility.Debug import Debug
-#Debug.add_group('LIB', True) #Uncoment for the debug mesages
 
 import matplotlib.pyplot as plt
 import time
@@ -143,4 +142,5 @@ def graph(results):
     plt.show()
 
 if __name__ == "__main__":
+    #Debug.add_group('LIB', True) #Uncoment for the debug mesages
     test()
