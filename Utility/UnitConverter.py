@@ -1,7 +1,7 @@
 import GabesPythonToolBox.Utility.ConfigManager as CM #will be used in future
 from ..Utility.Debug import *
 
-class SIUnitsConverter:
+class UnitsConverter:
     def __init__(self,config = None):
         self.config = config
 

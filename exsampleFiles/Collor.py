@@ -29,3 +29,5 @@ for bg, bg_name in bg_colors:
     print(f"{bg}Printed just in GTB.BG_{bg_name}{GTB.R}")
     for fg, fg_name in fg_colors:
         print(f"{fg}{bg}Printed in GTB.FG_{fg_name} and GTB.BG_{bg_name}{GTB.R}")
+
+#TODO Debug 

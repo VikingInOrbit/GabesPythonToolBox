@@ -5,7 +5,7 @@ import GabesPythonToolBox.Utility.DeltaTime as DT
 
 def test():
     deltaTime = DT.StartDeltaTime()
-
+ 
     while True:
         Debug.log(f"time since last key press {deltaTime()}")
         input("waiting on press")

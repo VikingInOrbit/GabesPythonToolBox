@@ -2,8 +2,8 @@ from GabesPythonToolBox.Utility.Debug import Debug
 #Debug.add_group('LIB', True) #Uncoment for the debug mesages
 
 import GabesPythonToolBox.Utility.DeltaTime as DT
-
-
+ 
+#TODO Debug 
 def test_timer_functionality(timer: DT.DeltaTimer, duration: float, label: str = "") -> None:
     """
     Helper function to test a timer's functionality by running it to completion.

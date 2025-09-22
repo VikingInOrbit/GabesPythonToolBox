@@ -5,8 +5,10 @@ from GabesPythonToolBox.DataProsesing.csvDataPipeline import *
 def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_from: str = "head", read_n_lines: int = 4,Topper:str=""):
     
     #Simple test bed
-    Debug.log()
-    Debug.log("Combine all into a data pipeline.")
+    #TODO Debug 
+    #TODO update to showcase every function
+    print()
+    print("Combine all into a data pipeline.")
 
     #the pipeline 
 
@@ -34,10 +36,10 @@ def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_f
     line = format_data(data)
     print_table(line,n=0,Topper=Topper)
 
-
+ 
 if __name__ == "__main__":
     
 
-    path="exsampleFiles\party_distribution_2021-09-30.csv"
+    path="exsampleFiles/CSV/party_distribution_2021-09-30.csv"
     main(path,seperator_symbol = ';', float_symbol=',',Topper="test data")
     

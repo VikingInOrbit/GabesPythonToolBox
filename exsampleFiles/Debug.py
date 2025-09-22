@@ -9,7 +9,7 @@ Debug.add_group('Database', False)
 Debug.add_group('Showcase', True)
 
 Debug.log("\n\n\n", message_type="None", group="Showcase")
-
+ 
 # Log different types of messages with different Types
 Debug.log("Custom Header Message", message_type="Header")
 Debug.log("This is an error message", message_type="Error")

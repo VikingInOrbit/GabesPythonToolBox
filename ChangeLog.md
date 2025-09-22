@@ -9,6 +9,7 @@
 ### bug Fix
 
 - Config manager had a rouge variable
+- Updatet exsample files to use Debug format
 
 ### changes
 

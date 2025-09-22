@@ -1,10 +1,10 @@
 from GabesPythonToolBox.Utility.Debug import Debug
-
+ 
 import matplotlib.pyplot as plt
 import time
 import GabesPythonToolBox.DataProsesing.PID as GTB
 import GabesPythonToolBox.Utility.DeltaTime as DT
-
+#TODO Debug 
 # A simple system simulation (heater cartrage)
 class SimpleSystem:
     def __init__(self, initial_value=0, gain=1, resistance=0.1, delay=0.1):

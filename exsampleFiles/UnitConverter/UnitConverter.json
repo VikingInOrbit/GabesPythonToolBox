@@ -86,5 +86,18 @@
             "coefficient": 1.8,
             "offset": -459.67
         }
+    },
+    "sufix": {
+        "G": {
+            "coefficient": 1e6,
+            "offset": 0
+        },
+        "K": {
+            "coefficient": 1e3
+        },
+        "-": {
+            "coefficient": 1
+
+        }
     }
 }

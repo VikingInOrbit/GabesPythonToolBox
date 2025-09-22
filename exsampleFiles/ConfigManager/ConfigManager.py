@@ -1,11 +1,11 @@
 from GabesPythonToolBox.Utility.Debug import Debug
 #Debug.add_group('LIB', True) #Uncoment for the debug mesages
 Debug.add_group('Showcase', True)
-
+ #TODO Debug 
 import GabesPythonToolBox.Utility.ConfigManager as CM
 
 # Initialize the ConfigManager with the file path
-config_manager = CM.startConfigManager("exsampleFiles\ConfigManager.json")
+config_manager = CM.startConfigManager("exsampleFiles/ConfigManager/ConfigManager.json")
 
 #Load and display the current configuration
 config = config_manager()
@@ -34,7 +34,7 @@ config_manager.update("quests.active[0].progress", 80)
 print("\nUpdated Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
 
 # Save the updated configuration back to the Newfile
-config_manager.save("exsampleFiles\ConfigManager2.json")
+config_manager.save("exsampleFiles/ConfigManager/ConfigManager2.json")
 print("\nnew file saved:")
 print(config_manager())
 
@@ -44,5 +44,5 @@ print("\nConfiguration Reset:")
 print(config_manager())
 
 # Save the updated configuration back to the file
-config_manager.save("exsampleFiles\ConfigManager.json")
+config_manager.save("exsampleFiles/ConfigManager/ConfigManager.json")
 print("\nConfiguration has been saved back to the file.")

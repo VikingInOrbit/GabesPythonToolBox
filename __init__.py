@@ -26,7 +26,7 @@ from .Utility.UnitConverter import *
 # -----------------------------
 # Public Exports
 # -----------------------------
-__all__ = [ #må lese mer om hvordan all fungerer
+__all__ = [ #TODO må lese mer om hvordan __all__ fungerer
     # DataProsesing
     "DataConsolPrinter",
     "DataFormater",

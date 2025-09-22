@@ -2,7 +2,7 @@ from GabesPythonToolBox.Utility.Debug import Debug
 #Debug.add_group('LIB', True) #Uncoment for the debug mesages
 
 import GabesPythonToolBox.DataProsesing.map as GTB
-
+#TODO Debug 
 def test():
     inputMin = 0
     inputMax = 10
@@ -15,7 +15,7 @@ def test():
     print(f"\n--------------------------\n")
     print(f"Map; minInput: {inputMin}, MaxInput: {inputMax} minOutput: {OutputMin}, maxOutput {OutputMax}\n")
 
-
+ 
     for x in range(inputMin-diff,inputMax+1+diff):
         mapOutput = GTB.Map(x,inputMin,inputMax,OutputMin,OutputMax)
         print(f"input : {x}, Output {mapOutput}")

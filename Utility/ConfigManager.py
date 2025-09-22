@@ -34,7 +34,7 @@ class ConfigManager:
             Debug.log("no Config Loaded","Info",group="LIB")
             Debug.log(f"ConfigManager call","End",group="LIB")
 
-    def loadConfig(self, configFilePath: str = None):
+    def loadConfig(self, configFilePath: str = None): # TODO how do i deal with / and \ in the file name?
         """
         Load and parse the JSON configuration file.
 
@@ -47,7 +47,7 @@ class ConfigManager:
         
         if not os.path.exists(configFilePath):
             Debug.log(f"loadConfig","End",group="LIB")
-            raise FileNotFoundError(f"Configuration file {configFilePath} not found.")
+            raise FileNotFoundError(f"Configuration file {configFilePath} not found.") #TODO dues not print right
         
         with open(configFilePath, 'r') as file:
             try:

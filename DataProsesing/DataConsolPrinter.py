@@ -1,7 +1,7 @@
 from ..Utility.Debug import *
-
-
 from ..DataProsesing.DataHelperFunctions import *
+
+#TODO shood i make the tabele be printed in the Debug format?
 
 def print_table(line, n:int=0, Topper:str=""):
         Debug.log(f"print_table","Header",group="LIB")
