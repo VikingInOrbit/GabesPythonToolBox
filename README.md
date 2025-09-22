@@ -33,6 +33,9 @@ Documentation Here(in progress)
 - input to data managment
 - csv reding, handeling and consol printing
 
+### Programing Patterns
+- a Quic refrence for norolised code snippets showing of programing patterns
+
 ## Working on
 - StateMachine
 
