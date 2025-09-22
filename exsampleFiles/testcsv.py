@@ -5,8 +5,8 @@ from GabesPythonToolBox.DataProsesing.csvDataPipeline import *
 def main(file_path, seperator_symbol: str = ',', float_symbol: str = '.', read_from: str = "head", read_n_lines: int = 4,Topper:str=""):
     
     #Simple test bed
-    print()
-    print("Combine all into a data pipeline.")
+    Debug.log()
+    Debug.log("Combine all into a data pipeline.")
 
     #the pipeline 
 

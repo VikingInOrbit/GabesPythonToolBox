@@ -15,7 +15,7 @@ class ConfigManager:
         :param configFilePath: (str) Path to the JSON configuration file.
         """
         Debug.log(f"ConfigManager init","Header",group="LIB")
-        Debug.log(f"config File Path: {configFilePath}, num_points: {self.num_points}","Info",group="LIB")
+        Debug.log(f"config File Path: {configFilePath}","Info",group="LIB")
         Debug.log(f"ConfigManager init","End",group="LIB")
         self.loadConfig(configFilePath)
 

@@ -1,6 +1,20 @@
 # Updates
 
-## 1.6.0 update 
+## 1.6.1 update 
+
+### new things
+
+- somthing
+
+### bug Fix
+
+- Config manager had a rouge variable
+
+### changes
+
+- somthing
+
+## 1.6.0 csv update 
 
 ### new things
 

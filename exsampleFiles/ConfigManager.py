@@ -1,5 +1,6 @@
 from GabesPythonToolBox.Utility.Debug import Debug
 #Debug.add_group('LIB', True) #Uncoment for the debug mesages
+Debug.add_group('Showcase', True)
 
 import GabesPythonToolBox.Utility.ConfigManager as CM
 
@@ -20,12 +21,15 @@ config_manager.update("game_settings.difficulty", "hard")
 print("\nUpdated Game Difficulty:", config_manager()["game_settings"]["difficulty"])
 
 # Add a new item to the player's inventory
+print("\nCurrent Inventory:", config_manager()["player"]["inventory"])
+print("\nAdding Dragon Scale to inventory")
 current_inventory = config_manager()["player"]["inventory"]
 current_inventory.append("Dragon Scale")
 config_manager.update("player.inventory", current_inventory)
 print("\nUpdated Inventory:", config_manager()["player"]["inventory"])
 
 # Update the progress of the first quest (Defeat the Dragon)
+print("Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
 config_manager.update("quests.active[0].progress", 80)
 print("\nUpdated Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
 
