@@ -1,6 +1,4 @@
 import GabesPythonToolBox.Utility.Collor as GTB
-
-
 class Debug:
     R = GTB.R
     
@@ -21,7 +19,7 @@ class Debug:
 
     # Static settings for the Debug class
     debug_enabled = True
-    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False}  # Always have a default group enabled
+    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True}  # Always have a default group enabled
 
     @classmethod
     def set_debug_enabled(cls, enabled: bool = True):

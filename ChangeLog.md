@@ -1,6 +1,6 @@
 # Updates
 
-## 1.6.1 update 
+## 1.6.1 debug update 
 
 ### new things
 
@@ -10,10 +10,17 @@
 
 - Config manager had a rouge variable
 - Updatet exsample files to use Debug format
+- Filter
+- Timer
+- Unit converter handeled farenhight bad
+- fixsed temprature on Unit converter
+- Added debug mesages to all exsamples and lib code
 
 ### changes
 
-- somthing
+- How DataConsolPrinter handels data
+
+
 
 ## 1.6.0 csv update 
 
@@ -115,5 +122,9 @@
 - somthing
 
 ### changes
+
+- somthing
+
+### breaking changes
 
 - somthing

@@ -109,9 +109,14 @@ class ConfigManager:
         Debug.log(f"ConfigManager save","Header",group="LIB")
 
         if not configFilePath:
-            Debug.log(f"no fIle Path given","Info",group="LIB")
+            Debug.log(f"No fIle Path given","Warning",group="WarningError")
             Debug.log(f"ConfigManager save","End",group="LIB")
             return
+
+        directory = os.path.dirname(configFilePath)
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory, exist_ok=True)
+            Debug.log(f"Dir did not exist, created it: {directory}", "Warning", group="WarningError")
 
         with open(configFilePath, 'w') as file:
             json.dump(self.config, file, indent=4)

@@ -1,4 +1,10 @@
 import GabesPythonToolBox.Utility.Collor as GTB
+from GabesPythonToolBox.Utility.Debug import Debug
+
+Debug.add_group('Showcase', True)
+
+Debug.log("Color Showcase", "Header", group="Showcase")
+
 
 fg_colors = [
     (GTB.FG_Black, "Black"), (GTB.FG_Red, "Red"), (GTB.FG_Green, "Green"), (GTB.FG_Yellow, "Yellow"), 
@@ -15,19 +21,20 @@ bg_colors = [
 ]
 
 
-# Print all combinations of GTB.FG and GTB.BG with their names
-print("Sorted By Texst Collor")
+# Sorted by text color
+Debug.log("Sorted by Text Color", "Header", group="Showcase")
 for fg, fg_name in fg_colors:
-    print(f"{fg}Printed just in GTB.FG_{fg_name}{GTB.R}")
+    Debug.log(f"{fg}Printed just in GTB.FG_{fg_name}{GTB.R}", "None", group="Showcase")
     for bg, bg_name in bg_colors:
-        print(f"{fg}{bg}Printed in GTB.FG_{fg_name} and GTB.BG_{bg_name}{GTB.R}")
+        Debug.log(f"{fg}{bg}Printed in GTB.FG_{fg_name} and GTB.BG_{bg_name}{GTB.R}", "None", group="Showcase")
+Debug.log("End of Text Color Showcase", "End", group="Showcase")
 
-
-
-print("\nSorted By Backround Collor\n")
+# Sorted by background color
+Debug.log("Sorted by Background Color", "Header", group="Showcase")
 for bg, bg_name in bg_colors:
-    print(f"{bg}Printed just in GTB.BG_{bg_name}{GTB.R}")
+    Debug.log(f"{bg}Printed just in GTB.BG_{bg_name}{GTB.R}", "None", group="Showcase")
     for fg, fg_name in fg_colors:
-        print(f"{fg}{bg}Printed in GTB.FG_{fg_name} and GTB.BG_{bg_name}{GTB.R}")
+        Debug.log(f"{fg}{bg}Printed in GTB.FG_{fg_name} and GTB.BG_{bg_name}{GTB.R}", "None", group="Showcase")
+Debug.log("End of Background Color Showcase", "End", group="Showcase")
 
-#TODO Debug 
+Debug.log("Color Showcase Complete", "End", group="Showcase")

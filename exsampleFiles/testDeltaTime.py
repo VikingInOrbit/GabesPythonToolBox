@@ -7,8 +7,9 @@ def test():
     deltaTime = DT.StartDeltaTime()
  
     while True:
-        Debug.log(f"time since last key press {deltaTime()}")
-        input("waiting on press")
+        Debug.log(f"time since last key press {deltaTime()}", message_type="Info", group="Showcase")
+        Debug.log("waiting on press", message_type="Info", group="Showcase") 
+        input("")
 
 if __name__ == "__main__":
     test()

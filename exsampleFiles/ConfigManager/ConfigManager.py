@@ -1,48 +1,67 @@
 from GabesPythonToolBox.Utility.Debug import Debug
-#Debug.add_group('LIB', True) #Uncoment for the debug mesages
 Debug.add_group('Showcase', True)
- #TODO Debug 
+#TODO Debug 
+
 import GabesPythonToolBox.Utility.ConfigManager as CM
+
+
+Debug.log("ConfigManager Showcase", message_type="Header", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
+
+
 
 # Initialize the ConfigManager with the file path
 config_manager = CM.startConfigManager("exsampleFiles/ConfigManager/ConfigManager.json")
 
 #Load and display the current configuration
 config = config_manager()
-print("Loaded Configuration:")
-print(config)
+Debug.log("Loaded Configuration:", message_type="Info", group="Showcase")
+Debug.log(config, message_type="Info", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
 
 # Update the player's name to "Opydian"
 config_manager.update("player.name", "Opydian")
-print("\nUpdated Player Name:", config_manager()["player"]["name"])
+Debug.log(f"Updated Player Name: {config_manager()['player']['name']}", message_type="Info", group="Showcase")
+
 
 # Change the game difficulty to "hard"
 config_manager.update("game_settings.difficulty", "hard")
-print("\nUpdated Game Difficulty:", config_manager()["game_settings"]["difficulty"])
+Debug.log(f"Updated Game Difficulty: {config_manager()['game_settings']['difficulty']}", message_type="Info", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
+
 
 # Add a new item to the player's inventory
-print("\nCurrent Inventory:", config_manager()["player"]["inventory"])
-print("\nAdding Dragon Scale to inventory")
-current_inventory = config_manager()["player"]["inventory"]
+Debug.log(f"Current Inventory: {config_manager()['player']['inventory']}", message_type="Info", group="Showcase")
+Debug.log("Adding Dragon Scale to inventory", message_type="Info", group="Showcase")
+
+current_inventory = config_manager()['player']['inventory']
 current_inventory.append("Dragon Scale")
 config_manager.update("player.inventory", current_inventory)
-print("\nUpdated Inventory:", config_manager()["player"]["inventory"])
+Debug.log(f"Updated Inventory: {config_manager()['player']['inventory']}", message_type="Info", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
 
 # Update the progress of the first quest (Defeat the Dragon)
-print("Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
+Debug.log(f"Quest Progress (Defeat the Dragon): {config_manager()['quests']['active'][0]['progress']}", message_type="Info", group="Showcase")
 config_manager.update("quests.active[0].progress", 80)
-print("\nUpdated Quest Progress (Defeat the Dragon):", config_manager()["quests"]["active"][0]["progress"])
+Debug.log(f"Updated Quest Progress (Defeat the Dragon): {config_manager()['quests']['active'][0]['progress']}", message_type="Info", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
 
 # Save the updated configuration back to the Newfile
-config_manager.save("exsampleFiles/ConfigManager/ConfigManager2.json")
-print("\nnew file saved:")
-print(config_manager())
+output_dir = 'exsampleFiles/ConfigManager/temp/ConfigManager2.json'
+config_manager.save(output_dir)
+Debug.log(f"new file saved to {output_dir}:", message_type="Info", group="Showcase")
+Debug.log(config_manager(), message_type="Info", group="Showcase")
+Debug.log("", message_type="None", group="Showcase")
 
 # Reset the configuration to the default configuration
 config_manager.reset()  # No arguments needed because it uses the default config saved when the object is initialized
-print("\nConfiguration Reset:")
-print(config_manager())
+Debug.log("Configuration Reset:", message_type="Info", group="Showcase")
+Debug.log(config_manager(), message_type="Info", group="Showcase")
 
 # Save the updated configuration back to the file
-config_manager.save("exsampleFiles/ConfigManager/ConfigManager.json")
-print("\nConfiguration has been saved back to the file.")
+output_dir = 'exsampleFiles/ConfigManager/ConfigManager.json'
+config_manager.save(output_dir)
+Debug.log("", message_type="None", group="Showcase")
+
+Debug.log(f"Configuration has been saved back to '{output_dir}'", message_type="Info", group="Showcase")
+
