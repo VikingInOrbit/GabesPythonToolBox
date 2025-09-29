@@ -35,6 +35,7 @@ Documentation Here(in progress)
 
 ## Working on
 - StateMachine
+- logger
 
 ## What's Next?
 - debugging and testing
