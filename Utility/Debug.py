@@ -1,30 +1,47 @@
-import GabesPythonToolBox.Utility.Collor as GTB
+from ..Utility.Collor import * 
+
 class Debug:
-    R = GTB.R
+    R = R
     
     # DbugType
     Type = {
-        "Header": GTB.FG_B_White + GTB.BG_Black,
-        "Error": GTB.BG_B_Red,
-        "Fail": GTB.BG_Black + GTB.FG_B_Red,
-        "Success": GTB.BG_Black + GTB.FG_B_Green,
-        "Warning": GTB.BG_Yellow + GTB.FG_Black,
-        "Info": GTB.BG_Black + GTB.FG_B_White,
-        "InProgress": GTB.BG_Black + GTB.FG_Yellow,
+        "Header": FG_B_White + BG_Black,
+        "Error": BG_B_Red,
+        "Fail": BG_Black + FG_B_Red,
+        "Success": BG_Black + FG_B_Green,
+        "Warning": BG_Yellow + FG_Black,
+        "Info": BG_Black + FG_B_White,
+        "InProgress": BG_Black + FG_Yellow,
         "None": None,
-        "End": GTB.FG_B_White + GTB.BG_Black,
+        "End": FG_B_White + BG_Black,
 
-        "-": GTB.FG_Black + GTB.BG_Red,
+        "-": FG_Black + BG_Red,
     }
 
     # Static settings for the Debug class
     debug_enabled = True
+    logger_enabled = False
+    path:str=None
     groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True}  # Always have a default group enabled
 
     @classmethod
     def set_debug_enabled(cls, enabled: bool = True):
         """Turn debugging on or off. Defaults to true."""
         cls.debug_enabled = enabled  # Set the class variable
+
+    @classmethod
+    def set_log_enabled(cls, Logger, enabled: bool = False):
+        """Turn logging on or off. Defaults to False."""
+
+        if not enabled:
+            return
+
+        if not Logger: #logger is a class
+            Debug.log(f"No logger given","Warning",group="WarningError")
+            ValueError
+        
+        cls.logger_enabled = enabled  # Set the class variable
+        
 
     @classmethod
     def add_group(cls, group: str, enabled: bool = True):
@@ -52,23 +69,17 @@ class Debug:
         """Disable a specific message group."""
         cls.groups[group] = False  # Set the group's status to disabled
 
-    @classmethod
-    def start_debug_loger(cls, file_path:str = "debug/In_relative_dir"):
-        """start save log objects to a file"""
-        #set cls.file_path
-        NotImplementedError
 
-    @classmethod
-    def save_to_file(cls, ):
-        """save log objects to a file"""
-        #save to cls.file_path
-        NotImplementedError
 
     @classmethod
     def log(cls, message: str, message_type: str = "-", group: str = None, verbosity: int = 1):
         """Log a message."""
+
         if not cls.debug_enabled:
             return  # Debugging is turned off
+        
+        if cls.logger_enabled:
+            Logger.log(message=message,message_type=message_type,group=group,verbosity=verbosity)
 
         # If a group is provided, only log messages from enabled groups
         if group and not cls.groups.get(group, True):
