@@ -12,12 +12,13 @@ def main(
     float_symbol: str = '.',
     read_from: str = "head",
     read_n_lines: int = 4,
+    encoding:str = "utf-8",
     Topper: str = ""
 ):
     Debug.log("Main CSV Pipeline", "Header", group="Showcase")
     
     Debug.log("Step 1: Reading CSV data", "Info", group="Showcase")
-    data = read_csv(file_path, seperator_symbol, float_symbol, read_from, read_n_lines)
+    data = read_data(file_path, seperator_symbol=seperator_symbol, float_symbol=float_symbol, read_from=read_from, read_n_lines=read_n_lines,encoding=encoding)
     Debug.log(f"Initial data read ({len(data)} rows)", "Info", group="Showcase")
 
     Debug.log("Step 2: Processing data", "Info", group="Showcase")
@@ -50,6 +51,8 @@ def main(
     Debug.log("Data table displayed", "Info", group="Showcase")
 
     Debug.log("Main CSV Pipeline", "End", group="Showcase")
+
+    write_data("exsampleFiles/CSV/temp/party_distributionnew.csv",data=data)
 
 
 if __name__ == "__main__":

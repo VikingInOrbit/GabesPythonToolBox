@@ -1,0 +1,69 @@
+robotics_system:
+  stewart_platform:
+    actuators:
+      - id: 1
+        speed: 0.5
+        acceleration: 1.2
+        jerk: 0.3
+      - id: 2
+        speed: 0.6
+        acceleration: 1.1
+        jerk: 0.25
+      - id: 3
+        speed: 0.55
+        acceleration: 1.3
+        jerk: 0.28
+      - id: 4
+        speed: 0.65
+        acceleration: 1.4
+        jerk: 0.32
+      - id: 5
+        speed: 0.58
+        acceleration: 1.25
+        jerk: 0.27
+      - id: 6
+        speed: 0.62
+        acceleration: 1.35
+        jerk: 0.29
+
+  robotic_arm:
+    joints:
+      - id: 1
+        speed: 1.0
+        acceleration: 2.5
+        jerk: 0.7
+      - id: 2
+        speed: 0.9
+        acceleration: 2.0
+        jerk: 0.6
+      - id: 3
+        speed: 1.1
+        acceleration: 2.2
+        jerk: 0.65
+      - id: 4
+        speed: 1.2
+        acceleration: 2.3
+        jerk: 0.68
+      - id: 5
+        speed: 1.3
+        acceleration: 2.6
+        jerk: 0.72
+      - id: 6
+        speed: 1.1
+        acceleration: 2.1
+        jerk: 0.64
+      - id: 7
+        speed: 0.95
+        acceleration: 2.4
+        jerk: 0.66
+
+  sensors:
+    imu:
+      frequency: 200
+      range: 16
+    lidar:
+      frequency: 10
+      range_meters: 30
+    camera:
+      resolution: "1920x1080"
+      fps: 60

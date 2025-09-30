@@ -7,3 +7,4 @@ build
 secrets/*
 !secrets/.gitkeep
 temp/
+log/
