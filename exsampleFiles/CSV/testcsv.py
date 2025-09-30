@@ -3,7 +3,6 @@ Debug.add_group('Showcase', True)
 
 from GabesPythonToolBox.DataProsesing.csvDataPipeline import *
 
-
 Debug.log("CSV Data Pipeline Showcase", message_type="Header", group="Showcase")
 
 
@@ -52,6 +51,8 @@ def main(
     Debug.log("Data table displayed", "Info", group="Showcase")
 
     Debug.log("Main CSV Pipeline", "End", group="Showcase")
+
+    write_data("exsampleFiles/CSV/temp/party_distributionnew.csv",data=data)
 
 
 if __name__ == "__main__":

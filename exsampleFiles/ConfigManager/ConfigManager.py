@@ -67,14 +67,6 @@ Debug.log("", message_type="None", group="Showcase")
 Debug.log(f"Configuration has been saved back to '{output_dir}'", message_type="Info", group="Showcase")
 
 
-
-
-
-
-
-
-
-
 Debug.log("ConfigManager YAML Showcase", message_type="Header", group="Showcase")
 Debug.log("", message_type="None", group="Showcase")
 

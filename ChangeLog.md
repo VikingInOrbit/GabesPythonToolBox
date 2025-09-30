@@ -1,5 +1,30 @@
 # Updates
 
+## 1.7.0 Data/Logger update 
+
+### new things
+
+- json R/W
+- yaml R/W
+- csv W
+- DataRW
+- Logger
+
+### bug Fix
+
+- Debug is less error prone in import
+
+### changes
+
+- Config manager now uses DataRW
+- updataes testcsv
+- updated configmanager exsample to use json and yaml
+
+### breaking changes
+
+- CSV Read has changed place
+- Csv Datapipeline uses now new DataRW
+
 ## 1.6.1 debug update 
 
 ### new things

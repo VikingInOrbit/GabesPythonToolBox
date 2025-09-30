@@ -63,20 +63,16 @@ class ConfigManager:
 
         fileType = None
 
-        #ext = os.path.splitext(configFilePath)[1].lower()
-        #if ext != (".json", ".yaml", ".yml"):
-        #    raise ValueError(f"Unsupported config file type: {ext}")
+        ext = os.path.splitext(configFilePath)[1].lower()
+        if ext not in (".json", ".yaml", ".yml"):
+            raise ValueError(f"Unsupported config file type: {ext}")
+
 
         self.config = read_data(configFilePath)
         
-        # Detect file type
-        
-
         self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
         Debug.log(f"loaded config: \n{self.config}","Info",group="LIB")
 
-            
-           
         Debug.log(f"loadConfig","End",group="LIB")
 
     def update(self, key, value):
@@ -130,27 +126,16 @@ class ConfigManager:
         if os.path.splitext(configFilePath)[1].lower():
             Debug.log(f"File exstension found using that","Info",group="LIB")
             fileType = os.path.splitext(configFilePath)[1].lower()
-            Debug.log(f"File exstension found: fileType","Info",group="LIB")
+            Debug.log(f"File exstension found: {fileType}","Info",group="LIB")
 
         if not configFilePath:
             Debug.log(f"No fIle Path given","Warning",group="WarningError")
             Debug.log(f"ConfigManager save","End",group="LIB")
             return
 
-        directory = os.path.dirname(configFilePath)
-        if directory and not os.path.exists(directory):
-            os.makedirs(directory, exist_ok=True)
-            Debug.log(f"Dir did not exist, created it: {directory}", "Warning", group="WarningError")
-
         Debug.log(f"Saveing config: \n {self.config}","Info",group="LIB")
 
-        with open(configFilePath, 'w') as file:
-            if fileType == "json":
-                json.dump(self.config, file, indent=4)
-                Debug.log(f"Saved json","Info",group="LIB")
-            else:
-                yaml.safe_dump(self.config, file, sort_keys=False)
-                Debug.log(f"Saved yaml","Info",group="LIB")
+        write_data(configFilePath,self.config)
 
         Debug.log(f"ConfigManager save","End",group="LIB")
 

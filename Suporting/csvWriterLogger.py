@@ -1,9 +1,8 @@
-#from ..Utility.Debug import *
-#import GabesPythonToolBox.Utility.Debug as Debug
+
 import copy
 import csv
-#from ..Utility.Debug import Debug
 
+#this is a direct coppy of csvWriter and oly exsists sice circular import isues
 
 def write_csv(
     file_path,
@@ -18,7 +17,6 @@ def write_csv(
     """
     Write list-of-dictionaries data to a CSV file.
     """
-    #Debug.log("write_csv", "Header", group="LIB")
 
     if not data or not isinstance(data, list) or not all(isinstance(d, dict) for d in data):
         #Debug.log("Invalid data format for CSV writing", "Error", group="WarningError")
@@ -33,7 +31,6 @@ def write_csv(
     try:
         with open(file_path, mode=mode, newline="", encoding=encoding) as f:
             writer = csv.DictWriter(f, fieldnames=headers, delimiter=seperator_symbol)
-            print(data_mode)
             print_header = False
             print_boady = False
 
@@ -67,10 +64,7 @@ def write_csv(
                     }
                     writer.writerow(formatted_row)
 
-        #Debug.log(f"CSV saved to {file_path}", "Info", group="LIB")
-
     except Exception as e:
-        #Debug.log(f"Error writing CSV: {e}", "Error", group="WarningError")
+
         raise
 
-    #Debug.log("write_csv", "End", group="LIB")

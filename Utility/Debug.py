@@ -1,4 +1,8 @@
 from ..Utility.Collor import * 
+from ..Utility.Logger import *
+import inspect
+
+#TODO how can the buger get where the call (filr line) was from?
 
 class Debug:
     R = R
@@ -21,26 +25,28 @@ class Debug:
     # Static settings for the Debug class
     debug_enabled = True
     logger_enabled = False
+    logger = None
     path:str=None
     groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True}  # Always have a default group enabled
+    verbosity = 1
 
     @classmethod
-    def set_debug_enabled(cls, enabled: bool = True):
+    def set_debug_enabled(cls, enabled: bool = True,verbosity:int = 1):
         """Turn debugging on or off. Defaults to true."""
         cls.debug_enabled = enabled  # Set the class variable
+        cls.verbosity = verbosity
 
     @classmethod
-    def set_log_enabled(cls, Logger, enabled: bool = False):
+    def set_log_enabled(cls,path:str=None, enabled: bool = False):
         """Turn logging on or off. Defaults to False."""
 
         if not enabled:
             return
-
-        if not Logger: #logger is a class
-            Debug.log(f"No logger given","Warning",group="WarningError")
-            ValueError
+        
+        Logger.start_logger(path)
         
         cls.logger_enabled = enabled  # Set the class variable
+        #cls.logger = Logger
         
 
     @classmethod
@@ -72,48 +78,64 @@ class Debug:
 
 
     @classmethod
-    def log(cls, message: str, message_type: str = "-", group: str = None, verbosity: int = 1):
+    def log(cls, message: str, message_type: str = "-", group: str = None):
         """Log a message."""
+
+        #sends the message to logbefore desiding to print it in terminal
+
+        frame = inspect.currentframe().f_back
+        info = inspect.getframeinfo(frame)
+
+        verbose = ""
+        if cls.verbosity >= 2:
+            verbose += f" : {info.filename}"
+        if cls.verbosity >= 3:
+            verbose += f":{info.lineno}"
+ 
+        if cls.logger_enabled:
+            Logger.log(message=message,message_type=message_type,group=group,verbose = info)
 
         if not cls.debug_enabled:
             return  # Debugging is turned off
-        
-        if cls.logger_enabled:
-            Logger.log(message=message,message_type=message_type,group=group,verbosity=verbosity)
 
         # If a group is provided, only log messages from enabled groups
         if group and not cls.groups.get(group, True):
             return  # Skip messages from disabled groups
+
+        
 
         # Retrieve the type for the message type
         Type = cls.Type.get(message_type, "")
 
         match message_type:
             case "Header":
-                print(f"\n{cls.R}{Type}------ {message} ------{cls.R}")
+                print(f"\n{cls.R}{Type}------ {message} ------{verbose}{cls.R}")
             case "Error":
-                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}\n")
+                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}\n")
             case "Fail":
-                print(f"\n{cls.R}{Type}{message}{cls.R}\n")
+                print(f"\n{cls.R}{Type}{message}{verbose}{cls.R}\n")
             case "Success":
-                print(f"{cls.R}{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "Warning":
-                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{cls.R}")
+                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}")
             case "Info":
-                print(f"{cls.R}{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "InProgress":
-                print(f"{cls.R}{Type}{message}{cls.R}")
+                print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "None":
-                print(f"{cls.R}{cls.R}{message}{cls.R}")
+                print(f"{cls.R}{cls.R}{message}{verbose}{cls.R}")
             case "End":
-                print(f"{cls.R}{Type}............{message}{cls.R}")
+                print(f"{cls.R}{Type}............{message}{verbose}{cls.R}")
             case _:
                 # Default case if the message type doesn't match any of the above
                 message_type="-"
                 # Retrieve the type for the message type
                 Type = cls.Type.get(message_type, "")
+                verbose = ""
+                verbose += f" : {info.filename}"
+                verbose += f":{info.lineno}"
 
-                print(f"\n{cls.R}{Type}{message}...{cls.R}\n")
+                print(f"\n{cls.R}{Type}{message}...{verbose}{cls.R}\n")
         
         #cls.save_to_file(message,message_type,group,verbosity)
 

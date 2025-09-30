@@ -7,20 +7,30 @@ from ..Suporting.csvWriter import *
 from ..Suporting.jsonWriter import *
 from ..Suporting.yamlWriter import *
 
-def write_data(file_path, **kwargs):
+#from ..Utility.Debug import Debug
+
+
+def write_data(file_path,data, **kwargs):
+
+    directory = os.path.dirname(file_path)
+    if directory and not os.path.exists(directory):
+        os.makedirs(directory, exist_ok=True)
+        #Debug.log(f"Dir did not exist, created it: {directory}", "Warning", group="WarningError")
+
     ext = os.path.splitext(file_path)[1].lower()
 
     if ext == ".json":
-        return write_json(file_path)
+        write_json(file_path,data, **kwargs)
 
     elif ext in (".yaml", ".yml"):
-        return write_yaml(file_path)
+        write_yaml(file_path,data, **kwargs)
 
     elif ext == ".csv":
-        return write_csv(file_path, **kwargs)
+        write_csv(file_path,data, **kwargs)
 
     else:
-        raise ValueError(f"Unsupported file extension: {ext}")
+        print(f"Unsupported file extension: {ext}")
+        raise ValueError()
 
 def read_data(file_path, **kwargs):
     """
