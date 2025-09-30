@@ -2,10 +2,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='GabrielsPythonToolBox',          # Name of your package
-    version='1.7.0',                       # fundemental change.finished feature.bug fix
+    version='1.7.1',                       # fundemental change.finished feature.bug fix
     packages=find_packages(),              # Automatically finds all packages
     install_requires=[                     # List your dependencies here
-        "matplotlib>=3.9.2,<3.10"
+        "matplotlib>=3.9.2,<3.10",
+        "PyYAML>=6.0.2,<7.0",
 
 
     ],

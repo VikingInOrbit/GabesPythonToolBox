@@ -2,6 +2,12 @@
 
 ## 1.7.0 Data/Logger update 
 
+### bug Fix
+
+- yaml in dependencies
+
+## 1.7.0 Data/Logger update 
+
 ### new things
 
 - json R/W
