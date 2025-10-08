@@ -2,6 +2,12 @@
 
 # template
 
+## 1.7.2 PID Bug update 
+
+### changes
+
+- updating verson of dependencies
+
 ## 1.7.1 PID Bug update 
 
 
