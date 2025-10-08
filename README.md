@@ -16,6 +16,11 @@ using "import GabesPythonToolBox as GTB" for all
 or import "GabesPythonToolBox.Category.lib as (XX)"
 That’s it. You're good to go.
 
+### Unit Test comand
+'''
+pytest UnitTest -v
+'''
+
 ## Current Features
 
 ### Utility Functions

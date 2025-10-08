@@ -1,3 +1,75 @@
 import pytest
-from GabesPythonToolBox.Suporting import *
-#TODO
+from GabesPythonToolBox.Suporting.csvWriter import write_csv
+import csv
+import os
+
+# Supporting func
+def read_csv(file_path, delimiter=','):
+    """Helper to read CSV back into list-of-dicts for testing."""
+    with open(file_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter=delimiter)
+        return list(reader)
+
+# Sample test data
+sample_data = [
+    {"name": "Alice", "age": 30, "score": 95.5},
+    {"name": "Bob", "age": 25, "score": 88.2},
+]
+
+# Tests
+def test_write_csv_creates_file(tmp_path):
+    test_file = tmp_path / "test.csv"
+    write_csv(test_file, sample_data)
+    assert test_file.exists()
+
+def test_write_csv_headers_and_body(tmp_path):
+    test_file = tmp_path / "test.csv"
+    write_csv(test_file, sample_data, data_mode="all")
+    loaded = read_csv(test_file)
+    # Check first row content
+    assert loaded[0]["name"] == "Alice"
+    assert loaded[1]["score"] == "88.2"  # default float symbol
+
+def test_write_csv_float_symbol(tmp_path):
+    test_file = tmp_path / "test.csv"
+    write_csv(test_file, sample_data, float_symbol=",")
+    loaded = read_csv(test_file)
+    # Floats should have ',' instead of '.'
+    assert loaded[0]["score"] == "95,5"
+    assert loaded[1]["score"] == "88,2"
+
+def test_write_csv_data_modes(tmp_path):
+    test_file_all = tmp_path / "all.csv"
+    test_file_head = tmp_path / "head.csv"
+    test_file_body = tmp_path / "body.csv"
+    test_file_none = tmp_path / "none.csv"
+
+    write_csv(test_file_all, sample_data, data_mode="all")
+    write_csv(test_file_head, sample_data, data_mode="head")
+    write_csv(test_file_body, sample_data, data_mode="body")
+    write_csv(test_file_none, sample_data, data_mode="none")
+
+    # all: header + body
+    loaded_all = read_csv(test_file_all)
+    assert len(loaded_all) == 2
+    # head: no body
+    with open(test_file_head, encoding="utf-8") as f:
+        content_head = f.read()
+    assert "Alice" not in content_head
+    # body: no header
+    with open(test_file_body, encoding="utf-8") as f:
+        content_body = f.read()
+    assert "name,age,score" not in content_body
+    # none: nothing written
+    with open(test_file_none, encoding="utf-8") as f:
+        content_none = f.read()
+    assert content_none.strip() == ""
+
+def test_write_csv_invalid_data(tmp_path):
+    test_file = tmp_path / "test.csv"
+    with pytest.raises(ValueError):
+        write_csv(test_file, {"not": "a list"})
+    with pytest.raises(ValueError):
+        write_csv(test_file, [])
+    with pytest.raises(ValueError):
+        write_csv(test_file, [{"valid": 1}, "invalid row"])

@@ -1,8 +1,7 @@
-#from ..Utility.Debug import *
-#import GabesPythonToolBox.Utility.Debug as Debug
+from ..Utility.Debug import *
 import copy
 import csv
-#from ..Utility.Debug import Debug
+
 
 
 def write_csv(
@@ -18,10 +17,10 @@ def write_csv(
     """
     Write list-of-dictionaries data to a CSV file.
     """
-    #Debug.log("write_csv", "Header", group="LIB")
+    Debug.log("write_csv", "Header", group="LIB")
 
     if not data or not isinstance(data, list) or not all(isinstance(d, dict) for d in data):
-        #Debug.log("Invalid data format for CSV writing", "Error", group="WarningError")
+        Debug.log("Invalid data format for CSV writing", "Error", group="WarningError")
         raise ValueError("Data must be a list of dictionaries.")
 
     # Make a deep copy to avoid modifying original
@@ -67,10 +66,10 @@ def write_csv(
                     }
                     writer.writerow(formatted_row)
 
-        #Debug.log(f"CSV saved to {file_path}", "Info", group="LIB")
+        Debug.log(f"CSV saved to {file_path}", "Info", group="LIB")
 
     except Exception as e:
-        #Debug.log(f"Error writing CSV: {e}", "Error", group="WarningError")
+        Debug.log(f"Error writing CSV: {e}", "Error", group="WarningError")
         raise
 
-    #Debug.log("write_csv", "End", group="LIB")
+    Debug.log("write_csv", "End", group="LIB")

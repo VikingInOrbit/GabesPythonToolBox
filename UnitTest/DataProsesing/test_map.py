@@ -4,10 +4,7 @@ import GabesPythonToolBox.DataProsesing.map as map
 def almost_equal(a, b, tol=1e-6):
     return abs(a - b) < tol
 
-
-
 # Map tests
-
 
 def test_map_basic_linear_mapping():
     # Simple case: map 5 from range 0–10 → 0–100

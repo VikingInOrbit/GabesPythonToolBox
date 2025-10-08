@@ -1,6 +1,23 @@
 # Updates
 
-# template
+## 1.x.0 Test update 
+
+### new things
+
+- Unit test
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- yamlWriter now suports mode=a the right way
+- Exsamlpe files now change name to exsample and not test
+
+### breaking changes
+
+- Exsample is no longer the main way of testing the code
 
 ## 1.7.1 PID Bug update 
 
