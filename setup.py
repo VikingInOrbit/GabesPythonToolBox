@@ -7,6 +7,7 @@ setup(
     install_requires=[                     # List your dependencies here
         "matplotlib>=3.9.2,<3.10",
         "PyYAML>=6.0.2,<7.0",
+        "pytest>=8.4.2,<8.5",
 
 
     ],
