@@ -1,5 +1,23 @@
 # Updates
 
+# template
+
+## 1.7.1 PID Bug update 
+
+
+### bug Fix
+
+- updated PID logic
+
+### changes
+
+- updated pidtest to sim time
+- map.clamp now dont need both values
+
+### breaking changes
+
+- PID controler now need exsternal Delta time
+
 ## 1.7.0 Data/Logger update 
 
 ### bug Fix
