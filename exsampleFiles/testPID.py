@@ -2,6 +2,9 @@ from GabesPythonToolBox.Utility.Debug import Debug
 Debug.add_group('Showcase', True)
 Debug.add_group('LIB', True)
 
+path = "exsampleFiles/temp/log/"
+Debug.set_log_enabled(path, enabled=False)
+
 import matplotlib.pyplot as plt
 import GabesPythonToolBox.DataProsesing.PID as GTB
 import GabesPythonToolBox.Utility.DeltaTime as DT
@@ -54,7 +57,10 @@ def test():
     max_control_signal=None
 
     pid = GTB.NewPID(P=8, I=10,D=0.0, integral_limit=None, Debug_enable=False)
+
     SetResetIntegral = False  # flag to enable reset integral on setpoint change
+
+
 
     system = SimpleSystem(initial_value=0, gain=1, resistance=0.1, delay=0.1, min_control_signal=min_control_signal, max_control_signal=max_control_signal)
     
