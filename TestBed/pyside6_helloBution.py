@@ -2,7 +2,7 @@ import random
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout
 from PySide6.QtGui import QPainter, QColor, QFont
 from PySide6.QtCore import QRect, Qt
-
+from GabesPythonToolBox.PySide6.Utility.LoadFont import LoadFont
 
 class ColorRectWidget(QWidget):
     def __init__(self):
@@ -60,7 +60,7 @@ class HelloCounter(QWidget):
         layout.addWidget(self.button)
         self.setLayout(layout)
 
-        font = QFont()
+        font = LoadFont()
         font.setPointSize(18)  # text size in points
         self.label.setFont(font)
         self.button.setFont(font)

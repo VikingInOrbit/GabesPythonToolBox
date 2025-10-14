@@ -1,6 +1,4 @@
 from ..Utility.Debug import *
-#from ..Utility.Debug import *
-#from GabesPythonToolBox.Utility.Debug import Debug
 
 def process_line(line: str, seperator_symbol: str = ',', float_symbol: str = '.') -> list:
     Debug.log(f"process_line","Header",group="LIB")
