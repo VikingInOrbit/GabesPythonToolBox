@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxL
 from PySide6.QtGui import QPainter, QColor, QFont
 from PySide6.QtCore import QRect, Qt
 from GabesPythonToolBox.PySide6.Utility.LoadFont import LoadFont
+from GabesPythonToolBox.PySide6.Utility.LoadIcon import LoadIcon
 
 class ColorRectWidget(QWidget):
     def __init__(self):
@@ -69,6 +70,11 @@ class HelloCounter(QWidget):
         self.setWindowTitle("Hello World + Random Color Box")
         self.setMinimumSize(320, 300)  # allows resizing
         self.resize(400, 350)  # initial size
+
+        icon = LoadIcon()
+        if icon:
+            self.setWindowIcon(icon)
+        
 
     def increment_and_recolor(self):
         self.count += 1
