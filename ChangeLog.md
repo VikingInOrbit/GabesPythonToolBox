@@ -2,6 +2,26 @@
 
 # template
 
+
+## x.x.0 PySide6 update 
+
+### new things
+
+- Load font
+- Load icon
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- somthing
+
+### breaking changes
+
+- somthing
+
 ## 1.7.2 PID Bug update 
 
 ### changes
