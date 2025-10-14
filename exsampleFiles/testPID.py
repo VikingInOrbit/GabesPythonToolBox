@@ -64,7 +64,7 @@ def test():
     setpointDiff = 5
     required_hits = 10
 
-    sim_time = 3.0  # total simulated seconds
+    sim_time = 10.0  # total simulated seconds
     time_delay = 0.01  # simulated timestep (Δt)
     time_steps = int(sim_time / time_delay)
 
