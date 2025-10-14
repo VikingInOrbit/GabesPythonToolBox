@@ -1,11 +1,6 @@
 import pytest
 from GabesPythonToolBox.DataProsesing.PID import *
-
-# Helper functions
-
-def almost_equal(a, b, tol=1e-6):
-    """Helper to compare floating point values."""
-    return abs(a - b) < tol
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal
 
 
 def test_pid_proportional_only():

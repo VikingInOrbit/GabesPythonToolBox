@@ -5,6 +5,7 @@
 ### new things
 
 - Unit test
+- UnitTestUtilities.py
 
 ### bug Fix
 
@@ -14,6 +15,7 @@
 
 - yamlWriter now suports mode=a the right way
 - Exsamlpe files now change name to exsample and not test
+- all suporting script tests uptated to use the test util
 
 ### breaking changes
 

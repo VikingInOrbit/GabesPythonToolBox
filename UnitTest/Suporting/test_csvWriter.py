@@ -1,20 +1,6 @@
 import pytest
 from GabesPythonToolBox.Suporting.csvWriter import write_csv
-import csv
-import os
-
-# Supporting func
-def read_csv(file_path, delimiter=','):
-    """Helper to read CSV back into list-of-dicts for testing."""
-    with open(file_path, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f, delimiter=delimiter)
-        return list(reader)
-
-# Sample test data
-sample_data = [
-    {"name": "Alice", "age": 30, "score": 95.5},
-    {"name": "Bob", "age": 25, "score": 88.2},
-]
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_csv_test,sample_data
 
 # Tests
 def test_write_csv_creates_file(tmp_path):
@@ -25,7 +11,7 @@ def test_write_csv_creates_file(tmp_path):
 def test_write_csv_headers_and_body(tmp_path):
     test_file = tmp_path / "test.csv"
     write_csv(test_file, sample_data, data_mode="all")
-    loaded = read_csv(test_file)
+    loaded = read_csv_test(test_file)
     # Check first row content
     assert loaded[0]["name"] == "Alice"
     assert loaded[1]["score"] == "88.2"  # default float symbol
@@ -33,7 +19,7 @@ def test_write_csv_headers_and_body(tmp_path):
 def test_write_csv_float_symbol(tmp_path):
     test_file = tmp_path / "test.csv"
     write_csv(test_file, sample_data, float_symbol=",")
-    loaded = read_csv(test_file)
+    loaded = read_csv_test(test_file)
     # Floats should have ',' instead of '.'
     assert loaded[0]["score"] == "95,5"
     assert loaded[1]["score"] == "88,2"
@@ -50,7 +36,7 @@ def test_write_csv_data_modes(tmp_path):
     write_csv(test_file_none, sample_data, data_mode="none")
 
     # all: header + body
-    loaded_all = read_csv(test_file_all)
+    loaded_all = read_csv_test(test_file_all)
     assert len(loaded_all) == 2
     # head: no body
     with open(test_file_head, encoding="utf-8") as f:
@@ -64,6 +50,8 @@ def test_write_csv_data_modes(tmp_path):
     with open(test_file_none, encoding="utf-8") as f:
         content_none = f.read()
     assert content_none.strip() == ""
+
+#TODO write UTF8 data
 
 def test_write_csv_invalid_data(tmp_path):
     test_file = tmp_path / "test.csv"

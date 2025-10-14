@@ -1,8 +1,6 @@
 import pytest
 import GabesPythonToolBox.DataProsesing.map as map
-
-def almost_equal(a, b, tol=1e-6):
-    return abs(a - b) < tol
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal
 
 # Map tests
 

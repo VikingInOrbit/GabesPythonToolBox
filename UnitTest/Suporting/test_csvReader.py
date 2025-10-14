@@ -1,13 +1,9 @@
 import pytest
 from GabesPythonToolBox.Suporting.csvReader import read_csv, process_line
-import os
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import write_csv_for_test
 
 # Supporting func
-def write_csv_for_test(file_path, lines):
-    """Helper function to write raw CSV lines for testing."""
-    with open(file_path, "w", encoding="utf-8") as f:
-        for line in lines:
-            f.write(line + "\n")
+
 
 # Sample CSV content
 csv_lines = [

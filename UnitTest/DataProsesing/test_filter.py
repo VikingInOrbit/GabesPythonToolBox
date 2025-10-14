@@ -1,20 +1,13 @@
 import pytest
 from GabesPythonToolBox.DataProsesing.filter import Filter, newFilter
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal,Generate_sequence
 
-
-# Supporting funcs
-def generate_sequence(n):
-    """Generate a simple increasing numeric sequence."""
-    return [float(i + 1) for i in range(n)]
-
-def almost_equal(a, b, tol=1e-6):
-    return abs(a - b) < tol
 
 # Tests
 
 def test_average_filter_basic():
     f = Filter(num_points=3, filter_type="average")
-    inputs = generate_sequence(3)
+    inputs = Generate_sequence(3)
     outputs = [f(x) for x in inputs]
 
     # After all inputs, average should be (1 + 2 + 3) / 3 = 2
@@ -24,7 +17,7 @@ def test_average_filter_basic():
 def test_average_filter_window_limit():
     f = Filter(num_points=3, filter_type="average")
     # Add more than 3 points to ensure oldest values are dropped
-    val = generate_sequence(5)
+    val = Generate_sequence(5)
     for x in val:
         out = f(x)
     # Only last 3 points (3,4,5) should remain, avg = 4

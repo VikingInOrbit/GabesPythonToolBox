@@ -1,32 +1,31 @@
 import pytest
 from GabesPythonToolBox.Suporting.jsonWriter import write_json
 import json
-
-# Supporting func
-def read_json(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_json_test,sample_data,Complex_data,New_data
 
 # Tests
 def test_write_json_creates_file(tmp_path):
     test_file = tmp_path / "test.json"
     data = {"key": "value"}
-    write_json(test_file, data)
+    write_json(test_file, sample_data)
     assert test_file.exists()
-    assert read_json(test_file) == data
+    assert read_json_test(test_file) == sample_data
 
 def test_write_json_overwrites_file(tmp_path):
     test_file = tmp_path / "test.json"
-    write_json(test_file, {"old": "data"})
-    write_json(test_file, {"new": "data"})
-    assert read_json(test_file) == {"new": "data"}
+    write_json(test_file, sample_data)
+    write_json(test_file, New_data)
+    assert read_json_test(test_file) == New_data
 
 def test_write_json_merge_append(tmp_path):
     test_file = tmp_path / "test.json"
-    write_json(test_file, {"a": 1, "b": 2})
-    write_json(test_file, {"b": 3, "c": 4}, mode='a')  # merge dictionaries
-    expected = {"a": 1, "b": 3, "c": 4}
-    assert read_json(test_file) == expected
+    data0=sample_data[0]
+    data1=sample_data[1]
+    write_json(test_file,data0)
+    write_json(test_file, data1, mode='a')  # merge dictionaries
+    expected = data0.copy()
+    expected.update(data1)
+    assert read_json_test(test_file) == expected
 
 def test_write_json_append_non_dict_raises(tmp_path):
     test_file = tmp_path / "test.json"
@@ -46,7 +45,7 @@ def test_write_json_append_invalid_json_raises(tmp_path):
 
 def test_write_json_unicode_support(tmp_path):
     test_file = tmp_path / "test.json"
-    data = {"greeting": "こんにちは", "key": "üñîçødë"}
+    data = Complex_data
     write_json(test_file, data)
-    loaded = read_json(test_file)
+    loaded = read_json_test(test_file)
     assert loaded == data
