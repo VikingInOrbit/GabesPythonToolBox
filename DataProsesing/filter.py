@@ -10,7 +10,7 @@ class Filter:
         Debug.log(f"filter_type: {self.filter_type}, num_points: {self.num_points}","Info",group="LIB")
         Debug.log(f"Filter init","End",group="LIB")
 
-    def __call__(self, input_value):
+    def __call__(self, input_value)-> float:
 
         Debug.log(f"Filter call","Header",group="LIB")
         Debug.log(f"input_value: {input_value}","Info",group="LIB")
@@ -19,6 +19,15 @@ class Filter:
         if len(self.data_points) > self.num_points:
             Debug.log(f"Data Points are full removed oldest","Info",group="LIB")
             self.data_points.pop(0)
+
+        if not isinstance(input_value, (int, float)):
+            Debug.log("Filter input must be numeric", "Error", group="WarningError")
+            raise TypeError("Filter input must be numeric")
+
+
+        if not self.data_points:
+            Debug.log("No data points available", "Warning", group="WarningError")
+            return 0.0
 
         if self.filter_type == "average":
             return self.average()
@@ -33,40 +42,40 @@ class Filter:
             Debug.log(f"Filter call","End",group="LIB")
             raise ValueError(f"Unsupported filter type: {self.filter_type}")
 
-    def average(self):
+    def average(self)-> float:
         """Calculates the simple average of the stored data points."""
         Debug.log(f"average Filter","Header",group="LIB")
         
         
-        sum = sum(self.data_points) / len(self.data_points)
-        Debug.log(f"output sum: {sum}","Info",group="LIB")
-        Debug.log(f"average Filter","End",group="LIB")
+        avg = sum(self.data_points) / len(self.data_points)
+        Debug.log(f"output average: {avg}", "Info", group="LIB")
+        Debug.log("average Filter", "End", group="LIB")
+    
+        return avg
 
-        return sum
-
-    def new_weighted(self):
+    def new_weighted(self)-> float:
         """Applies more weight to the newest data point."""
         Debug.log(f"new weighted Filter","Header",group="LIB")
 
         weights = [i + 1 for i in range(len(self.data_points))]
         weighted_sum = sum(w * d for w, d in zip(weights, self.data_points))
-        sum = weighted_sum / sum(weights)
-        Debug.log(f"output sum: {sum}","Info",group="LIB")
+        total = weighted_sum / sum(weights)
+        Debug.log(f"output sum: {total}","Info",group="LIB")
         Debug.log(f"new weighted Filter","End",group="LIB")
         
-        return sum
+        return total
 
-    def old_weighted(self):
+    def old_weighted(self)-> float:
         """Applies more weight to the oldest data point."""
         Debug.log(f"old weighted Filter","Header",group="LIB")
 
         weights = [len(self.data_points) - i for i in range(len(self.data_points))]
         weighted_sum = sum(w * d for w, d in zip(weights, self.data_points))
-        sum = weighted_sum / sum(weights)
-        Debug.log(f"output sum: {sum}","Info",group="LIB")
+        total = weighted_sum / sum(weights)
+        Debug.log(f"output sum: {total}","Info",group="LIB")
         Debug.log(f"old weighted Filter","End",group="LIB")
     
-        return sum
+        return total
 
 def newFilter(num_points: int = 20, filter_type: str ="average"):
     """

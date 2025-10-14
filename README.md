@@ -5,8 +5,11 @@ Think of this as your coding Swiss Army knife. Gabe's Python Toolbox is a collec
 If you're tired of writing the same functions over and over, this might save you a few headaches (and keystrokes).
 
 ## Setup Guide
+in terminal for project 
 
+'''
 py -m pip install git+https://github.com/VikingInOrbit/GabesPythonToolBox.git
+'''
 
 Import what you need, when you need it. 
 using "import GabesPythonToolBox as GTB" for all
@@ -23,13 +26,16 @@ Documentation Here(in progress)
 - UnitConverter
 - Debug.log
 
+
 ### Data Processing
 Documentation Here(in progress)
 - signal Filtering
 - input to data managment
+- csv reding, handeling and consol printing
 
 ## Working on
 - StateMachine
+- logger
 
 ## What's Next?
 - debugging and testing
@@ -39,6 +45,9 @@ Documentation Here(in progress)
 - arduinio lib
 - InverseKinematics
 - StateMachine
+- csv telemetry frame reader ,w multipex suport
+- config manager gui
+- debug logfile
 
 
 ##  Why Should You Use This?

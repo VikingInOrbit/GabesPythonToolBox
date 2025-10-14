@@ -2,10 +2,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='GabrielsPythonToolBox',          # Name of your package
-    version='1.5.3',                       # fundemental change.finished feature.bug fix (ver.workflow changing events.bugg fixses and small additions)
+    version='1.7.2',                       # fundemental change.finished feature.bug fix
     packages=find_packages(),              # Automatically finds all packages
     install_requires=[                     # List your dependencies here
-        
+        "matplotlib>=3.10.6,<3.11",
+        "PyYAML>=6.0.2,<7.0",
+
+
     ],
     author="Gabriel Røer",
     author_email="NorgeSkiFollo@gmail.com",

@@ -1,0 +1,34 @@
+{"length": {
+    "m": {"coefficient": 1},
+    "km": {"coefficient": 1e3},
+    "cm": {"coefficient": 1e-2},
+    "mm": {"coefficient": 1e-3},
+    "mile": {"coefficient": 1609.34},
+    "yard": {"coefficient": 0.9144},
+    "inch": {"coefficient": 0.0254}
+},
+"mass": {
+    "kg": {"coefficient": 1},
+    "g": {"coefficient": 1e-3},
+    "mg": {"coefficient": 1e-6},
+    "lb": {"coefficient": 0.453592},
+    "oz": {"coefficient": 0.0283495}
+},
+"time": {
+    "s": {"coefficient": 1},
+    "min": {"coefficient": 60},
+    "hr": {"coefficient": 3600},
+    "day": {"coefficient": 86400},
+    "week": {"coefficient": 604800}
+},
+"temperature": {
+    "K": {"coefficient": 1, "offset": 0},
+    "C": {"coefficient": 1, "offset": -273.15},
+    "F": {"coefficient": 1.8, "offset": -459.67}
+},
+"sufix": {
+    "G": {"coefficient": 1e6},
+    "K": {"coefficient": 1e3},
+    "-": {"coefficient": 1}
+}
+}

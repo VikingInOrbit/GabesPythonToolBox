@@ -1,7 +1,10 @@
 import json
+import yaml
 import os
 import copy
+
 from ..Utility.Debug import *
+from ..DataProsesing.DataRW import *
 
 class ConfigManager:
     """
@@ -16,6 +19,15 @@ class ConfigManager:
         """
         Debug.log(f"ConfigManager init","Header",group="LIB")
         Debug.log(f"config File Path: {configFilePath}","Info",group="LIB")
+ 
+        self.config = None
+        self.defaultConfig = None
+
+        if not configFilePath:
+            Debug.log(f"No fIle Path given","Warning",group="WarningError")
+            Debug.log(f"ConfigManager init","End",group="LIB")
+            return
+        
         Debug.log(f"ConfigManager init","End",group="LIB")
         self.loadConfig(configFilePath)
 
@@ -34,7 +46,7 @@ class ConfigManager:
             Debug.log("no Config Loaded","Info",group="LIB")
             Debug.log(f"ConfigManager call","End",group="LIB")
 
-    def loadConfig(self, configFilePath: str = None):
+    def loadConfig(self, configFilePath: str = None): # TODO how do i deal with / and \ in the file name?
         """
         Load and parse the JSON configuration file.
 
@@ -44,20 +56,23 @@ class ConfigManager:
         """
         Debug.log(f"loadConfig","Header",group="LIB")
         
-        
         if not os.path.exists(configFilePath):
             Debug.log(f"loadConfig","End",group="LIB")
-            raise FileNotFoundError(f"Configuration file {configFilePath} not found.")
+            raise FileNotFoundError(f"Configuration file {configFilePath} not found.") #TODO dues not print right
         
-        with open(configFilePath, 'r') as file:
-            try:
-                self.config = json.load(file)
-                self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
-                Debug.log(f"loaded config","Info",group="LIB")
-            except json.JSONDecodeError:
-                Debug.log(f"loadConfig","End",group="LIB")
-                raise ValueError(f"Failed to decode JSON in {configFilePath}.")
-            
+
+        fileType = None
+
+        ext = os.path.splitext(configFilePath)[1].lower()
+        if ext not in (".json", ".yaml", ".yml"):
+            raise ValueError(f"Unsupported config file type: {ext}")
+
+
+        self.config = read_data(configFilePath)
+        
+        self.defaultConfig = copy.deepcopy(self.config)  # Create a deep copy
+        Debug.log(f"loaded config: \n{self.config}","Info",group="LIB")
+
         Debug.log(f"loadConfig","End",group="LIB")
 
     def update(self, key, value):
@@ -121,23 +136,30 @@ class ConfigManager:
         """
         self.config = self.defaultConfig
         
-    def save(self,configFilePath: str = None):
+    def save(self,configFilePath: str = None,fileType:str=""):
         """
         Save the current configuration to a file.
         """
 
         Debug.log(f"ConfigManager save","Header",group="LIB")
 
+        if os.path.splitext(configFilePath)[1].lower():
+            Debug.log(f"File exstension found using that","Info",group="LIB")
+            fileType = os.path.splitext(configFilePath)[1].lower()
+            Debug.log(f"File exstension found: {fileType}","Info",group="LIB")
+
         if not configFilePath:
-            Debug.log(f"no fIle Path given","Info",group="LIB")
+            Debug.log(f"No fIle Path given","Warning",group="WarningError")
             Debug.log(f"ConfigManager save","End",group="LIB")
             return
 
-        with open(configFilePath, 'w') as file:
-            json.dump(self.config, file, indent=4)
-            Debug.log(f"Save","Info",group="LIB")
+        Debug.log(f"Saveing config: \n {self.config}","Info",group="LIB")
+
+        write_data(configFilePath,self.config)
 
         Debug.log(f"ConfigManager save","End",group="LIB")
+
+        
     
 def startConfigManager(configFilePath: str = None):
     """

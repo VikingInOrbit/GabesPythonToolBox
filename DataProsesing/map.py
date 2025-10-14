@@ -43,7 +43,7 @@ def ClampMap(input:float,minInput:float,maxInput:float,minOutput:float,maxOutput
     Debug.log(f"ClampMap","End",group="LIB")
     return output
 
-def Clamp(input:float,minOutput:float,maxOutput:float):
+def Clamp(val:float,minOutput:float=None,maxOutput:float=None)->float: #shood be able to get just max or just min
     """ Clamps the input between 2 values
     
     :param minOutput: the lovest value of the output will have
@@ -51,11 +51,20 @@ def Clamp(input:float,minOutput:float,maxOutput:float):
     :return: Returns input between max,min
     """
     Debug.log(f"Clamp","Header",group="LIB")
-    if not all(isinstance(arg, (int, float)) for arg in (input, minOutput, maxOutput)):
-        raise TypeError("All arguments must be numbers (int or float).")
+
+    # Validate inputs that are not None
+    for name, arg in [("val", val), ("minOutput", minOutput), ("maxOutput", maxOutput)]:
+        if arg is not None and not isinstance(arg, (int, float)):
+            raise TypeError(f"{name} must be a number (int or float) or None.")
     
-    Debug.log(f"input value: {input}, minOutput: {minOutput}, maxOutput: {maxOutput}","Info",group="LIB")
-    output = max(min(input,maxOutput),minOutput)
+    Debug.log(f"input value: {val}, minOutput: {minOutput}, maxOutput: {maxOutput}","Info",group="LIB")
+
+    output = val
+    if isinstance(maxOutput, (int, float)):
+        output = min(output,maxOutput)
+    if isinstance(minOutput, (int, float)):
+        output = max(output,minOutput)
+
     Debug.log(f"output value: {output}","Info",group="LIB")
     Debug.log(f"Clamp","End",group="LIB")
     return output

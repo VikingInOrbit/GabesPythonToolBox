@@ -1,133 +1,222 @@
-from ..Utility import DeltaTime as DT
 from ..Utility.Debug import *
+from ..DataProsesing.map import *
 
 
 class PID:
-    def __init__(self, P: float = 0, I: float = 0, D: float = 0): #P = proportional , I = integral , D = derivitive
+    def __init__(self, P: float = 0, I: float = 0, D: float = 0,integral_limit:float=None,Debug_enable:bool=False): #P = proportional , I = integral , D = derivitive will hrt preformence if true "Debug_enable"
         self.P = P
         self.I = I
         self.D = D
-        self.prev_error = 0  # To store previous error for derivative calculation
+        self.prev_value = 0  # To store previous error for derivative calculation
         self.integral = 0  # To store accumulated error for integral calculation
+        self.integral_limit = integral_limit # max +- the integral can be
 
-        self.deltaTimer = None
+        self.Debug_enable=Debug_enable
 
-        Debug.log(f"PID init","Header",group="LIB")
-        Debug.log(f"P: {self.P}, I: {self.I}, D: {self.D}","Info",group="LIB")
-        Debug.log(f"PID init","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"PID init","Header",group="LIB")
+            Debug.log(f"P: {self.P}, I: {self.I}, D: {self.D}","Info",group="LIB")
+            Debug.log(f"PID init","End",group="LIB")
 
-    def __call__(self, current_value: float, set_value: float, resetIntegral: bool = False):
+    def __call__(self, current_value: float, set_value: float,dt:float, resetIntegral: bool = False)->float:
         """
         Called to compute the PID output based on the current and set values.
         
         current_value: The current measured value.
         set_value: The target value.
-        reset Integral: The time difference between the current and the previous value.
+        reset Integral: set Intergal error to 0
         """
-        Debug.log(f"PID call","Header",group="LIB")
-        Debug.log(f"With current_value: {current_value}, set_value: {set_value}, resetIntegral: {resetIntegral}","Info",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"PID call","Header",group="LIB")
+            Debug.log(f"With current_value: {current_value}, set_value: {set_value}, resetIntegral: {resetIntegral}","Info",group="LIB")
 
         if resetIntegral:
-            Debug.log(f"Reseting Integral","Info",group="LIB")
+            if self.Debug_enable:
+                Debug.log(f"Reseting Integral","Info",group="LIB")
             self.ResetIntegral()
 
-        Debug.log(f"PID call","End",group="LIB")
-        return self.Update(current_value, set_value)
+        if self.Debug_enable:
+            Debug.log(f"PID call","End",group="LIB")
+        return self.Update(current_value, set_value,dt)
     
     def start(self):
-        Debug.log(f"PID start","Header",group="LIB")
-        Debug.log(f"Starting Delta Time","Info",group="LIB")
-        self.deltaTimer = DT.StartDeltaTime()
-        Debug.log(f"PID start","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"PID start","Header",group="LIB")
+            Debug.log(f"Starting Delta Time","Info",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"PID start","End",group="LIB")
 
-    def Update(self,current_value, set_value):
-        Debug.log(f"PID Update","Header",group="LIB")
-        dt = self.deltaTimer()
-        Debug.log(f"get Delta Time: {dt}","Info",group="LIB")
+    def Update(self, current_value, set_value, dt) -> float:
+        """
+        Compute PID output based on current_value and set_value.
+        Uses prev_error for D term to handle dynamic setpoints.
+        """
+        if self.Debug_enable:
+            Debug.log(f"PID Update", "Header", group="LIB")
+            Debug.log(f"get Delta Time: {dt}", "Info", group="LIB")
 
-        # Calculate the error
+        # Calculate the current error
         error = set_value - current_value
-        Debug.log(f"error: {error}","Info",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"error: {error}", "Info", group="LIB")
 
-        # Calculate the PID output
-        output = self.CalcP(error) + self.CalcI(error, dt) + self.CalcD(error, dt)
-        Debug.log(f"output: {output}","Info",group="LIB")
+        # Calculate PID output
+        P_=self.CalcP(error)
+        I_=self.CalcI(error, dt)
+        D_=self.CalcD(current_value, set_value, dt)
+
+        output = P_+I_+D_
+
+        if self.Debug_enable:
+            Debug.log(f"output: {output}", "Info", group="LIB")
 
         # Update previous error for next derivative calculation
         self.prev_error = error
 
-        Debug.log(f"PID Update","End",group="LIB")
-        return output
+        if self.Debug_enable:
+            Debug.log(f"PID Update", "End", group="LIB")
+        return output ,P_,I_,D_,error, dt
 
-    def CalcP(self, error: float):
+    def CalcP(self, error: float)->float:
         """
         Proportional term: P = Kp * error
         """
-        Debug.log(f"CalcP","Header",group="LIB")
-        sum = self.P * error
+        if self.Debug_enable:
+            Debug.log(f"CalcP","Header",group="LIB")
+        val = self.P * error
         
-        Debug.log(f"sum: {sum}","Info",group="LIB")
-        Debug.log(f"CalcP","End",group="LIB")
-        return sum
+        if self.Debug_enable:
+            Debug.log(f"val: {val}","Info",group="LIB")
+            Debug.log(f"CalcP","End",group="LIB")
+        return val
 
-    def CalcI(self, error: float, dt):
+    def CalcI(self, error: float, dt)->float:
         """
         Integral term: I = Ki * integral of error
-        Integral is the sum of all past errors over time.
+        Integral is the val of all past errors over time.
         """
-        Debug.log(f"CalcI","Header",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"CalcI","Header",group="LIB")
         self.integral += error * dt  # Accumulate the error over time
-        sum = self.I * self.integral
-        Debug.log(f"sum: {sum}","Info",group="LIB")
-        Debug.log(f"CalcI","End",group="LIB")
-        return sum
 
-    def CalcD(self, error: float, dt):
+        if self.integral_limit:
+            
+            if self.Debug_enable:
+                Debug.log(f"before integral: {self.integral}, limit: {self.integral_limit}","Info",group="LIB")
+            self.integral=Clamp(self.integral,-self.integral_limit,self.integral_limit)
+            if self.Debug_enable:
+                Debug.log(f"after integral: {self.integral}, limit: {self.integral_limit}","Info",group="LIB")
+
+        val = self.I * self.integral
+        if self.Debug_enable:
+            Debug.log(f"val: {val}","Info",group="LIB")
+            Debug.log(f"CalcI","End",group="LIB")
+        return val
+
+    def CalcD(self, current_value: float, set_value: float, dt: float) -> float:
         """
         Derivative term: D = Kd * rate of change of error
-        Derivative is the change in error divided by time.
         """
-        Debug.log(f"CalcD","Header",group="LIB")
-        derivative = (error - self.prev_error) / dt if dt > 0 else 0
-        sum = self.D * derivative
-        Debug.log(f"sum: {sum}","Info",group="LIB")
-        Debug.log(f"CalcD","End",group="LIB")
-        return sum
+        if self.Debug_enable:
+            Debug.log(f"CalcD", "Header", group="LIB")
+
+        dt = max(dt, 1e-6)  # Prevent division by zero
+        error = set_value - current_value
+
+        # Calculate derivative using prev_error
+        derivative = (error - getattr(self, 'prev_error', 0)) / dt
+        val = self.D * derivative
+
+        if self.Debug_enable:
+            Debug.log(f"derivative: {derivative}", "Info", group="LIB")
+            Debug.log(f"val: {val}", "Info", group="LIB")
+            Debug.log(f"CalcD", "End", group="LIB")
+
+        return val
     
-    def ResetIntegral(self):
+    def ResetIntegral(self)->None:
         """
         Resets the integral term to prevent wind-up or drift.
         """
-        Debug.log(f"ResetIntegral","Header",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ResetIntegral","Header",group="LIB")
         self.integral = 0
-        Debug.log(f"ResetIntegral","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ResetIntegral","End",group="LIB")
 
-    def ChangeP(self, P_: float):
+    def Change(self, P_: float = None, I_: float = None, D_: float = None, integral_limit: float = None)->None:
+        """
+        Change internal PID parameters dynamically.
+        """
+        if self.Debug_enable:
+            Debug.log("Change", "Header", group="LIB")
+
+        if P_ is not None:
+            self.P = P_
+            if self.Debug_enable:
+                Debug.log(f"Changed P to {self.P}", "Info", group="LIB")
+
+        if I_ is not None:
+            self.I = I_
+            if self.Debug_enable:
+                Debug.log(f"Changed I to {self.I}", "Info", group="LIB")
+
+        if D_ is not None:
+            self.D = D_
+            if self.Debug_enable:
+                Debug.log(f"Changed D to {self.D}", "Info", group="LIB")
+
+        if integral_limit is not None:
+            self.integral_limit = abs(integral_limit)  # ensure positive
+            if self.Debug_enable:
+                Debug.log(f"Set integral limit to {self.integral_limit}", "Info", group="LIB")
+
+        if self.Debug_enable:
+            Debug.log("Change", "End", group="LIB")
+
+
+    def ChangeP(self, P_: float)->float:
         """
         Change the proportional gain.
         """
-        Debug.log(f"ChangeP","Header",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeP","Header",group="LIB")
         self.P = P_
-        Debug.log(f"ChangeP","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeP","End",group="LIB")
 
-    def ChangeI(self, I_: float):
+    def ChangeI(self, I_: float)->float:
         """
         Change the integral gain.
         """
-        Debug.log(f"ChangeI","Header",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeI","Header",group="LIB")
         self.I = I_
-        Debug.log(f"ChangeI","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeI","End",group="LIB")
 
-    def ChangeD(self, D_: float):
+    def ChangeD(self, D_: float)->float:
         """
         Change the derivitive gain.
         """
-        Debug.log(f"ChangeD","Header",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeD","Header",group="LIB")
         self.D = D_
-        Debug.log(f"ChangeD","End",group="LIB")
+        if self.Debug_enable:
+            Debug.log(f"ChangeD","End",group="LIB")
+
+    def Change_integral_limit(self, integral_limit: float):
+        """
+        Change the integral_limit.
+        """
+        if self.Debug_enable:
+            Debug.log(f"Change_integral_limit","Header",group="LIB")
+        self.integral_limit = integral_limit
+        if self.Debug_enable:
+            Debug.log(f"Change_integral_limit","End",group="LIB")
 
 # Factory function to create a new PID controller instance
-def NewPID(P=0, I=0, D=0):
+def NewPID(P=0, I=0, D=0,integral_limit:float=None,Debug_enable:bool=False):
     """
     make a new PID Controller with starting values P,I,D
     
@@ -138,7 +227,7 @@ def NewPID(P=0, I=0, D=0):
     """
     Debug.log(f"NewPID","Header",group="LIB")
     Debug.log(f"P: {P}, I: {I}, D: {D}","Info",group="LIB")
-    newPID = PID(P, I, D)
+    newPID = PID(P, I, D,integral_limit,Debug_enable=Debug_enable)
 
     Debug.log(f"Starting PID","Info",group="LIB")
     newPID.start()
