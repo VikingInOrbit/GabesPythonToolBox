@@ -1,12 +1,13 @@
 import random
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QVBoxLayout
-from PySide6.QtGui import QPainter, QColor
-from PySide6.QtCore import QRect
+from PySide6.QtGui import QPainter, QColor, QFont
+from PySide6.QtCore import QRect, Qt
+
 
 class ColorRectWidget(QWidget):
     def __init__(self):
         super().__init__()
-        self.color = QColor("gray")  # start color
+        self.color = QColor("gray")  # initial color
 
     def set_random_color(self):
         # Generate random RGB values (0–255)
@@ -17,37 +18,57 @@ class ColorRectWidget(QWidget):
         self.update()  # trigger repaint
 
     def paintEvent(self, event):
+        """Draw a rectangle that scales with widget size and is centered."""
         painter = QPainter(self)
+
+        w = self.width()
+        h = self.height()
+
+        # Rectangle as a percentage of widget size
+        rect_width = int(w * 0.8)
+        rect_height = int(h * 0.6)
+
+        # Center rectangle
+        x = (w - rect_width) // 2
+        y = (h - rect_height) // 2
+
         painter.setBrush(self.color)
-        painter.drawRect(QRect(50, 30, 200, 100))  # x, y, width, height
+        painter.drawRect(QRect(x, y, rect_width, rect_height))
 
 
 class HelloCounter(QWidget):
     def __init__(self):
         super().__init__()
 
-        # Counter variable
+        # Counter
         self.count = 0
 
-        # Create UI elements
+        # Widgets
         self.label = QLabel(f"Hello World {self.count}")
         self.button = QPushButton("Add +1 and Change Color")
         self.rect_widget = ColorRectWidget()
 
-        # Connect button
+        # Connect button click
         self.button.clicked.connect(self.increment_and_recolor)
 
         # Layout
         layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)  # remove borders
+        layout.setSpacing(5)
         layout.addWidget(self.rect_widget)
-        layout.addWidget(self.label)
+        layout.addWidget(self.label,alignment=Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.button)
-        
         self.setLayout(layout)
 
-        # Window setup
+        font = QFont()
+        font.setPointSize(18)  # text size in points
+        self.label.setFont(font)
+        self.button.setFont(font)
+
+        # Window settings
         self.setWindowTitle("Hello World + Random Color Box")
-        self.setFixedSize(320, 300)
+        self.setMinimumSize(320, 300)  # allows resizing
+        self.resize(400, 350)  # initial size
 
     def increment_and_recolor(self):
         self.count += 1
@@ -56,7 +77,8 @@ class HelloCounter(QWidget):
 
 
 # Run the app
-app = QApplication([])
-window = HelloCounter()
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication([])
+    window = HelloCounter()
+    window.show()
+    app.exec()
