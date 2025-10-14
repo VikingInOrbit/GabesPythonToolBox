@@ -34,8 +34,9 @@ Documentation Here(in progress)
 - csv reding, handeling and consol printing
 
 ## Working on
-- StateMachine
-- logger
+- StateMachine (run code in code?)
+- unit test
+- Pyside6
 
 ## What's Next?
 - debugging and testing
