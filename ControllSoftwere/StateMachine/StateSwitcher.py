@@ -27,8 +27,7 @@ class StateMachine:
     def SwitchState(self, stateName):
         if stateName in self.States and stateName != self.State.name:
             if stateName not in self.State.canSwitchTo:
-                Debug.log(f"Cannot switch from {self.State.name} to {stateName}", LogType.Warning , group="LIB")
-            self.State.Exit()
+                Debug.log(f"Cannot switch from {self.State.name} to {stateName}, can switch to {self.State.canSwitchTo}", LogType.Warning ,LogGroup.WarningError)
             self.State = self.States[stateName]
             self.State.Enter()
 

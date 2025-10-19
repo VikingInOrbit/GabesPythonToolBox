@@ -4,7 +4,7 @@ class GoHomeState(Base.BaseState):
     def __init__(self, pointerTOScript=None):
         super().__init__(
             name="GoHomeState",
-            canSwitchTO=["ExploreState","IdleState"],
+            canSwitchTo=["IdleState"],
             pointerTOScript=pointerTOScript
         )
         print("GoHomeState __init__")

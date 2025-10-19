@@ -40,6 +40,10 @@ def main():
     sm.SwitchState("IdleState")
     sm() 
 
+    sm.SwitchState("GoHomeState")
+    sm()
+
+    sm.SwitchState("ExploreState")
 
 if __name__ == "__main__":
     main()

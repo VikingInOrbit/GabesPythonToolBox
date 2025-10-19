@@ -2,6 +2,7 @@ from ..Utility.Collor import *
 from ..Utility.Logger import *
 import inspect
 from enum import Enum
+from typing import Union
 
 #TODO how can the buger get where the call (filr line) was from?
 class LogType(Enum):
@@ -18,7 +19,6 @@ class LogType(Enum):
     Dash = "-"
 
 from enum import Enum
-
 class LogGroup(Enum):
     LIB = "LIB"
     LIB_Debug = "LIB_Debug"
@@ -105,8 +105,16 @@ class Debug:
 
 
     @classmethod
-    def log(cls, message: str, message_type: str = "-", group: str = None):
+    def log(cls, message: str, message_type: Union[str, LogType] = LogType.Dash, group: Union[str, LogGroup, None] = None):
         """Log a message."""
+
+        # Convert message_type to string if Enum
+        if isinstance(message_type, LogType):
+            message_type = message_type.value
+        
+        # Convert group to string if Enum
+        if isinstance(group, LogGroup):
+            group = group.value
 
         #sends the message to logbefore desiding to print it in terminal
 
@@ -132,8 +140,6 @@ class Debug:
         # If a group is provided, only log messages from enabled groups
         if group and not cls.groups.get(group, True):
             return  # Skip messages from disabled groups
-
-        
 
         # Retrieve the type for the message type
         Type = cls.Type.get(message_type, "")
