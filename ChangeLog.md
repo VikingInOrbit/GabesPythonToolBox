@@ -1,6 +1,24 @@
 # Updates
 
-# template
+## x.x.x State machine update 
+
+### new things
+
+- Exsample script for stateswitcher
+- exsample states
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- Debug now uses enums for mesage types
+- Statemachine has now subcomponent state switcher
+
+### breaking changes
+
+- somthing
 
 ## 1.7.2 PID Bug update 
 
@@ -92,7 +110,6 @@
 - debug.py fromating changes
 - debug.py reading to log mesages
 - updated __init__
-
 
 ## 1.5.3 update 
 

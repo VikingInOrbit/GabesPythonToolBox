@@ -16,6 +16,6 @@ class GoHomeState(Base.BaseState):
         print("Exiting GoHomeState")
 
     def Update(self, **kwargs):
-        print("Ensuring we are going home")
+        print("Moving Tword home")
 
 

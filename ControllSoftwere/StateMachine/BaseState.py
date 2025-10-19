@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 from ...Utility.Debug import Debug
 
 class BaseState(ABC):
-    def __init__(self, name, canSwitchTO=None, pointerTOScript=None, **kwargs):
+    def __init__(self, name, canSwitchTo=None, pointerTOScript=None, **kwargs):
         Debug.log("BaseState __init__", "Header", group="LIB")
         self.name = name
-        self.canSwitchTO = canSwitchTO or []
+        self.canSwitchTo = canSwitchTo or []
         self.pointerTOScript = pointerTOScript
         Debug.log(f"BaseState {self.name} initialized", "Info", group="LIB")
         Debug.log("BaseState __init__", "End", group="LIB")

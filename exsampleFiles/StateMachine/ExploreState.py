@@ -16,6 +16,6 @@ class ExploreState(Base.BaseState):
         print("Exiting ExploreState")
 
     def Update(self, **kwargs):
-        print("Ensuring we are exsploring")
+        print("O a new fancy place to exsplore")
 
 

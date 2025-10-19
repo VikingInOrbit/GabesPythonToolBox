@@ -1,33 +1,46 @@
 from ..Utility.Collor import * 
 from ..Utility.Logger import *
 import inspect
+from enum import Enum
 
 #TODO how can the buger get where the call (filr line) was from?
+class LogType(Enum):
+    Header = "Header"
+    Error = "Error"
+    Fail = "Fail"
+    Success = "Success"
+    Warning = "Warning"
+    Info = "Info"
+    InProgress = "InProgress"
+    NoneType = "None" 
+    End = "End"
+
+    Dash = "-"
 
 class Debug:
     R = R
-    
+        
     # DbugType
-    Type = {
-        "Header": FG_B_White + BG_Black,
-        "Error": BG_B_Red,
-        "Fail": BG_Black + FG_B_Red,
-        "Success": BG_Black + FG_B_Green,
-        "Warning": BG_Yellow + FG_Black,
-        "Info": BG_Black + FG_B_White,
-        "InProgress": BG_Black + FG_Yellow,
-        "None": None,
-        "End": FG_B_White + BG_Black,
-
-        "-": FG_Black + BG_Red,
+    TypeColors = {
+        LogType.Header.value: FG_B_White + BG_Black,
+        LogType.Error.value: BG_B_Red,
+        LogType.Fail.value: BG_Black + FG_B_Red,
+        LogType.Success.value: BG_Black + FG_B_Green,
+        LogType.Warning.value: BG_Yellow + FG_Black,
+        LogType.Info.value: BG_Black + FG_B_White,
+        LogType.InProgress.value: BG_Black + FG_Yellow,
+        LogType.NoneType.value: None,
+        LogType.End.value: FG_B_White + BG_Black,
+        LogType.Dash.value: FG_Black + BG_Red,
     }
+
 
     # Static settings for the Debug class
     debug_enabled = True
     logger_enabled = False
     logger = None
     path:str=None
-    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True}  # Always have a default group enabled
+    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True} 
     verbosity = 1
 
     @classmethod
@@ -90,8 +103,12 @@ class Debug:
         if cls.verbosity >= 2:
             verbose += f" : {info.filename}"
         if cls.verbosity >= 3:
+            verbose += f":{info.function}"    
+        if cls.verbosity >= 4:
             verbose += f":{info.lineno}"
- 
+        
+
+
         if cls.logger_enabled:
             Logger.log(message=message,message_type=message_type,group=group,verbose = info)
 

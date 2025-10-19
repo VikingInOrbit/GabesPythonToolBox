@@ -26,6 +26,8 @@ class StateMachine:
 
     def SwitchState(self, stateName):
         if stateName in self.States and stateName != self.State.name:
+            if stateName not in self.State.canSwitchTo:
+                Debug.log(f"Cannot switch from {self.State.name} to {stateName}", LogType.Warning , group="LIB")
             self.State.Exit()
             self.State = self.States[stateName]
             self.State.Enter()
@@ -33,6 +35,11 @@ class StateMachine:
     def DefaultState(self):
         if self.defaultStateName in self.States:
             self.SwitchState(self.defaultStateName)
+    
+    def GetStatesCanSwitchTo(self):
+        if self.State is None:
+            return []
+        return self.State.canSwitchTo
 
 
 def StartStateManager(filePath) -> StateMachine:
