@@ -17,11 +17,20 @@ class LogType(Enum):
 
     Dash = "-"
 
+from enum import Enum
+
+class LogGroup(Enum):
+    LIB = "LIB"
+    LIB_Debug = "LIB_Debug"
+    ExampleFiles = "exsampleFiles"
+    WarningError = "WarningError"
+
+
 class Debug:
     R = R
         
     # DbugType
-    TypeColors = {
+    Type = {
         LogType.Header.value: FG_B_White + BG_Black,
         LogType.Error.value: BG_B_Red,
         LogType.Fail.value: BG_Black + FG_B_Red,
@@ -34,13 +43,18 @@ class Debug:
         LogType.Dash.value: FG_Black + BG_Red,
     }
 
+    groups = {
+        LogGroup.LIB.value: False,
+        LogGroup.LIB_Debug.value: False,
+        LogGroup.ExampleFiles.value: False,
+        LogGroup.WarningError.value: True
+    }
 
     # Static settings for the Debug class
     debug_enabled = True
     logger_enabled = False
     logger = None
     path:str=None
-    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True} 
     verbosity = 1
 
     @classmethod
