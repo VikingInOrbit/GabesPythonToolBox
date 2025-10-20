@@ -10,7 +10,7 @@ import ExploreState
 # --- Build and test the State Machine ---
 def main():
     # Create the State Machine with default state name "IdleState"
-    sm = SM.StateSwitcher(defaultStateName="IdleState")
+    sm = SM.StateSwitcher(default_state_name="IdleState")
 
     # Create state objects
     idle = IdleState.IdleState()

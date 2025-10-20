@@ -2,58 +2,66 @@ from ...Utility import ConfigManager as CM
 from ...Utility.Debug import *
 
 class StateSwitcher:
-    def __init__(self, defaultStateName):
-        Debug.log("StateMachine init", "Header", group="LIB")
-        self.defaultStateName = defaultStateName
+    def __init__(self, default_state_name=None):
+        Debug.log("StateSwitcher init", "Header", group="LIB")
+        self.default_state_name = default_state_name
         self.State = None
-        self.States = {}  # store by name
-        Debug.log("StateMachine init", "End", group="LIB")
+        self.States = {}  # Dictionary: {state_name: state_instance}
+        Debug.log("StateSwitcher init", "End", group="LIB")
 
     def __call__(self, **kwargs):
-        # call current state's Update
+        """Forward call to the current state's Update."""
         if self.State:
             self.State(**kwargs)
 
     def AddState(self, state, setDefault=False):
+        """Register a state instance."""
         self.States[state.name] = state
         if setDefault or self.State is None:
             self.State = state
             self.State.Enter()
 
-    def RemoveState(self, stateName):
-        if stateName in self.States:
-            del self.States[stateName]
+    def RemoveState(self, state_name):
+        """Remove state from registry."""
+        if state_name in self.States:
+            del self.States[state_name]
 
-    def SwitchState(self, stateName):
-        if stateName in self.States and stateName != self.State.name:
-            if stateName not in self.State.canSwitchTo: #TODO self.State.canSwitchTo-> self.State.GetCanSwitchTo()
-                Debug.log(f"Cannot switch from {self.State.name} to {stateName}, can switch to {self.State.canSwitchTo}", LogType.Warning ,LogGroup.WarningError)
-            self.State = self.States[stateName]
+    def SwitchState(self, state_name):
+        """Switch between loaded states. Will perform illegal switches but logs a warning."""
+        if state_name not in self.States:
+            Debug.log(f"State {state_name} not found.", LogType.Warning, LogGroup.WarningError)
+            return
+        
+        if not self.State:
+            Debug.log("No current state. Forcing direct switch.", LogType.Warning, LogGroup.WarningError)
+            self.State = self.States[state_name]
             self.State.Enter()
+            return
+
+        if state_name == self.State.name:
+            Debug.log(f"Already in state {state_name}.", LogType.Info, LogGroup.General)
+            return
+
+        if state_name not in self.State.canSwitchTo:
+            Debug.log(
+                f"Illegal transition: {self.State.name} : {state_name}. "
+                f"Allowed: {self.State.canSwitchTo}",
+                LogType.Warning, LogGroup.WarningError
+            )
+
+        # Perform the switch anyway
+        self.State.Exit()
+        self.State = self.States[state_name]
+        self.State.Enter()
 
     def DefaultState(self):
-        if self.defaultStateName in self.States:
-            self.SwitchState(self.defaultStateName)
-    
+        """Switch to default state if it exists."""
+        if self.default_state_name and self.default_state_name in self.States:
+            self.SwitchState(self.default_state_name)
+
+    def GetCurrentStateName(self):
+        return self.State.name if self.State else None
+
     def GetStatesCanSwitchTo(self):
-        if self.State is None:
-            return []
-        return self.State.canSwitchTo
-
-
-def StartStateManager(filePath) -> StateSwitcher:
-    Debug.log("Start State Manager", "Header", group="LIB")
-    
-    # Load state config from file (placeholder)
-    states = None #StateFactory()  # returns list of State objects
-    
-    default_state_name = states[0].name if states else None
-    sm = StateSwitcher(default_state_name)
-
-    for state in states:
-        sm.AddState(state, setDefault=(state.name==default_state_name))
-
-    Debug.log("Start State Manager", "End", group="LIB")
-    return sm
-
-
+        """Returns allowed transitions from current state."""
+        return self.State.canSwitchTo if self.State else []
