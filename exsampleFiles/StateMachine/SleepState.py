@@ -1,21 +1,21 @@
 import GabesPythonToolBox.ControllSoftwere.StateMachine.BaseState as Base
 
-class IdleState(Base.BaseState):
+class SleepState(Base.BaseState):
     def __init__(self, pointerTOScript=None):
         super().__init__(
-            name="IdleState",
-            canSwitchTo=["GoHomeState","ExploreState"],  # list, not string
+            name="SleepState",
+            canSwitchTo=["GoHomeState"],  # list, not string
             pointerTOScript=pointerTOScript
         )
-        #print("IdleState __init__")
+        #print("SleepState __init__")
 
     def Enter(self, **kwargs):
-        print("Setting movement to 0")
+        print("Setting movement to 0, turning off")
 
     def Exit(self, **kwargs):
-        print("Exiting IdleState")
+        print("Is it morning already?")
 
     def Update(self, **kwargs):
-        print("Ensuring we are standing still")
+        print("Im sleeping")
 
 

@@ -7,7 +7,7 @@ class ExploreState(Base.BaseState):
             canSwitchTo=["IdleState"],  # list, not string
             pointerTOScript=pointerTOScript
         )
-        print("ExploreState __init__")
+        #print("ExploreState __init__")
 
     def Enter(self, **kwargs):
         print("Get plases to exsplore")
@@ -16,6 +16,6 @@ class ExploreState(Base.BaseState):
         print("Exiting ExploreState")
 
     def Update(self, **kwargs):
-        print("O a new fancy place to exsplore")
+        print("Oh a new fancy place to exsplore")
 
 

@@ -2,11 +2,13 @@ from ...Utility import ConfigManager as CM
 from ...Utility.Debug import *
 
 class StateSwitcher:
-    def __init__(self, default_state_name=None):
+    def __init__(self,startStates, default_state_name=None):
         Debug.log("StateSwitcher init", "Header", group="LIB")
         self.default_state_name = default_state_name
         self.State = None
         self.States = {}  # Dictionary: {state_name: state_instance}
+        for addState in startStates.values(): #TODO flytt dette inn i manager
+            self.AddState(addState, setDefault=(addState.name == default_state_name))
         Debug.log("StateSwitcher init", "End", group="LIB")
 
     def __call__(self, **kwargs):
@@ -17,16 +19,16 @@ class StateSwitcher:
     def AddState(self, state, setDefault=False):
         """Register a state instance."""
         self.States[state.name] = state
-        if setDefault or self.State is None:
-            self.State = state
-            self.State.Enter()
+        if setDefault or self.default_state_name is None:
+            self.default_state_name = state
+        
 
     def RemoveState(self, state_name):
         """Remove state from registry."""
         if state_name in self.States:
             del self.States[state_name]
 
-    def SwitchState(self, state_name):
+    def SwitchState(self, state_name): #TODO make it a syncronus so the enter/exsit can hapon
         """Switch between loaded states. Will perform illegal switches but logs a warning."""
         if state_name not in self.States:
             Debug.log(f"State {state_name} not found.", LogType.Warning, LogGroup.WarningError)

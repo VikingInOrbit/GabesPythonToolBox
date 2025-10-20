@@ -24,6 +24,7 @@ class LogGroup(Enum):
     LIB_Debug = "LIB_Debug"
     ExampleFiles = "exsampleFiles"
     WarningError = "WarningError"
+    Showcase = "Showcase"
 
 
 class Debug:
@@ -47,7 +48,8 @@ class Debug:
         LogGroup.LIB.value: False,
         LogGroup.LIB_Debug.value: False,
         LogGroup.ExampleFiles.value: False,
-        LogGroup.WarningError.value: True
+        LogGroup.WarningError.value: True,
+        LogGroup.Showcase.value: True
     }
 
     # Static settings for the Debug class

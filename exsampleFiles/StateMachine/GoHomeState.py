@@ -4,10 +4,10 @@ class GoHomeState(Base.BaseState):
     def __init__(self, pointerTOScript=None):
         super().__init__(
             name="GoHomeState",
-            canSwitchTo=["IdleState"],
+            canSwitchTo=["IdleState","SleepState"],
             pointerTOScript=pointerTOScript
         )
-        print("GoHomeState __init__")
+        #print("GoHomeState __init__")
 
     def Enter(self, **kwargs):
         print("Get path home")
