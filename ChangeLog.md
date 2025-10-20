@@ -21,6 +21,29 @@
 
 - Exsample is no longer the main way of testing the code
 
+
+## 1.8.0 State machine update 
+
+### new things
+
+- Exsample script for stateswitcher
+- exsample states
+- state manager
+
+### changes
+
+- Debug now uses enums for mesage types
+- Statemachine has now subcomponent state switcher
+- Debug now uses enums for mesage grupes
+- Debug warning is now inline
+
+
+## 1.7.2 PID Bug update 
+
+### changes
+
+- updating verson of dependencies
+
 ## 1.7.1 PID Bug update 
 
 
@@ -105,6 +128,23 @@
 - debug.py fromating changes
 - debug.py reading to log mesages
 - updated __init__
+
+## 1.5.3 update 
+
+### changes
+
+- exsample configmanager json files
+
+### new things
+
+- add function in config manager
+
+## 1.5.2 update 
+
+### changes
+
+- script ducumentation
+- Dbug collors
 
 ## 1.5.1 Debug update 
 

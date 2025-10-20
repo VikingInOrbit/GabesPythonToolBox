@@ -28,6 +28,9 @@ tree /F /A > folder_tree.txt
 
 ## Current Features
 
+### ControllSoftwere
+- StateManager
+
 ### Utility Functions
 Documentation Here(in progress)
 - Time Managment
@@ -44,17 +47,16 @@ Documentation Here(in progress)
 - csv reding, handeling and consol printing
 
 ## Working on
-- StateMachine
-- logger
+- Unit tests
+- State Machine
+- Pyside6
 
 ## What's Next?
-- debugging and testing
 - future code i need and want to shere
 - QuaternionTools
 - SensorFusion
 - arduinio lib
 - InverseKinematics
-- StateMachine
 - csv telemetry frame reader ,w multipex suport
 - config manager gui
 - debug logfile

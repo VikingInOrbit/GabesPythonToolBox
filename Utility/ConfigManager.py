@@ -107,6 +107,26 @@ class ConfigManager:
 
         Debug.log(f"ConfigManager update","End",group="LIB")
 
+    def add(self, data):
+        """
+        Add a new data set to the current configuration.
+        This method will add a new dictionary (data) to the existing configuration.
+    
+        :param data: (dict) The new configuration data to be appended.
+        """
+        Debug.log(f"ConfigManager add", "Header", group="LIB")
+
+        if isinstance(data, dict):
+            # Check if the data is a dictionary before appending
+            self.config.update(data)  # Append the new data to the existing configuration
+            Debug.log(f"Add new data", "Info", group="LIB")
+        else:
+            # Handle the case where data is not a dictionary
+            Debug.log(f"Invalid data format. Expected dict, got {type(data)}", "Error", group="LIB")
+
+        Debug.log(f"ConfigManager add", "End", group="LIB")
+
+
     def reset(self):
         """
         Reset the configuration to a default state.

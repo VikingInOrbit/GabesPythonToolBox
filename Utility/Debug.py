@@ -1,25 +1,55 @@
 from ..Utility.Collor import * 
 from ..Utility.Logger import *
 import inspect
+from enum import Enum
+from typing import Union
 
 #TODO how can the buger get where the call (filr line) was from?
+class LogType(Enum):
+    Header = "Header"
+    Error = "Error"
+    Fail = "Fail"
+    Success = "Success"
+    Warning = "Warning"
+    Info = "Info"
+    InProgress = "InProgress"
+    NoneType = "None" 
+    End = "End"
+
+    Dash = "-"
+
+from enum import Enum
+class LogGroup(Enum):
+    LIB = "LIB"
+    LIB_Debug = "LIB_Debug"
+    ExampleFiles = "exsampleFiles"
+    WarningError = "WarningError"
+    Showcase = "Showcase"
+
 
 class Debug:
     R = R
-    
+        
     # DbugType
     Type = {
-        "Header": FG_B_White + BG_Black,
-        "Error": BG_B_Red,
-        "Fail": BG_Black + FG_B_Red,
-        "Success": BG_Black + FG_B_Green,
-        "Warning": BG_Yellow + FG_Black,
-        "Info": BG_Black + FG_B_White,
-        "InProgress": BG_Black + FG_Yellow,
-        "None": None,
-        "End": FG_B_White + BG_Black,
+        LogType.Header.value: FG_B_White + BG_Black,
+        LogType.Error.value: BG_B_Red,
+        LogType.Fail.value: BG_Black + FG_B_Red,
+        LogType.Success.value: BG_Black + FG_B_Green,
+        LogType.Warning.value: BG_Yellow + FG_Black,
+        LogType.Info.value: BG_Black + FG_B_White,
+        LogType.InProgress.value: BG_Black + FG_Yellow,
+        LogType.NoneType.value: None,
+        LogType.End.value: FG_B_White + BG_Black,
+        LogType.Dash.value: FG_Black + BG_Red,
+    }
 
-        "-": FG_Black + BG_Red,
+    groups = {
+        LogGroup.LIB.value: False,
+        LogGroup.LIB_Debug.value: False,
+        LogGroup.ExampleFiles.value: False,
+        LogGroup.WarningError.value: True,
+        LogGroup.Showcase.value: True
     }
 
     # Static settings for the Debug class
@@ -27,7 +57,6 @@ class Debug:
     logger_enabled = False
     logger = None
     path:str=None
-    groups = {"LIB": False, "LIB_Debug":False, "exsampleFiles": False, "WarningError":True}  # Always have a default group enabled
     verbosity = 1
 
     @classmethod
@@ -78,8 +107,16 @@ class Debug:
 
 
     @classmethod
-    def log(cls, message: str, message_type: str = "-", group: str = None):
+    def log(cls, message: str, message_type: Union[str, LogType] = LogType.Dash, group: Union[str, LogGroup, None] = None):
         """Log a message."""
+
+        # Convert message_type to string if Enum
+        if isinstance(message_type, LogType):
+            message_type = message_type.value
+        
+        # Convert group to string if Enum
+        if isinstance(group, LogGroup):
+            group = group.value
 
         #sends the message to logbefore desiding to print it in terminal
 
@@ -90,8 +127,12 @@ class Debug:
         if cls.verbosity >= 2:
             verbose += f" : {info.filename}"
         if cls.verbosity >= 3:
+            verbose += f":{info.function}"    
+        if cls.verbosity >= 4:
             verbose += f":{info.lineno}"
- 
+        
+
+
         if cls.logger_enabled:
             Logger.log(message=message,message_type=message_type,group=group,verbose = info)
 
@@ -101,8 +142,6 @@ class Debug:
         # If a group is provided, only log messages from enabled groups
         if group and not cls.groups.get(group, True):
             return  # Skip messages from disabled groups
-
-        
 
         # Retrieve the type for the message type
         Type = cls.Type.get(message_type, "")
@@ -117,7 +156,7 @@ class Debug:
             case "Success":
                 print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "Warning":
-                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}")
+                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}")
             case "Info":
                 print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "InProgress":
