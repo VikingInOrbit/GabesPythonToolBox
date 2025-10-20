@@ -40,6 +40,7 @@ Documentation Here(in progress)
 - Unit tests
 - State Machine
 - Pyside6
+- Programin Patterns
 
 ## What's Next?
 - future code i need and want to shere
