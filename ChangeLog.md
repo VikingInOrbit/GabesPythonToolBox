@@ -1,15 +1,12 @@
 # Updates
 
-## x.x.x State machine update 
+## 1.8.0 State machine update 
 
 ### new things
 
 - Exsample script for stateswitcher
 - exsample states
-
-### bug Fix
-
-- somthing
+- state manager
 
 ### changes
 
@@ -18,9 +15,6 @@
 - Debug now uses enums for mesage grupes
 - Debug warning is now inline
 
-### breaking changes
-
-- somthing
 
 ## 1.7.2 PID Bug update 
 
