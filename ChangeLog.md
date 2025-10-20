@@ -1,5 +1,12 @@
 # Updates
 
+## 1.8.1 pip update 
+
+
+### bug Fix
+
+- new way of using pip (bandaid)
+
 ## 1.8.0 State machine update 
 
 ### new things
