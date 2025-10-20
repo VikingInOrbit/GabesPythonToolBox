@@ -1,0 +1,18 @@
+{
+    "rocet" : {
+        "StateMachine" : {
+            "States" : [
+                {
+                    "stateONE" : {
+                        "trancicion to" : "state2",
+                        "script" : "pointer to sctipt"
+                    },
+                    "statetwo" : {
+                        "trancicion to" : "state1",
+                        "script" : "pointer to sctipt"
+                    }
+                }
+            ]
+        }
+    }    
+}
