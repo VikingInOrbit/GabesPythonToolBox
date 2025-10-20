@@ -1,2 +1,10 @@
 __pycache__/
 *.egg-info/
+build
+.venv/
+*.log
+
+secrets/*
+!secrets/.gitkeep
+temp/
+log/

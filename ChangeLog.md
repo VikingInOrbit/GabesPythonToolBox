@@ -1,6 +1,97 @@
 # Updates
 
-## 1.6.0 update 
+## 1.8.0 State machine update 
+
+### new things
+
+- Exsample script for stateswitcher
+- exsample states
+- state manager
+
+### changes
+
+- Debug now uses enums for mesage types
+- Statemachine has now subcomponent state switcher
+- Debug now uses enums for mesage grupes
+- Debug warning is now inline
+
+
+## 1.7.2 PID Bug update 
+
+### changes
+
+- updating verson of dependencies
+
+## 1.7.1 PID Bug update 
+
+
+### bug Fix
+
+- updated PID logic
+
+### changes
+
+- updated pidtest to sim time
+- map.clamp now dont need both values
+
+### breaking changes
+
+- PID controler now need exsternal Delta time
+
+## 1.7.0 Data/Logger update 
+
+### bug Fix
+
+- yaml in dependencies
+
+## 1.7.0 Data/Logger update 
+
+### new things
+
+- json R/W
+- yaml R/W
+- csv W
+- DataRW
+- Logger
+
+### bug Fix
+
+- Debug is less error prone in import
+
+### changes
+
+- Config manager now uses DataRW
+- updataes testcsv
+- updated configmanager exsample to use json and yaml
+
+### breaking changes
+
+- CSV Read has changed place
+- Csv Datapipeline uses now new DataRW
+
+## 1.6.1 debug update 
+
+### new things
+
+- somthing
+
+### bug Fix
+
+- Config manager had a rouge variable
+- Updatet exsample files to use Debug format
+- Filter
+- Timer
+- Unit converter handeled farenhight bad
+- fixsed temprature on Unit converter
+- Added debug mesages to all exsamples and lib code
+
+### changes
+
+- How DataConsolPrinter handels data
+
+
+
+## 1.6.0 csv update 
 
 ### new things
 
@@ -15,6 +106,23 @@
 - debug.py fromating changes
 - debug.py reading to log mesages
 - updated __init__
+
+## 1.5.3 update 
+
+### changes
+
+- exsample configmanager json files
+
+### new things
+
+- add function in config manager
+
+## 1.5.2 update 
+
+### changes
+
+- script ducumentation
+- Dbug collors
 
 ## 1.5.1 Debug update 
 
@@ -100,5 +208,9 @@
 - somthing
 
 ### changes
+
+- somthing
+
+### breaking changes
 
 - somthing

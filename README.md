@@ -18,6 +18,9 @@ That’s it. You're good to go.
 
 ## Current Features
 
+### ControllSoftwere
+- StateManager
+
 ### Utility Functions
 Documentation Here(in progress)
 - Time Managment
@@ -37,16 +40,16 @@ Documentation Here(in progress)
 - a Quic refrence for norolised code snippets showing of programing patterns
 
 ## Working on
-- StateMachine
+- Unit tests
+- State Machine
+- Pyside6
 
 ## What's Next?
-- debugging and testing
 - future code i need and want to shere
 - QuaternionTools
 - SensorFusion
 - arduinio lib
 - InverseKinematics
-- StateMachine
 - csv telemetry frame reader ,w multipex suport
 - config manager gui
 - debug logfile

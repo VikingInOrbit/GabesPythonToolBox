@@ -1,59 +1,71 @@
 from ..Utility.Debug import *
-
-
 from ..DataProsesing.DataHelperFunctions import *
 
-def print_table(line, n:int=0, Topper:str=""):
-        Debug.log(f"print_table","Header",group="LIB")
-    
-        print()
-        total_length = len(line[0]) - 2 #accounting for | at start and end of line
-        Debug.log(f"Get total total_length:{total_length}","Info",group="LIB")
-        print("|" + "-" * total_length + "|")
+#TODO shood i make the tabele be printed in the Debug format?
+def print_table(data, n: int = 0, Topper: str = "", edje_seperator: str = "|", data_seperator: str = "|"):
+    Debug.log(f"print_table","Header",group="LIB")
 
-        if Topper:
-            Debug.log(f"printing topper: {Topper}","Info",group="LIB")
-            print(f"|{Topper: ^{total_length}}|")
+    # Determine if data needs formatting
+    if not all(isinstance(d, str) for d in data):
+        Debug.log("Data needs to be formatted", "Info", group="LIB")
+        line = format_data(data, edje_seperator=edje_seperator, data_seperator=data_seperator)
+    else:
+        Debug.log("Data does not need to be formatted", "Info", group="LIB")
+        line = data  # already a list of strings
 
-        print("|"+" " * total_length+"|")
+    print()
+    total_length = len(line[0]) - (2*len(edje_seperator))  # accounting for edje_seperator at start and end
+    Debug.log(f"Total line length: {total_length}", "Info", group="LIB")
 
-        if n <= 0:
-            Debug.log(f"Print hele data","Info",group="LIB")
-            for entry in line:
-                print(f"{entry}")
-        else:
-            n+=2 #accounting for header and n=0
-            Debug.log(f"print {n+2} lines","Info",group="LIB")
-            for i in range(min(n, len(line))):
-                print(line[i])
-        
-        Debug.log(f"print end","Info",group="LIB")
-        print("|"+" " * total_length+"|")
-        print("|" + "-" * total_length + "|")
+    border = f"{edje_seperator}{'-' * total_length}{edje_seperator}"
+    print(border)
 
-        Debug.log(f"print_table","End",group="LIB")
+    # Topper row
+    if Topper:
+        Debug.log(f"printing topper: {Topper}","Info",group="LIB")
+        topper_line = f"{edje_seperator}{Topper: ^{total_length}}{edje_seperator}"
+        print(topper_line)
 
-def format_data(data):
+    print(f"{edje_seperator}{' ' * total_length}{edje_seperator}")
+
+    if n <= 0:
+        Debug.log(f"Print hele data","Info",group="LIB")
+        for entry in line:
+            print(f"{entry}")
+    else:
+        n+=2 #accounting for header and n=0
+        Debug.log(f"print {n+2} lines","Info",group="LIB")
+        for i in range(min(n, len(line))):
+            print(line[i])
+
+    print(f"{edje_seperator}{' ' * total_length}{edje_seperator}")
+    print(border)
+
+    Debug.log(f"print_table","End",group="LIB")
+
+
+def format_data(data, edje_seperator: str = "|", data_seperator: str = "|"):
     Debug.log(f"format_data","Header",group="LIB")
     
     Debug.log(f"Get column with","Info",group="LIB")
+
+    # Calculate column widths
     col_widths = get_column_widths(data)
 
     lines = []
 
     # Header row
-    header_line = " | ".join(
-        f"{key.ljust(col_widths.get(key, len(key)))}"
-        for key in data[0].keys()
-    )
-
+    header_cells = [f"{key.ljust(col_widths.get(key, len(key)))}" for key in data[0].keys()]
+    header_line = f" {data_seperator} ".join(header_cells)
     Debug.log(f"make header line: {header_line}","Info",group="LIB")
+    lines.append(f"{edje_seperator}{header_line}{edje_seperator}")
 
-    lines.append(f"|{header_line}|")
-    lines.append("|" + "_" * (len(header_line)) + "|")  # underline
+    # Underline
+    underline = f"{edje_seperator}{'-' * len(header_line)}{edje_seperator}"
+    lines.append(underline)
 
     Debug.log(f"format data","Info",group="LIB")
-    # Data rows    
+    # Data rows
     for row in data:
         cells = []
         for key in data[0].keys():
@@ -80,11 +92,9 @@ def format_data(data):
             cell = cell.ljust(col_widths.get(key, len(cell)))
             cells.append(cell)
 
-        line = " | ".join(cells)
-
+        line = f" {data_seperator} ".join(cells)
         Debug.log(f"finished line: {line}","Info",group="LIB")
-        lines.append(f"|{line}|")
+        lines.append(f"{edje_seperator}{line}{edje_seperator}")
 
     Debug.log(f"format_data","End",group="LIB")
     return lines
-
