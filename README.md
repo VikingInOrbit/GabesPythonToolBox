@@ -39,6 +39,7 @@ Documentation Here(in progress)
 ## Working on
 - Unit tests
 - State Machine
+- Pyside6
 
 ## What's Next?
 - future code i need and want to shere
