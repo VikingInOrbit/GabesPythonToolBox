@@ -1,7 +1,7 @@
 from ...Utility import ConfigManager as CM
 from ...Utility.Debug import *
 
-class StateMachine:
+class StateSwitcher:
     def __init__(self, defaultStateName):
         Debug.log("StateMachine init", "Header", group="LIB")
         self.defaultStateName = defaultStateName
@@ -26,7 +26,7 @@ class StateMachine:
 
     def SwitchState(self, stateName):
         if stateName in self.States and stateName != self.State.name:
-            if stateName not in self.State.canSwitchTo:
+            if stateName not in self.State.canSwitchTo: #TODO self.State.canSwitchTo-> self.State.GetCanSwitchTo()
                 Debug.log(f"Cannot switch from {self.State.name} to {stateName}, can switch to {self.State.canSwitchTo}", LogType.Warning ,LogGroup.WarningError)
             self.State = self.States[stateName]
             self.State.Enter()
@@ -41,14 +41,14 @@ class StateMachine:
         return self.State.canSwitchTo
 
 
-def StartStateManager(filePath) -> StateMachine:
+def StartStateManager(filePath) -> StateSwitcher:
     Debug.log("Start State Manager", "Header", group="LIB")
     
     # Load state config from file (placeholder)
     states = None #StateFactory()  # returns list of State objects
     
     default_state_name = states[0].name if states else None
-    sm = StateMachine(default_state_name)
+    sm = StateSwitcher(default_state_name)
 
     for state in states:
         sm.AddState(state, setDefault=(state.name==default_state_name))

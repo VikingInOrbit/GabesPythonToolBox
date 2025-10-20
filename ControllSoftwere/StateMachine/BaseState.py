@@ -25,3 +25,11 @@ class BaseState(ABC):
     @abstractmethod
     def Update(self, **kwargs):
         pass
+
+    #TODO add/remove/get/set "canSwitchTo"
+
+
+def StateFactory(pointerTOScript):
+    State = None
+
+    return State
