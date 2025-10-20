@@ -1,11 +1,11 @@
 from ...Utility import ConfigManager as CM
 from ...Utility.Debug import *
-
+from ...ControllSoftwere.StateMachine.NoneState import NoneState
 class StateSwitcher:
     def __init__(self,startStates, default_state_name=None):
         Debug.log("StateSwitcher init", "Header", group="LIB")
         self.default_state_name = default_state_name
-        self.State = None
+        self.State = NoneState
         self.States = {}  # Dictionary: {state_name: state_instance}
         for addState in startStates.values(): #TODO flytt dette inn i manager
             self.AddState(addState, setDefault=(addState.name == default_state_name))
@@ -41,7 +41,7 @@ class StateSwitcher:
             return
 
         if state_name == self.State.name:
-            Debug.log(f"Already in state {state_name}.", LogType.Info, LogGroup.General)
+            Debug.log(f"Already in state {state_name}.", LogType.Info, LogGroup.LIB)
             return
 
         if state_name not in self.State.canSwitchTo:
