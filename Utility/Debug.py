@@ -156,7 +156,7 @@ class Debug:
             case "Success":
                 print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "Warning":
-                print(f"\n{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}")
+                print(f"{cls.R}{Type}_-_-_- {message} -_-_-_{verbose}{cls.R}")
             case "Info":
                 print(f"{cls.R}{Type}{message}{verbose}{cls.R}")
             case "InProgress":

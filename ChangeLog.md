@@ -16,6 +16,7 @@
 - Debug now uses enums for mesage types
 - Statemachine has now subcomponent state switcher
 - Debug now uses enums for mesage grupes
+- Debug warning is now inline
 
 ### breaking changes
 
