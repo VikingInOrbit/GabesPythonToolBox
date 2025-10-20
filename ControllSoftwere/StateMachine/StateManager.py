@@ -13,9 +13,9 @@ class StateManager:
 
         self.state_switcher = StateSwitcher(startStates, default_state_name=defaultStateName)
 
-    def RequestState(self, target_state_name,teleport): #TODO teleport means dont find a path just switch
+    def RequestState(self, target_state_name,Teleport:bool=False): #TODO teleport means dont find a path just switch
         """Try to move to a target state. Returns (success, path)."""
-        current_name = self.state_switcher.GetCurrentStateName()
+        current_name = self.GetCurrentStateName()
         if not current_name:
             Debug.log("No current state. Forcing switch.", LogType.Warning, LogGroup.WarningError)
             self.state_switcher.SwitchState(target_state_name)
@@ -23,6 +23,11 @@ class StateManager:
 
         if target_state_name == current_name:
             Debug.log(f"Already in {target_state_name}", "Info", group="LIB")
+            return True, [{"state": target_state_name, "current": True}]
+        
+        if Teleport:
+            Debug.log(f"Teleported from: {current_name} to target_state_name", LogType.Info, LogGroup.LIB)
+            self.state_switcher.SwitchState(target_state_name)
             return True, [{"state": target_state_name, "current": True}]
 
         # BFS to find a valid path from current to target
@@ -64,3 +69,17 @@ class StateManager:
 
     def update(self,**kwargs):
         self.state_switcher(**kwargs)
+
+    def RequestDefaultState(self,Teleport:bool=False):
+        if Teleport:
+            self.state_switcher.DefaultState()
+            return
+        
+        target_state_name = self.GetCurrentStateName()
+        self.RequestState(target_state_name)
+
+    def GetCurrentStateName(self):
+        return self.state_switcher.GetCurrentStateName()
+    
+    def GetDefaultStateName(self):
+        return self.state_switcher.GetDefaultStateName()

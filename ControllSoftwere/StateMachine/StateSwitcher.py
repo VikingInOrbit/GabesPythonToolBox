@@ -20,7 +20,7 @@ class StateSwitcher:
         """Register a state instance."""
         self.States[state.name] = state
         if setDefault or self.default_state_name is None:
-            self.default_state_name = state
+            self.default_state_name = state.name
         
 
     def RemoveState(self, state_name):
@@ -58,11 +58,14 @@ class StateSwitcher:
 
     def DefaultState(self):
         """Switch to default state if it exists."""
-        if self.default_state_name and self.default_state_name in self.States:
+        if self.default_state_name:
             self.SwitchState(self.default_state_name)
 
     def GetCurrentStateName(self):
         return self.State.name if self.State else None
+    
+    def GetDefaultStateName(self):
+        return self.default_state_name
 
     def GetStatesCanSwitchTo(self):
         """Returns allowed transitions from current state."""
