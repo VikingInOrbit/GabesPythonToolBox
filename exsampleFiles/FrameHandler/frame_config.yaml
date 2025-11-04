@@ -1,0 +1,12 @@
+frames:
+  1:
+    variables: [Flag:hex, Count:int, Time:int, var1:int, var2.1:float, var3:int, var4:float, Cs:hex]
+  2:
+    variables: [Flag:hex, Count:int, Time:int, var1:int, var2.2:float, var5:float, var6:float, Cs:hex]
+  3:
+    variables: [Flag:hex, Count:int, Time:int, var1:int, var2.3:float, var3:int, var7:float, Cs:hex]
+  4:
+    variables: [Flag:hex, Count:int, Time:int, var1:int, var2.4:float, var5:float, var8:float, Cs:hex]
+settings:
+  checksum: true
+  flag_prefix: "flag-"

@@ -33,7 +33,7 @@ def write_csv(
     try:
         with open(file_path, mode=mode, newline="", encoding=encoding) as f:
             writer = csv.DictWriter(f, fieldnames=headers, delimiter=seperator_symbol)
-            print(data_mode)
+            Debug.log(f"data_mode:{data_mode}",LogType.Info,LogGroup.LIB_Debug)
             print_header = False
             print_boady = False
 

@@ -1,5 +1,23 @@
 # Updates
 
+## x.x.x Frame update 
+
+### new things
+
+- FrameHandler.py
+
+### bug Fix
+
+- csvWriter print changed to debug
+
+### changes
+
+- somthing
+
+### breaking changes
+
+- somthing
+
 ## 1.8.2 csv update 
 
 
