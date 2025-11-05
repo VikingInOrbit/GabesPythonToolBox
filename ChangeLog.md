@@ -5,6 +5,7 @@
 ### new things
 
 - FrameHandler.py
+- serial swite
 
 ### bug Fix
 
