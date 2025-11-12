@@ -8,3 +8,4 @@ secrets/*
 !secrets/.gitkeep
 temp/
 log/
+.vscode/
