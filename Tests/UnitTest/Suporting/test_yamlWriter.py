@@ -2,7 +2,7 @@ import pytest
 from GabesPythonToolBox.Suporting.yamlWriter import write_yaml
 import os
 import yaml
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_yaml_test,sample_data,Complex_data,New_data
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_yaml_test,sample_data,Complex_data,New_data
 
 # Tests
 def test_write_yaml_creates_file(tmp_path):

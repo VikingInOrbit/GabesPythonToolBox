@@ -1,12 +1,22 @@
 import pytest
 from GabesPythonToolBox.Suporting.csvWriter import write_csv
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_csv_test,sample_data
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_csv_test,sample_data,write_json_test
 
 # Tests
 def test_write_csv_creates_file(tmp_path):
     test_file = tmp_path / "test.csv"
     write_csv(test_file, sample_data)
     assert test_file.exists()
+
+def test_write_csv_exception_handling(tmp_path):
+    
+    invalid_file_path = tmp_path / "some_dir"
+    invalid_file_path.mkdir()
+
+    with pytest.raises(Exception) as exc_info:
+        write_csv(invalid_file_path, sample_data)
+
+    assert "some_dir" in str(exc_info.value)
 
 def test_write_csv_headers_and_body(tmp_path):
     test_file = tmp_path / "test.csv"

@@ -1,7 +1,7 @@
 import pytest
 from GabesPythonToolBox.Suporting.jsonWriter import write_json
 import json
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_json_test,sample_data,Complex_data,New_data
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_json_test,sample_data,Complex_data,New_data
 
 # Tests
 def test_write_json_creates_file(tmp_path):

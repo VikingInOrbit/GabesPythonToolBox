@@ -1,6 +1,6 @@
 import pytest
 import GabesPythonToolBox.Utility.ConfigManager as CM
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import read_json_test,read_yaml_test,write_config_test,sample_config
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_json_test,read_yaml_test,write_config_test, sample_config
 
 #Core Functionality Tests
 

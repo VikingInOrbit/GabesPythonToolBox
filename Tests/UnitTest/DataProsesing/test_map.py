@@ -1,6 +1,6 @@
 import pytest
 import GabesPythonToolBox.DataProsesing.map as map
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
 
 # Map tests
 
@@ -25,9 +25,13 @@ def test_map_reversed_input_range():
 def test_map_type_error():
     with pytest.raises(TypeError):
         map.Map("a", 0, 10, 0, 100)
+    with pytest.raises(TypeError):
         map.Map(0, "a", 10, 0, 100)
+    with pytest.raises(TypeError):
         map.Map(10, 0, "a", 0, 100)
+    with pytest.raises(TypeError):
         map.Map(0, 0, 10, "a", 100)
+    with pytest.raises(TypeError):
         map.Map(100, 0, 10, 0, "a")
 
 
@@ -56,9 +60,13 @@ def test_clampmap_below_min():
 def test_clampmap_type_error():
     with pytest.raises(TypeError):
         map.Map("a", 0, 10, 0, 100)
+    with pytest.raises(TypeError):
         map.Map(0, "a", 10, 0, 100)
+    with pytest.raises(TypeError):
         map.Map(10, 0, "a", 0, 100)
+    with pytest.raises(TypeError):
         map.Map(0, 0, 10, "a", 100)
+    with pytest.raises(TypeError):
         map.Map(100, 0, 10, 0, "a")
 
 # ClampMap tests
@@ -86,6 +94,8 @@ def test_clamp_no_limits():
 def test_clamp_type_error():
     with pytest.raises(TypeError):
         map.Map("a", 0, 10)
+    with pytest.raises(TypeError):
         map.Map(0, "a", 10)
+    with pytest.raises(TypeError):
         map.Map(10, 0, "a")
         

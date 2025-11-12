@@ -1,6 +1,6 @@
 import pytest
 from GabesPythonToolBox.Suporting.jsonReader import read_json
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import write_json_test,sample_data,Complex_data
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import write_json_test,sample_data,Complex_data
 
 import json
 

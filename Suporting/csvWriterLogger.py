@@ -1,7 +1,7 @@
 
 import copy
 import csv
-
+#TODO make it one file again
 #this is a direct coppy of csvWriter and oly exsists sice circular import isues
 
 def write_csv(

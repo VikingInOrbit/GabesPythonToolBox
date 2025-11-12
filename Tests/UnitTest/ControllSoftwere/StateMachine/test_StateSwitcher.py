@@ -1,6 +1,6 @@
 import pytest
 from GabesPythonToolBox.ControllSoftwere.StateMachine.StateSwitcher import *
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import Nothing
 #TODO
 
 def test_doc():

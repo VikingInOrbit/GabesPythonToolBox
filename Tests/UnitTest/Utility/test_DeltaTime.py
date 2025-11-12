@@ -1,6 +1,6 @@
 import pytest
 from GabesPythonToolBox.Utility.DeltaTime import DeltaTime, DeltaTimer
-from GabesPythonToolBox.UnitTest.UnitTestComon.UntTestUtility import almost_equal
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
 import time
 
 #DeltaTime tests

@@ -5,7 +5,7 @@ import yaml
 import os
 
 def Nothing():
-    return
+    ...
 
 def almost_equal(a, b, tol=1e-6):
     return abs(a - b) < tol
