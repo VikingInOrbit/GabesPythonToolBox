@@ -51,6 +51,7 @@ Documentation Here(in progress)
 - csv telemetry frame reader ,w multipex suport
 - config manager gui
 - debug logfile
+- Sorting of file structure (No new peojects before done)
 
 
 ##  Why Should You Use This?
