@@ -1,5 +1,37 @@
 # Updates
 
+
+## 1.x.2 get to 80% update 
+
+### new things
+
+- Suproting 100%
+
+- Utility
+    - collor 100%
+    - deltatime 98%
+
+- Data Prosesing
+    - csv data pipeline 100%
+    - filter 96%
+    - map 91%
+
+- contol softwere
+    - State machine
+        - x 0%
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- somthing
+
+### breaking changes
+
+- somthing
+
 ## 1.x.1 location update 
 
 ### new things

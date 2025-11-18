@@ -1,5 +1,5 @@
 import pytest
-from GabesPythonToolBox.Utility.DeltaTime import DeltaTime, DeltaTimer
+from GabesPythonToolBox.Utility.DeltaTime import DeltaTime, DeltaTimer,StartDeltaTimer
 from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
 import time
 
@@ -16,24 +16,29 @@ def test_deltatime_basic():
 
 #DeltaTimer tests
 
+
 def test_deltatimer_start_and_update():
-    timer = DeltaTimer(0.05)  # 50ms timer
+    timer = StartDeltaTimer(0.05)  # 50ms timer
     # Initially not started
-    assert timer.Update() is False
+    assert timer() is False
     assert not timer.Finished
     # Start timer
     timer.startTimer()
     time.sleep(0.02)
-    finished = timer.Update()
+    finished = timer()
     assert finished is False
     # timeLeft should decrease
     assert timer.timeLeft < timer.duration
+    # chek finished
+    time.sleep(0.04)
+    finished = timer()
+    assert finished is True
 
 def test_deltatimer_finish():
     timer = DeltaTimer(0.03)
     timer.startTimer()
     time.sleep(0.05)
-    finished = timer.Update()
+    finished = timer()
     assert finished is True
     assert timer.Finished
     assert timer.timeLeft <= 0
@@ -58,6 +63,8 @@ def test_deltatimer_stop():
     timer.stopTimer()
     assert timer.Finished
     assert timer.timeLeft == timer.timeLeft  # no change after stop
+    finished = timer()
+    assert finished is True
 
 
 def test_deltatimer_recurrent_start_finish():
@@ -69,6 +76,6 @@ def test_deltatimer_recurrent_start_finish():
     while i < test_runs:
         timer.startTimer()
         time.sleep(0.05)
-        assert timer.Update() is True
+        assert timer() is True
         assert timer.Finished
         i+=1
