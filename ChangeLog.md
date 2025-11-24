@@ -12,6 +12,7 @@
     - deltatime 98%
     - UnitConverter 100%
     - config manager 100%
+    - logger 100%
 
 - Data Prosesing
     - csv data pipeline 100%
