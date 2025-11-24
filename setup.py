@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='GabrielsPythonToolBox',          
-    version='1.8.0',                       # "fundemental change"."finished feature"."bug fix"
+    version='1.9.2',                       # "fundemental change"."finished feature"."bug fix"
     packages=find_packages(),              
     install_requires=[                     
         "matplotlib>=3.10.6,<3.11",

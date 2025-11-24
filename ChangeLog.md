@@ -1,7 +1,7 @@
 # Updates
 
 
-## 1.x.2 get to 90% update 
+## 1.9.2 get to 90% update 
 
 ### new things
 
@@ -38,7 +38,7 @@
 
 - somthing
 
-## 1.x.1 location update 
+## 1.9.1 location update 
 
 ### new things
 
@@ -49,7 +49,7 @@
 
 - file structure
 
-## 1.x.0 Test update 
+## 1.9.0 Test update 
 
 ### new things
 
