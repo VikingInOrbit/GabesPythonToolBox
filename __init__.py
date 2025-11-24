@@ -1,8 +1,7 @@
-""" "import as GTB"""
+__all__ = []
+__version__ = "1.9.2"
 
-"""pip install . --upgrade"""
-
-
+"""
 # -----------------------------
 # DataProsesing
 # -----------------------------
@@ -70,3 +69,4 @@ __all__ = [  # TODO må lese mer om hvordan __all__ fungerer
     # UnitTest
     "UntTestUtility",
 ]
+"""
