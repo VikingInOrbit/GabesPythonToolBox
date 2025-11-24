@@ -4,6 +4,13 @@ import yaml
 
 import os
 
+def read_config(cfg_str):
+    """
+    Parse JSON string `cfg_str` and return a dict.
+    Bruk: read_config(config) eller read_config(confi2)
+    """
+    return json.loads(cfg_str)
+
 def Nothing():
     ...
 
