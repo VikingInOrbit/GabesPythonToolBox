@@ -50,6 +50,7 @@ Documentation Here(in progress)
 - Unit tests
 - State Machine
 - Pyside6
+- Programin Patterns
 
 ## What's Next?
 - future code i need and want to shere
@@ -60,6 +61,7 @@ Documentation Here(in progress)
 - csv telemetry frame reader ,w multipex suport
 - config manager gui
 - debug logfile
+- Sorting of file structure (No new peojects before done)
 
 
 ##  Why Should You Use This?

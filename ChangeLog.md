@@ -1,6 +1,5 @@
 # Updates
 
-
 ## 1.9.2 get to 90% update 
 
 ### new things
@@ -70,6 +69,19 @@
 
 - Exsample is no longer the main way of testing the code
 
+## 1.8.2 csv update 
+
+
+### bug Fix
+
+- csw noe debugs again
+
+## 1.8.1 pip update 
+
+
+### bug Fix
+
+- new way of using pip (bandaid)
 
 ## 1.8.0 State machine update 
 
