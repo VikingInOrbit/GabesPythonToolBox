@@ -1,5 +1,11 @@
 # Updates
 
+## 1.10.0 Lib update 
+
+### braking changes
+
+- pyproject.toml insted of setup.py
+
 ## 1.9.2 get to 90% update 
 
 ### new things
