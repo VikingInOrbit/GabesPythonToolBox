@@ -7,7 +7,7 @@ from ..Suporting.csvWriter import *
 from ..Suporting.jsonWriter import *
 from ..Suporting.yamlWriter import *
 
-#from ..Utility.Debug import Debug
+from ..Utility.Debug import Debug
 
 
 def write_data(file_path,data, **kwargs):
@@ -15,7 +15,7 @@ def write_data(file_path,data, **kwargs):
     directory = os.path.dirname(file_path)
     if directory and not os.path.exists(directory):
         os.makedirs(directory, exist_ok=True)
-        #Debug.log(f"Dir did not exist, created it: {directory}", "Warning", group="WarningError")
+        Debug.log(f"Dir did not exist, created it: {directory}", "Warning", group="WarningError")
 
     ext = os.path.splitext(file_path)[1].lower()
 

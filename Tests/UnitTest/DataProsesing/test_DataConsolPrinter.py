@@ -5,3 +5,5 @@ from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import Nothing
 
 def test_doc():
     assert True
+
+#ingen ide hvordan teste disse
