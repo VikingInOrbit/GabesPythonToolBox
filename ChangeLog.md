@@ -1,5 +1,11 @@
 # Updates
 
+## 1.10.1 Lib structure update 
+
+### braking changes
+
+- everything has moved, imports shood be the same
+
 ## 1.10.0 Lib update 
 
 ### braking changes

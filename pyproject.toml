@@ -27,8 +27,8 @@ testing = [
 "Repository" = "https://github.com/NorgeSkiFollo/GabesPythonToolBox.git"
 
 [tool.setuptools.packages.find]
-where = ["."]
-exclude = ["tests*", "docs*"]
+where = ["GabesPythonToolBox"]
+exclude = ["tests*", "Tests*", "docs*"]
 
 [tool.black]
 line-length = 88

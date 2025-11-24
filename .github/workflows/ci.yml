@@ -44,8 +44,23 @@ jobs:
         # install from repo root so pyproject.toml optional deps are available
         run: python -m pip install -e ".[testing]"
 
-      - name: Ensure repo on PYTHONPATH for tests (optional)
+      - name: Ensure repo on PYTHONPATH (optional)
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Debug Python path and import package
+        run: |
+          python - <<'PY'
+import sys, importlib
+print("=== sys.path ===")
+for p in sys.path:
+    print(" -", p)
+try:
+    mod = importlib.import_module("GabesPythonToolBox")
+    print("Imported GabesPythonToolBox from:", getattr(mod, "__file__", "<built-in>"))
+except Exception as e:
+    print("Import failed:", repr(e))
+    raise
+PY
 
       - name: Run tests with coverage
         run: pytest -q --cov=GabesPythonToolBox --cov-report=xml
