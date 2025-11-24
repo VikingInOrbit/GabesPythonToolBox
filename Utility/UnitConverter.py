@@ -1,4 +1,3 @@
-import GabesPythonToolBox.Utility.ConfigManager as CM  # will be used in future
 from ..Utility.Debug import Debug
 
 
@@ -36,14 +35,14 @@ class UnitsConverter:
         from_conf = dim_conf[from_unit]
         to_conf = dim_conf[to_unit]
 
-        # Determine if this is a temperature-style unit (has offset)
+        # Determine if this has offset
         if "offset" in from_conf or "offset" in to_conf:
             from_coef = from_conf.get("coefficient", 1)
             from_offset = from_conf.get("offset", 0)
             to_coef = to_conf.get("coefficient", 1)
             to_offset = to_conf.get("offset", 0)
 
-            # Convert to base (e.g., Kelvin) then to target
+            # Convert to base then to target
             value_in_base = (value - from_offset) / from_coef
             converted = value_in_base * to_coef + to_offset
         else:
