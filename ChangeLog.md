@@ -7,7 +7,7 @@
 
 - Suproting 100%
 
-- Utility 98.5%
+- Utility 99%
     - collor 100%
     - deltatime 98%
     - UnitConverter 100%
@@ -15,7 +15,7 @@
     - logger 100%
     - debug 97%
 
-- Data Prosesing
+- Data Prosesing 52%
     - csv data pipeline 100%
     - filter 96%
     - map 91%
@@ -24,7 +24,7 @@
 
 - contol softwere
     - State machine
-        - x 0%
+        - will not be tested at this moment
 
 ### bug Fix
 
