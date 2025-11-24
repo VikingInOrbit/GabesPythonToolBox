@@ -8,6 +8,9 @@ setup(
         "matplotlib>=3.10.6,<3.11",
         "PyYAML>=6.0.2,<7.0",
         "pytest>=8.4.2,<8.5",
+        "pytest-cov",
+        "pytest",
+        "setuptools"
 
 
     ],

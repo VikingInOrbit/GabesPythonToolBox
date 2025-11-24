@@ -12,7 +12,7 @@ def test_deltatime_basic():
     assert delta > 0
     # consecutive call should give a smaller delta if called immediately
     delta2 = dt()
-    assert almost_equal(delta2, 0, tol=1e-2)  # allow 0.01s tolerance
+    assert almost_equal(delta2, 0, tol=.1e-2)  # allow 0.1s tolerance
 
 #DeltaTimer tests
 

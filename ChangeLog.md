@@ -1,18 +1,19 @@
 # Updates
 
 
-## 1.x.2 get to 80% update 
+## 1.x.2 get to 90% update 
 
 ### new things
 
 - Suproting 100%
 
-- Utility
+- Utility 98.5%
     - collor 100%
     - deltatime 98%
     - UnitConverter 100%
     - config manager 100%
     - logger 100%
+    - debug 97%
 
 - Data Prosesing
     - csv data pipeline 100%
