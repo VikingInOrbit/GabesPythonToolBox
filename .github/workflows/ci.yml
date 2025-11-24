@@ -25,7 +25,8 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
       - name: Install dependencies
         run: python -m pip install --upgrade pip build
-
+      - name: Install package and test deps
+        run: python -m pip install -e ".[testing]"
       - name: Install package and test deps (verbose)
         run: |
           python -m pip install --upgrade pip setuptools wheel -v
