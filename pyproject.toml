@@ -13,12 +13,14 @@ requires-python = ">=3.8"
 dependencies = [
   "matplotlib>=3.10.6,<3.11",
   "PyYAML>=6.0.2,<7.0",
-  "GabrielsPythonToolBox"
+  "GabrielsPythonToolBox",
+  "pytest-cov",
+  "pytest"
 ]
 
 [project.optional-dependencies]
 testing = [
-  "pytest>=8.4.2,<8.5",
+  "pytest",
   "pytest-cov",
   "coverage",
 ]
