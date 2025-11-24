@@ -1,5 +1,74 @@
 # Updates
 
+## 1.9.2 get to 90% update 
+
+### new things
+
+- Suproting 100%
+
+- Utility 99%
+    - collor 100%
+    - deltatime 98%
+    - UnitConverter 100%
+    - config manager 100%
+    - logger 100%
+    - debug 97%
+
+- Data Prosesing 52%
+    - csv data pipeline 100%
+    - filter 96%
+    - map 91%
+    - PID 98%
+    - data swite will not be tested at this moment
+
+- contol softwere
+    - State machine
+        - will not be tested at this moment
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- somthing
+
+### breaking changes
+
+- somthing
+
+## 1.9.1 location update 
+
+### new things
+
+- Base Unit test
+- 100% suporting
+
+### breaking changes
+
+- file structure
+
+## 1.9.0 Test update 
+
+### new things
+
+- Unit test
+- UnitTestUtilities.py
+
+### bug Fix
+
+- somthing
+
+### changes
+
+- yamlWriter now suports mode=a the right way
+- Exsamlpe files now change name to exsample and not test
+- all suporting script tests uptated to use the test util
+
+### breaking changes
+
+- Exsample is no longer the main way of testing the code
+
 ## 1.8.2 csv update 
 
 

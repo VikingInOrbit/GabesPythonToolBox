@@ -1,6 +1,6 @@
 from GabesPythonToolBox.Utility.Debug import Debug
 Debug.add_group('Showcase', True)
-Debug.add_group('LIB', True)
+Debug.add_group('LIB', False)
 
 path = "exsampleFiles/temp/log/"
 Debug.set_log_enabled(path, enabled=False)
@@ -18,7 +18,7 @@ class SimpleSystem:
         self.current_value = initial_value
         self.gain = gain
         self.resistance = resistance  # Resistance to change
-        self.delay = delay  # Time lag effect
+        self.delay = delay  # Time lag effect #TODO shood use dt
         self.previous_value = initial_value
         self.min_control_signal = min_control_signal
         self.max_control_signal = max_control_signal
@@ -80,7 +80,7 @@ def test():
     Debug.log(f"Simulation finished. ", "End", group="Showcase")
 
     graph(results)
-    val_graph(results)
+    #val_graph(results)
 
 
 

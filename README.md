@@ -16,6 +16,16 @@ using "import GabesPythonToolBox as GTB" for all
 or import "GabesPythonToolBox.Category.lib as (XX)"
 That’s it. You're good to go.
 
+### comands
+#### unit test
+'''
+pytest UnitTest -v
+'''
+#### get filestucture
+'''
+tree /F /A > folder_tree.txt
+'''
+
 ## Current Features
 
 ### ControllSoftwere

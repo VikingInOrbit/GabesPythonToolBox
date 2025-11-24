@@ -73,6 +73,9 @@ def read_csv(file_path, seperator_symbol: str = ',', float_symbol: str = '.', re
         # Process each line using the helper
         for line in lines:
             values = process_line(line, seperator_symbol, float_symbol)
+            if not values:
+                Debug.log(f"emty row","Info",group="LIB_Debug")
+                continue  # skip empty lines
             row = {header[i]: values[i] for i in range(len(header))}
             Debug.log(f"row:\n{row}\n\n","Info",group="LIB_Debug")
             data.append(row)
