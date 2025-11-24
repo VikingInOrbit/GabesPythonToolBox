@@ -1,7 +1,7 @@
 import pytest
 
 from GabesPythonToolBox.Suporting.csvReader import process_line, read_csv
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import write_csv_for_test
+from Tests.UnitTestComon.UntTestUtility import write_csv_for_test
 
 # Sample CSV content
 csv_lines = [

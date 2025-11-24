@@ -4,7 +4,7 @@ import pytest
 import yaml
 
 from GabesPythonToolBox.Suporting.yamlWriter import write_yaml
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import (
     Complex_data,
     New_data,
     read_yaml_test,

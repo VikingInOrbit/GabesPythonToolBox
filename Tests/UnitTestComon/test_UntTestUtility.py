@@ -1,7 +1,7 @@
 import pytest
 
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import *
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import *
+from Tests.UnitTestComon.UntTestUtility import (
     Generate_sequence,
     Nothing,
     almost_equal,

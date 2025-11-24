@@ -3,7 +3,7 @@ import copy
 import pytest
 
 import GabesPythonToolBox.Utility.ConfigManager as CM
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import (
     read_json_test,
     read_yaml_test,
     sample_config,

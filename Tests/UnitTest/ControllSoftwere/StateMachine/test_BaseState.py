@@ -1,7 +1,7 @@
 import pytest
 
 from GabesPythonToolBox.ControllSoftwere.StateMachine.BaseState import *
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import Nothing
+from Tests.UnitTestComon.UntTestUtility import Nothing
 
 # TODO
 

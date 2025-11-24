@@ -1,7 +1,7 @@
 import pytest
 
 import GabesPythonToolBox.DataProsesing.map as map
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
+from Tests.UnitTestComon.UntTestUtility import almost_equal
 
 # Map tests
 

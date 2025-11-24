@@ -3,7 +3,7 @@ import json
 import pytest
 
 from GabesPythonToolBox.Suporting.jsonWriter import write_json
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import (
     Complex_data,
     New_data,
     read_json_test,

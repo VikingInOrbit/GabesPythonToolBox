@@ -1,10 +1,7 @@
 import pytest
 
 from GabesPythonToolBox.DataProsesing.filter import Filter, newFilter
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
-    Generate_sequence,
-    almost_equal,
-)
+from Tests.UnitTestComon.UntTestUtility import Generate_sequence, almost_equal
 
 # Tests
 

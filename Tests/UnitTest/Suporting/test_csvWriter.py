@@ -1,7 +1,7 @@
 import pytest
 
 from GabesPythonToolBox.Suporting.csvWriter import write_csv
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import (
     read_csv_test,
     sample_data,
     write_json_test,

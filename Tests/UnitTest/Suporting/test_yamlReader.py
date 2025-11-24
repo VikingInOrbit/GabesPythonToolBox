@@ -1,7 +1,7 @@
 import pytest
 
 from GabesPythonToolBox.Suporting.yamlReader import read_ymal
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+from Tests.UnitTestComon.UntTestUtility import (
     Complex_data,
     sample_data,
     write_yaml_test,
