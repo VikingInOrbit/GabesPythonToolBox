@@ -80,30 +80,39 @@ class ConfigManager:
     
         :param key: (str) Key to update (e.g., 'robot_legs.leg_1.joints[0].pid.kp').
         :param value: New value to set.
-        :raises KeyError: If the key does not exist in the configuration.
+        :raises Exception: If the key path does not exist or types do not match.
         """
         Debug.log(f"ConfigManager update","Header",group="LIB")
         
+        if self.config is None:
+            raise Exception("No configuration loaded to update.")
+
         keys = key.split('.')
         config_section = self.config
 
-        for i, k in enumerate(keys[:-1]):
-            # Detect array indices in keys (e.g., 'active[0]')
-            if "[" in k and "]" in k:
-                array_key, index = k[:-1].split("[")
-                config_section = config_section[array_key][int(index)]
-            else:
-                k = int(k) if k.isdigit() else k  # Convert to integer for list indices
-                config_section = config_section[k]
+        try:
+            # Traverse to the parent of the final key
+            for k in keys[:-1]:
+                if "[" in k and k.endswith("]"):
+                    array_key, index = k[:-1].split("[")
+                    array_key = int(array_key) if str(array_key).isdigit() else array_key
+                    config_section = config_section[array_key][int(index)]
+                else:
+                    k_idx = int(k) if str(k).isdigit() else k
+                    config_section = config_section[k_idx]
 
-            # Handle the final key
+
             final_key = keys[-1]
-            if "[" in final_key and "]" in final_key:
+            if "[" in final_key and final_key.endswith("]"):
                 array_key, index = final_key[:-1].split("[")
+                array_key = int(array_key) if str(array_key).isdigit() else array_key
                 config_section[array_key][int(index)] = value
             else:
-                final_key = int(final_key) if final_key.isdigit() else final_key
-                config_section[final_key] = value
+                final_key_idx = int(final_key) if str(final_key).isdigit() else final_key
+                config_section[final_key_idx] = value
+
+        except (KeyError, IndexError, TypeError) as e:
+            raise Exception(f"Failed to update key '{key}': {e}")
 
         Debug.log(f"ConfigManager update","End",group="LIB")
 

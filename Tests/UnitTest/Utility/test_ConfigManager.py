@@ -1,8 +1,13 @@
 import pytest
+import copy
 import GabesPythonToolBox.Utility.ConfigManager as CM
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_json_test,read_yaml_test,write_config_test, sample_config
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+    read_json_test,
+    read_yaml_test,
+    write_config_test,
+    sample_config,
+)
 
-#Core Functionality Tests
 
 @pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
 def test_load_and_call(tmp_path, ext):
@@ -91,15 +96,15 @@ def test_start_config_manager_factory(tmp_path, ext):
     assert isinstance(cm, CM.ConfigManager)
     assert cm()["projects"]["active"][1]["title"] == "Drone Swarm Control"
 
+def test_update_no_config():
+    # ensure __call__'s "no Config Loaded" path runs
+    cm = CM.ConfigManager()  # no path -> config stays None
+    assert cm() is None
 
-
-#Error Handling Tests
-
-
-def test_missing_file_raises(tmp_path):
-    missing = tmp_path / "not_found.json"
+def test_missing_file_raises_explicit(tmp_path):
+    missing = tmp_path / "definitely_missing_config.json"
     with pytest.raises(FileNotFoundError):
-        CM.ConfigManager(str(missing))
+        CM.ConfigManager(str(missing))  # pass string so loadConfig is invoked
 
 
 def test_invalid_extension_raises(tmp_path):
@@ -114,3 +119,68 @@ def test_invalid_json_content_raises(tmp_path):
     bad_file.write_text("{ bad json data", encoding="utf-8")
     with pytest.raises(Exception):
         CM.ConfigManager(str(bad_file))
+
+
+def test_init_without_path_and_call_returns_none():
+    cm = CM.ConfigManager()  # no path provided
+    assert cm.config is None
+    assert cm() is None  
+
+@pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
+def test_default_config_is_deepcopy_and_independent(tmp_path, ext):
+    file = tmp_path / f"deepcopy_test{ext}"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+    cm.config["students"][0]["name"] = "ChangedName"
+    assert cm.defaultConfig["students"][0]["name"] == "Alice"
+
+@pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
+def test_add_merges_dict_and_ignores_non_dict(tmp_path, ext):
+    file = tmp_path / f"add_test{ext}"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+
+    cm.add({"new_section": {"a": 1}})
+    assert "new_section" in cm.config
+    assert cm.config["new_section"]["a"] == 1
+
+    before = copy.deepcopy(cm.config)
+    cm.add(["not", "a", "dict"])
+    assert cm.config == before
+
+def test_update_nonexistent_key_raises(tmp_path):
+    file = tmp_path / "noexist.json"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+
+    with pytest.raises(Exception):
+        cm.update("this.key.does.not.exist", 123)
+
+@pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
+def test_save_with_empty_path_returns_without_writing(tmp_path, ext):
+    file = tmp_path / f"saveempty{ext}"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+
+    cm.save("")
+    reloaded = CM.ConfigManager(str(file))()
+    assert reloaded["university"]["name"] == sample_config["university"]["name"]
+
+def test_update_top_level_key_updates(tmp_path):
+    file = tmp_path / "toplevel_update.json"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+
+    cm.update("university", {"name": "Techville Institute"})
+    assert cm.config["university"]["name"] == "Techville Institute"
+
+def test_update_final_key_index_replaces_list_item(tmp_path):
+    file = tmp_path / "update_final_index.json"
+    write_config_test(file, sample_config)
+    cm = CM.ConfigManager(str(file))
+
+    new_student = {"name": "Zoe", "project": "Quantum UI"}
+    cm.update("students[0]", new_student)
+
+    assert cm.config["students"][0]["name"] == "Zoe"
+    assert cm.config["students"][0]["project"] == "Quantum UI"
