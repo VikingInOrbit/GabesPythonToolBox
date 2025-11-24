@@ -31,23 +31,7 @@ jobs:
 
       - name: Install package and test deps (editable)
         run: python -m pip install -e ./GabesPythonToolBox[testing]
-
-      - name: Debug import and sys.path
-        run: |
-          python - <<'PY'
-import sys, traceback, os
-print("cwd:", os.getcwd())
-print("env PYTHONPATH:", os.environ.get("PYTHONPATH"))
-print("sys.path (first 10):")
-for p in sys.path[:10]:
-    print(" ", p)
-try:
-    import GabesPythonToolBox
-    print("Imported GabesPythonToolBox from:", getattr(GabesPythonToolBox, "__file__", repr(GabesPythonToolBox)))
-except Exception:
-    traceback.print_exc()
-PY
-
+        
       - name: Ensure repo on PYTHONPATH for tests
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
