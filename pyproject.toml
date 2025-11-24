@@ -12,7 +12,8 @@ authors = [{ name = "Gabriel Røer", email = "NorgeSkiFollo@gmail.com" }]
 requires-python = ">=3.8"
 dependencies = [
   "matplotlib>=3.10.6,<3.11",
-  "PyYAML>=6.0.2,<7.0"
+  "PyYAML>=6.0.2,<7.0",
+  "GabrielsPythonToolBox"
 ]
 
 [project.optional-dependencies]
@@ -32,7 +33,7 @@ exclude = ["tests*", "docs*"]
 
 [tool.black]
 line-length = 88
-target-version = ["py38", "py39", "py310", "py311", "py312"]
+target-version = ["py314"]
 
 [tool.isort]
 profile = "black"
