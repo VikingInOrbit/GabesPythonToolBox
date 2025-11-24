@@ -1,9 +1,13 @@
 import pytest
-from GabesPythonToolBox.DataProsesing.filter import Filter, newFilter
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal,Generate_sequence
 
+from GabesPythonToolBox.DataProsesing.filter import Filter, newFilter
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+    Generate_sequence,
+    almost_equal,
+)
 
 # Tests
+
 
 def test_average_filter_basic():
     f = Filter(num_points=3, filter_type="average")
@@ -21,7 +25,7 @@ def test_average_filter_window_limit():
     for x in val:
         out = f(x)
     # Only last 3 points (3,4,5) should remain, avg = 4
-    assert almost_equal(out,4)
+    assert almost_equal(out, 4)
 
 
 def test_new_weighted_filter():
@@ -29,7 +33,7 @@ def test_new_weighted_filter():
     for val in [10, 20, 30]:
         out = f(val)
     # Weighted average (1*10 + 2*20 + 3*30) / 6 = 23.33...
-    assert almost_equal(out,23.3333333333)
+    assert almost_equal(out, 23.3333333333)
 
 
 def test_old_weighted_filter():
@@ -37,7 +41,7 @@ def test_old_weighted_filter():
     for val in [10, 20, 30]:
         out = f(val)
     # Weighted average (3*10 + 2*20 + 1*30) / 6 = 16.67...
-    assert almost_equal(out,16.666666666)
+    assert almost_equal(out, 16.666666666)
 
 
 def test_invalid_input_type_raises():

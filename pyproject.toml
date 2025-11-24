@@ -1,3 +1,39 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "GabrielsPythonToolBox"
+version = "1.9.2"
+description = "A collection of useful Python tools"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Gabriel Røer", email = "NorgeSkiFollo@gmail.com" }]
+requires-python = ">=3.8"
+dependencies = [
+  "matplotlib>=3.10.6,<3.11",
+  "PyYAML>=6.0.2,<7.0"
+]
+
+[project.optional-dependencies]
+testing = [
+  "pytest>=8.4.2,<8.5",
+  "pytest-cov",
+  "coverage",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/NorgeSkiFollo/GabrielsPythonToolBox"
+"Repository" = "https://github.com/NorgeSkiFollo/GabrielsPythonToolBox.git"
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["tests*", "docs*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88

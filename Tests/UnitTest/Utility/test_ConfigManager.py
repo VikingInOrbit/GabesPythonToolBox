@@ -1,11 +1,13 @@
-import pytest
 import copy
+
+import pytest
+
 import GabesPythonToolBox.Utility.ConfigManager as CM
 from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
     read_json_test,
     read_yaml_test,
-    write_config_test,
     sample_config,
+    write_config_test,
 )
 
 
@@ -55,11 +57,14 @@ def test_save_and_reload_same_format(tmp_path, ext):
     assert reloaded["projects"]["active"][0]["progress"] == 90
 
 
-@pytest.mark.parametrize("ext_from, ext_to", [
-    (".json", ".yaml"),
-    (".yaml", ".json"),
-    (".yml", ".json"),
-])
+@pytest.mark.parametrize(
+    "ext_from, ext_to",
+    [
+        (".json", ".yaml"),
+        (".yaml", ".json"),
+        (".yml", ".json"),
+    ],
+)
 def test_cross_format_save(tmp_path, ext_from, ext_to):
     file = tmp_path / f"cross{ext_from}"
     write_config_test(file, sample_config)
@@ -96,10 +101,12 @@ def test_start_config_manager_factory(tmp_path, ext):
     assert isinstance(cm, CM.ConfigManager)
     assert cm()["projects"]["active"][1]["title"] == "Drone Swarm Control"
 
+
 def test_update_no_config():
     # ensure __call__'s "no Config Loaded" path runs
     cm = CM.ConfigManager()  # no path -> config stays None
     assert cm() is None
+
 
 def test_missing_file_raises_explicit(tmp_path):
     missing = tmp_path / "definitely_missing_config.json"
@@ -124,7 +131,8 @@ def test_invalid_json_content_raises(tmp_path):
 def test_init_without_path_and_call_returns_none():
     cm = CM.ConfigManager()  # no path provided
     assert cm.config is None
-    assert cm() is None  
+    assert cm() is None
+
 
 @pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
 def test_default_config_is_deepcopy_and_independent(tmp_path, ext):
@@ -133,6 +141,7 @@ def test_default_config_is_deepcopy_and_independent(tmp_path, ext):
     cm = CM.ConfigManager(str(file))
     cm.config["students"][0]["name"] = "ChangedName"
     assert cm.defaultConfig["students"][0]["name"] == "Alice"
+
 
 @pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
 def test_add_merges_dict_and_ignores_non_dict(tmp_path, ext):
@@ -148,6 +157,7 @@ def test_add_merges_dict_and_ignores_non_dict(tmp_path, ext):
     cm.add(["not", "a", "dict"])
     assert cm.config == before
 
+
 def test_update_nonexistent_key_raises(tmp_path):
     file = tmp_path / "noexist.json"
     write_config_test(file, sample_config)
@@ -155,6 +165,7 @@ def test_update_nonexistent_key_raises(tmp_path):
 
     with pytest.raises(Exception):
         cm.update("this.key.does.not.exist", 123)
+
 
 @pytest.mark.parametrize("ext", [".json", ".yaml", ".yml"])
 def test_save_with_empty_path_returns_without_writing(tmp_path, ext):
@@ -166,6 +177,7 @@ def test_save_with_empty_path_returns_without_writing(tmp_path, ext):
     reloaded = CM.ConfigManager(str(file))()
     assert reloaded["university"]["name"] == sample_config["university"]["name"]
 
+
 def test_update_top_level_key_updates(tmp_path):
     file = tmp_path / "toplevel_update.json"
     write_config_test(file, sample_config)
@@ -173,6 +185,7 @@ def test_update_top_level_key_updates(tmp_path):
 
     cm.update("university", {"name": "Techville Institute"})
     assert cm.config["university"]["name"] == "Techville Institute"
+
 
 def test_update_final_key_index_replaces_list_item(tmp_path):
     file = tmp_path / "update_final_index.json"

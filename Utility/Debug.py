@@ -1,10 +1,12 @@
-from ..Utility.Collor import * 
-from ..Utility.Logger import *
 import inspect
 from enum import Enum
 from typing import Union
 
-#TODO how can the buger get where the call (filr line) was from?
+from ..Utility.Collor import *
+from ..Utility.Logger import *
+
+
+# TODO how can the buger get where the call (filr line) was from?
 class LogType(Enum):
     Header = "Header"
     Error = "Error"
@@ -13,12 +15,15 @@ class LogType(Enum):
     Warning = "Warning"
     Info = "Info"
     InProgress = "InProgress"
-    NoneType = "None" 
+    NoneType = "None"
     End = "End"
 
     Dash = "-"
 
+
 from enum import Enum
+
+
 class LogGroup(Enum):
     LIB = "LIB"
     LIB_Debug = "LIB_Debug"
@@ -29,7 +34,7 @@ class LogGroup(Enum):
 
 class Debug:
     R = R
-        
+
     # DbugType
     Type = {
         LogType.Header.value: FG_B_White + BG_Black,
@@ -49,34 +54,33 @@ class Debug:
         LogGroup.LIB_Debug.value: False,
         LogGroup.ExampleFiles.value: False,
         LogGroup.WarningError.value: True,
-        LogGroup.Showcase.value: True
+        LogGroup.Showcase.value: True,
     }
 
     # Static settings for the Debug class
     debug_enabled = True
     logger_enabled = False
     logger = None
-    path:str=None
+    path: str = None
     verbosity = 1
 
     @classmethod
-    def set_debug_enabled(cls, enabled: bool = True,verbosity:int = 1):
+    def set_debug_enabled(cls, enabled: bool = True, verbosity: int = 1):
         """Turn debugging on or off. Defaults to true."""
         cls.debug_enabled = enabled  # Set the class variable
         cls.verbosity = verbosity
 
     @classmethod
-    def set_log_enabled(cls,path:str=None, enabled: bool = False):
+    def set_log_enabled(cls, path: str = None, enabled: bool = False):
         """Turn logging on or off. Defaults to False."""
 
         if not enabled:
             return
-        
+
         Logger.start_logger(path)
-        
+
         cls.logger_enabled = enabled  # Set the class variable
-        #cls.logger = Logger
-        
+        # cls.logger = Logger
 
     @classmethod
     def add_group(cls, group: str, enabled: bool = True):
@@ -104,21 +108,24 @@ class Debug:
         """Disable a specific message group."""
         cls.groups[group] = False  # Set the group's status to disabled
 
-
-
     @classmethod
-    def log(cls, message: str, message_type: Union[str, LogType] = LogType.Dash, group: Union[str, LogGroup, None] = None):
+    def log(
+        cls,
+        message: str,
+        message_type: Union[str, LogType] = LogType.Dash,
+        group: Union[str, LogGroup, None] = None,
+    ):
         """Log a message."""
 
         # Convert message_type to string if Enum
         if isinstance(message_type, LogType):
             message_type = message_type.value
-        
+
         # Convert group to string if Enum
         if isinstance(group, LogGroup):
             group = group.value
 
-        #sends the message to logbefore desiding to print it in terminal
+        # sends the message to logbefore desiding to print it in terminal
 
         frame = inspect.currentframe().f_back
         info = inspect.getframeinfo(frame)
@@ -127,14 +134,14 @@ class Debug:
         if cls.verbosity >= 2:
             verbose += f" : {info.filename}"
         if cls.verbosity >= 3:
-            verbose += f":{info.function}"    
+            verbose += f":{info.function}"
         if cls.verbosity >= 4:
             verbose += f":{info.lineno}"
-        
-
 
         if cls.logger_enabled:
-            Logger.log(message=message,message_type=message_type,group=group,verbose = info)
+            Logger.log(
+                message=message, message_type=message_type, group=group, verbose=info
+            )
 
         if not cls.debug_enabled:
             return  # Debugging is turned off
@@ -167,7 +174,7 @@ class Debug:
                 print(f"{cls.R}{Type}............{message}{verbose}{cls.R}")
             case _:
                 # Default case if the message type doesn't match any of the above
-                message_type="-"
+                message_type = "-"
                 # Retrieve the type for the message type
                 Type = cls.Type.get(message_type, "")
                 verbose = ""
@@ -175,7 +182,5 @@ class Debug:
                 verbose += f":{info.lineno}"
 
                 print(f"\n{cls.R}{Type}{message}...{verbose}{cls.R}\n")
-        
-        #cls.save_to_file(message,message_type,group,verbosity)
 
-        
+        # cls.save_to_file(message,message_type,group,verbosity)

@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from ...Utility.Debug import *
+
 
 class BaseState(ABC):
     def __init__(self, name, canSwitchTo=None, **kwargs):
@@ -7,13 +9,17 @@ class BaseState(ABC):
         self.name = name
         self.canSwitchTo = canSwitchTo or []
         self.metadata = kwargs  # store any extra parameters
-        Debug.log(f"BaseState '{self.name}' initialized with canSwitchTo={self.canSwitchTo}", LogType.Info, LogGroup.LIB)
+        Debug.log(
+            f"BaseState '{self.name}' initialized with canSwitchTo={self.canSwitchTo}",
+            LogType.Info,
+            LogGroup.LIB,
+        )
         Debug.log("BaseState __init__", "End", group="LIB")
 
     def __call__(self, **kwargs):
         """Allow state() to trigger an update."""
         Debug.log("BaseState __call__", "Header", group="LIB")
-        
+
         self.Update(**kwargs)
         Debug.log("BaseState __call__", "End", group="LIB")
 

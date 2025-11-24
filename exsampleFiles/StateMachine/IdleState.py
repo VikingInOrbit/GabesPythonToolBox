@@ -1,13 +1,14 @@
 import GabesPythonToolBox.ControllSoftwere.StateMachine.BaseState as Base
 
+
 class IdleState(Base.BaseState):
     def __init__(self, pointerTOScript=None):
         super().__init__(
             name="IdleState",
-            canSwitchTo=["GoHomeState","ExploreState"],  # list, not string
-            pointerTOScript=pointerTOScript
+            canSwitchTo=["GoHomeState", "ExploreState"],  # list, not string
+            pointerTOScript=pointerTOScript,
         )
-        #print("IdleState __init__")
+        # print("IdleState __init__")
 
     def Enter(self, **kwargs):
         print("Setting movement to 0")
@@ -17,5 +18,3 @@ class IdleState(Base.BaseState):
 
     def Update(self, **kwargs):
         print("Ensuring we are standing still")
-
-

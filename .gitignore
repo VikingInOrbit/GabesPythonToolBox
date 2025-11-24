@@ -1,13 +1,32 @@
+# Byte-compiled / optimized
 __pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
 *.egg-info/
-build
-.venv/
-*.log
+.eggs/
 
-secrets/*
-!secrets/.gitkeep
-temp/
-log/
+# Virtualenv / envs
+.env
+.venv
+venv/
+ENV/
 
-.vscode
+# pytest cache
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# coverage
+htmlcov/
 .coverage
+coverage.xml
+
+# OS
+.DS_Store
+Thumbs.db

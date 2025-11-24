@@ -1,12 +1,13 @@
 import json
 import os
 
-def write_json(file_path, data, mode: str = 'w'):
+
+def write_json(file_path, data, mode: str = "w"):
     """
     Write a dictionary to a JSON file.
     If mode='a', merge with existing JSON content if it is a dict.
     """
-    if mode == 'a' and os.path.exists(file_path):
+    if mode == "a" and os.path.exists(file_path):
         # Load existing data
         with open(file_path, "r", encoding="utf-8") as f:
             try:
@@ -19,7 +20,7 @@ def write_json(file_path, data, mode: str = 'w'):
         # Merge existing data with new data
         existing_data.update(data)
         data_to_write = existing_data
-        mode = 'w'  # overwrite with merged content
+        mode = "w"  # overwrite with merged content
     else:
         data_to_write = data
 

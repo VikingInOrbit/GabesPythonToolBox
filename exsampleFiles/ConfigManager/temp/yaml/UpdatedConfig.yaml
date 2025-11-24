@@ -1,0 +1,60 @@
+robotics_system:
+  stewart_platform:
+    omni_wheel_base:
+      wheels:
+      - id: 1
+        speed: 2.0
+        acceleration: 5.0
+        jerk: 1.0
+      - id: 2
+        speed: 2.1
+        acceleration: 5.2
+        jerk: 1.1
+      - id: 3
+        speed: 2.2
+        acceleration: 5.3
+        jerk: 1.2
+      - id: 4
+        speed: 2.3
+        acceleration: 5.4
+        jerk: 1.3
+  robotic_arm:
+    joints:
+    - id: 1
+      speed: 1.0
+      acceleration: 2.5
+      jerk: 0.7
+    - id: 2
+      speed: 0.9
+      acceleration: 2.0
+      jerk: 0.6
+    - id: 3
+      speed: 2.5
+      acceleration: 2.2
+      jerk: 0.65
+    - id: 4
+      speed: 1.2
+      acceleration: 2.3
+      jerk: 0.68
+    - id: 5
+      speed: 1.3
+      acceleration: 2.6
+      jerk: 0.72
+    - id: 6
+      speed: 1.1
+      acceleration: 2.1
+      jerk: 0.64
+    - id: 7
+      speed: 0.95
+      acceleration: 2.4
+      jerk: 0.66
+  sensors:
+    imu:
+      frequency: 500
+      range: 16
+    lidar:
+      frequency: 10
+      range_meters: 30
+    camera:
+      resolution: 1920x1080
+      fps: 60

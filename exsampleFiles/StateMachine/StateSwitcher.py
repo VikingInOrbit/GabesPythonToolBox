@@ -1,11 +1,11 @@
 # test_state_machine.py
 
+import ExploreState
+import GoHomeState
+import IdleState
+
 import GabesPythonToolBox.ControllSoftwere.StateMachine.StateSwitcher as SM
 
-
-import IdleState 
-import GoHomeState
-import ExploreState
 
 # --- Build and test the State Machine ---
 def main():
@@ -27,23 +27,24 @@ def main():
     print("State Machine Test")
 
     # Run default (Idle)
-    sm()  
+    sm()
 
     sm.SwitchState("ExploreState")
-    sm()  
-    sm()  
-    sm()  
+    sm()
+    sm()
+    sm()
 
     sm.SwitchState("GoHomeState")
     sm()
 
     sm.SwitchState("IdleState")
-    sm() 
+    sm()
 
     sm.SwitchState("GoHomeState")
     sm()
 
     sm.SwitchState("ExploreState")
+
 
 if __name__ == "__main__":
     main()

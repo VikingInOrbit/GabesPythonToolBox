@@ -1,17 +1,19 @@
-""""import as GTB"""
+""" "import as GTB"""
+
 """pip install . --upgrade"""
+
 
 # -----------------------------
 # DataProsesing
 # -----------------------------
+from .DataProsesing.csvDataPipeline import *
 from .DataProsesing.DataConsolPrinter import *
 from .DataProsesing.DataFormater import *
 from .DataProsesing.DataHelperFunctions import *
 from .DataProsesing.DataPrettifyer import *
-from .DataProsesing.PID import *
-from .DataProsesing.csvDataPipeline import *
 from .DataProsesing.filter import *
 from .DataProsesing.map import *
+from .DataProsesing.PID import *
 
 # -----------------------------
 # Suporting
@@ -23,6 +25,10 @@ from .Suporting.jsonWriter import *
 from .Suporting.yamlReader import *
 from .Suporting.yamlWriter import *
 
+# -----------------------------
+# Tests Utility
+# -----------------------------
+from .Tests.UnitTestComon.UntTestUtility import *
 
 # -----------------------------
 # Utility
@@ -35,14 +41,9 @@ from .Utility.Logger import *
 from .Utility.UnitConverter import *
 
 # -----------------------------
-# Utility
-# -----------------------------
-from .Tests.UnitTestComon.UntTestUtility import*
-
-# -----------------------------
 # Public Exports
 # -----------------------------
-__all__ = [ #TODO må lese mer om hvordan __all__ fungerer
+__all__ = [  # TODO må lese mer om hvordan __all__ fungerer
     # DataProsesing
     "DataConsolPrinter",
     "DataFormater",
@@ -52,7 +53,6 @@ __all__ = [ #TODO må lese mer om hvordan __all__ fungerer
     "csvDataPipeline",
     "filter",
     "map",
-
     # Suport
     "csvReader",
     "csvWriter",
@@ -60,7 +60,6 @@ __all__ = [ #TODO må lese mer om hvordan __all__ fungerer
     "jsonWriter",
     "yamlReader",
     "yamlWriter",
-
     # Utility
     "Collor",
     "ConfigManager",
@@ -68,7 +67,6 @@ __all__ = [ #TODO må lese mer om hvordan __all__ fungerer
     "DeltaTime",
     "Logger",
     "UnitConverter",
-
     # UnitTest
-    "UntTestUtility"
+    "UntTestUtility",
 ]

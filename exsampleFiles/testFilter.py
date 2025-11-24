@@ -1,7 +1,9 @@
 from GabesPythonToolBox.Utility.Debug import Debug
-Debug.add_group('Showcase', True)
+
+Debug.add_group("Showcase", True)
 
 import GabesPythonToolBox.DataProsesing.filter as GTB
+
 
 def test():
     Debug.log("Filter Function Showcase", "Header", group="Showcase")
@@ -21,10 +23,14 @@ def test():
         for x in range(startInt, endInt):
             Debug.log(f"Testing input: {x}", "Info", group="Showcase")
             last_output = filt(x)
-            Debug.log(f"Output {f_type} filter: {last_output}", "Info", group="Showcase")
+            Debug.log(
+                f"Output {f_type} filter: {last_output}", "Info", group="Showcase"
+            )
 
         final_outputs[f_type] = last_output
-        Debug.log(f"Final output {f_type} filter: {last_output}", "Info", group="Showcase")
+        Debug.log(
+            f"Final output {f_type} filter: {last_output}", "Info", group="Showcase"
+        )
         Debug.log(f"End of {f_type} Filter Test", "End", group="Showcase")
 
     # Summary of all filters

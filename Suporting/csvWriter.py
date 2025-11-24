@@ -1,26 +1,28 @@
-from ..Utility.Debug import *
-
 import copy
 import csv
 
+from ..Utility.Debug import *
 
 
 def write_csv(
     file_path,
     data,
-    seperator_symbol: str = ',',
-    float_symbol: str = '.',
-    encoding: str = 'utf-8',
-    mode: str = 'w',
-    data_mode:str = "all"
+    seperator_symbol: str = ",",
+    float_symbol: str = ".",
+    encoding: str = "utf-8",
+    mode: str = "w",
+    data_mode: str = "all",
 ):
-    
     """
     Write list-of-dictionaries data to a CSV file.
     """
     Debug.log("write_csv", "Header", group="LIB")
 
-    if not data or not isinstance(data, list) or not all(isinstance(d, dict) for d in data):
+    if (
+        not data
+        or not isinstance(data, list)
+        or not all(isinstance(d, dict) for d in data)
+    ):
         Debug.log("Invalid data format for CSV writing", "Error", group="WarningError")
         raise ValueError("Data must be a list of dictionaries.")
 
@@ -53,7 +55,6 @@ def write_csv(
                 print_header = False
                 print_boady = False
 
-
             if print_header:
                 writer.writeheader()
 
@@ -62,7 +63,11 @@ def write_csv(
                 for row in data:
                     # Format floats with custom float_symbol
                     formatted_row = {
-                        k: (str(v).replace(".", float_symbol) if isinstance(v, float) else v)
+                        k: (
+                            str(v).replace(".", float_symbol)
+                            if isinstance(v, float)
+                            else v
+                        )
                         for k, v in row.items()
                     }
                     writer.writerow(formatted_row)

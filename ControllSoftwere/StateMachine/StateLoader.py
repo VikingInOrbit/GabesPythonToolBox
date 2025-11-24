@@ -1,9 +1,11 @@
 import importlib.util
 import inspect
-import sys
-from .BaseState import BaseState
-from ...Utility.Debug import Debug, LogType, LogGroup
 import os
+import sys
+
+from ...Utility.Debug import Debug, LogGroup, LogType
+from .BaseState import BaseState
+
 
 class StateLoader:
     def __init__(self, state_file_paths=None):
@@ -16,11 +18,17 @@ class StateLoader:
 
     def LoadStates(self):
         """Dynamically loads state classes from the given list of file paths."""
-        Debug.log("StateLoader: loading states from file list...", "Header", group="LIB")
+        Debug.log(
+            "StateLoader: loading states from file list...", "Header", group="LIB"
+        )
 
         for file_path in self.state_file_paths:
             if not os.path.exists(file_path):
-                Debug.log(f"State file not found: {file_path}", LogType.Warning, LogGroup.WarningError)
+                Debug.log(
+                    f"State file not found: {file_path}",
+                    LogType.Warning,
+                    LogGroup.WarningError,
+                )
                 continue
 
             module_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -33,13 +41,25 @@ class StateLoader:
 
                 # Discover classes that subclass BaseState
                 for obj in module.__dict__.values():
-                    if inspect.isclass(obj) and issubclass(obj, BaseState) and obj is not BaseState:
+                    if (
+                        inspect.isclass(obj)
+                        and issubclass(obj, BaseState)
+                        and obj is not BaseState
+                    ):
                         instance = obj()
                         self.loaded_states[instance.name] = instance
-                        Debug.log(f"Loaded state: {instance.name} from {file_path}", "Info", group="LIB")
+                        Debug.log(
+                            f"Loaded state: {instance.name} from {file_path}",
+                            "Info",
+                            group="LIB",
+                        )
 
             except Exception as e:
-                Debug.log(f"Failed to load {file_path}: {e}", LogType.Warning, LogGroup.WarningError)
+                Debug.log(
+                    f"Failed to load {file_path}: {e}",
+                    LogType.Warning,
+                    LogGroup.WarningError,
+                )
 
         Debug.log("StateLoader: all specified states loaded.", "End", group="LIB")
         return self.loaded_states

@@ -1,23 +1,28 @@
 import os
 import re
 from types import SimpleNamespace
+
 import pytest
 
-from GabesPythonToolBox.Utility.Debug import Debug, LogType, LogGroup
 from GabesPythonToolBox.Utility import Logger
+from GabesPythonToolBox.Utility.Debug import Debug, LogGroup, LogType
 
 
 def reset_debug(monkeypatch):
     monkeypatch.setattr(Debug, "debug_enabled", True)
     monkeypatch.setattr(Debug, "logger_enabled", False)
     monkeypatch.setattr(Debug, "verbosity", 1)
-    monkeypatch.setattr(Debug, "groups", {
-        LogGroup.LIB.value: False,
-        LogGroup.LIB_Debug.value: False,
-        LogGroup.ExampleFiles.value: False,
-        LogGroup.WarningError.value: True,
-        LogGroup.Showcase.value: True
-    })
+    monkeypatch.setattr(
+        Debug,
+        "groups",
+        {
+            LogGroup.LIB.value: False,
+            LogGroup.LIB_Debug.value: False,
+            LogGroup.ExampleFiles.value: False,
+            LogGroup.WarningError.value: True,
+            LogGroup.Showcase.value: True,
+        },
+    )
 
 
 @pytest.mark.parametrize(
@@ -114,7 +119,9 @@ def test_set_log_enabled_uses_Logger(monkeypatch):
         calls.append(("start", path))
 
     def fake_log(cls, message, message_type=None, group=None, verbose=None):
-        calls.append(("log", message, message_type, group, hasattr(verbose, "filename")))
+        calls.append(
+            ("log", message, message_type, group, hasattr(verbose, "filename"))
+        )
 
     # patch the Logger class methods on the module's Logger class object
     monkeypatch.setattr(Logger.Logger, "start_logger", classmethod(fake_start))
@@ -138,7 +145,9 @@ def test_set_log_enabled_uses_Logger(monkeypatch):
         (4, True, True, True),
     ],
 )
-def test_verbosity_levels(monkeypatch, capsys, verbosity, expect_file, expect_func, expect_lineno):
+def test_verbosity_levels(
+    monkeypatch, capsys, verbosity, expect_file, expect_func, expect_lineno
+):
     reset_debug(monkeypatch)
     Debug.set_debug_enabled(True, verbosity=verbosity)
     Debug.log("vtest", message_type=LogType.Info)
@@ -164,4 +173,3 @@ def test_unknown_message_type_default_branch_shows_file_and_marker(monkeypatch, 
     assert os.path.basename(__file__) in out
     # example code prints a "..." marker when building fallback verbose info
     assert "..." in out
-

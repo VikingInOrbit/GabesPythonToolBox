@@ -1,4 +1,5 @@
 import pytest
+
 from GabesPythonToolBox.DataProsesing.PID import *
 from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
 
@@ -11,12 +12,13 @@ from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
     ],
 )
 def test_pid_proportional_only(Debug_enable):
-    pid = PID(P=2.0, I=0.0, D=0.0,Debug_enable=Debug_enable)
+    pid = PID(P=2.0, I=0.0, D=0.0, Debug_enable=Debug_enable)
     output, P_, I_, D_, error, dt = pid.Update(current_value=3, set_value=5, dt=1.0)
     assert almost_equal(output, 4.0)
     assert almost_equal(P_, 4.0)
     assert almost_equal(I_, 0.0)
     assert almost_equal(D_, 0.0)
+
 
 @pytest.mark.parametrize(
     "Debug_enable",
@@ -73,6 +75,7 @@ def test_pid_reset_integral(Debug_enable):
     pid.integral = 10
     pid.ResetIntegral()
     assert pid.integral == 0
+
 
 @pytest.mark.parametrize(
     "Debug_enable",

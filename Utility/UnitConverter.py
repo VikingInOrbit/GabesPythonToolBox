@@ -20,7 +20,11 @@ class UnitsConverter:
         Linear units: value * (from_coef / to_coef)
         Temperature units: ((value - from_offset) / from_coef) * to_coef + to_offset
         """
-        Debug.log(f"Convert called: {value} {from_unit} -> {to_unit} ({dimension})", "Header", group="LIB")
+        Debug.log(
+            f"Convert called: {value} {from_unit} -> {to_unit} ({dimension})",
+            "Header",
+            group="LIB",
+        )
 
         if dimension not in self.config:
             Debug.log(f"Unknown dimension: {dimension}", "Error", group="WarningError")
@@ -29,7 +33,11 @@ class UnitsConverter:
         dim_conf = self.config[dimension]
 
         if from_unit not in dim_conf or to_unit not in dim_conf:
-            Debug.log(f"Unknown units: {from_unit} or {to_unit}", "Error", group="WarningError")
+            Debug.log(
+                f"Unknown units: {from_unit} or {to_unit}",
+                "Error",
+                group="WarningError",
+            )
             raise ValueError(f"Unknown units: {from_unit} or {to_unit}")
 
         from_conf = dim_conf[from_unit]
@@ -50,5 +58,9 @@ class UnitsConverter:
             converted = value * (from_conf["coefficient"] / to_conf["coefficient"])
 
         Debug.log(f"Conversion result: {converted}", "Info", group="LIB")
-        Debug.log(f"Convert finished: {value} {from_unit} -> {converted} {to_unit}", "End", group="LIB")
+        Debug.log(
+            f"Convert finished: {value} {from_unit} -> {converted} {to_unit}",
+            "End",
+            group="LIB",
+        )
         return converted

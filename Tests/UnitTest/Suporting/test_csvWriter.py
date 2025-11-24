@@ -1,6 +1,12 @@
 import pytest
+
 from GabesPythonToolBox.Suporting.csvWriter import write_csv
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import read_csv_test,sample_data,write_json_test
+from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import (
+    read_csv_test,
+    sample_data,
+    write_json_test,
+)
+
 
 # Tests
 def test_write_csv_creates_file(tmp_path):
@@ -8,8 +14,9 @@ def test_write_csv_creates_file(tmp_path):
     write_csv(test_file, sample_data)
     assert test_file.exists()
 
+
 def test_write_csv_exception_handling(tmp_path):
-    
+
     invalid_file_path = tmp_path / "some_dir"
     invalid_file_path.mkdir()
 
@@ -17,6 +24,7 @@ def test_write_csv_exception_handling(tmp_path):
         write_csv(invalid_file_path, sample_data)
 
     assert "some_dir" in str(exc_info.value)
+
 
 def test_write_csv_headers_and_body(tmp_path):
     test_file = tmp_path / "test.csv"
@@ -26,6 +34,7 @@ def test_write_csv_headers_and_body(tmp_path):
     assert loaded[0]["name"] == "Alice"
     assert loaded[1]["score"] == "88.2"  # default float symbol
 
+
 def test_write_csv_float_symbol(tmp_path):
     test_file = tmp_path / "test.csv"
     write_csv(test_file, sample_data, float_symbol=",")
@@ -33,6 +42,7 @@ def test_write_csv_float_symbol(tmp_path):
     # Floats should have ',' instead of '.'
     assert loaded[0]["score"] == "95,5"
     assert loaded[1]["score"] == "88,2"
+
 
 def test_write_csv_data_modes(tmp_path):
     test_file_all = tmp_path / "all.csv"
@@ -61,7 +71,9 @@ def test_write_csv_data_modes(tmp_path):
         content_none = f.read()
     assert content_none.strip() == ""
 
-#TODO write UTF8 data
+
+# TODO write UTF8 data
+
 
 def test_write_csv_invalid_data(tmp_path):
     test_file = tmp_path / "test.csv"

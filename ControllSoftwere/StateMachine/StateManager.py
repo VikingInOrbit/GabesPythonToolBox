@@ -1,39 +1,55 @@
-from ...Utility.Debug import Debug, LogType, LogGroup
+from collections import deque
 
 from ...ControllSoftwere.StateMachine.StateLoader import StateLoader
 from ...ControllSoftwere.StateMachine.StateSwitcher import StateSwitcher
+from ...Utility.Debug import Debug, LogGroup, LogType
 
-from collections import deque
 
 class StateManager:
-    def __init__(self, stateFilePaths,defaultStateName):
+    def __init__(self, stateFilePaths, defaultStateName):
 
         loader = StateLoader(state_file_paths=stateFilePaths)
         startStates = loader.LoadStates()
 
-        self.state_switcher = StateSwitcher(startStates, default_state_name=defaultStateName)
+        self.state_switcher = StateSwitcher(
+            startStates, default_state_name=defaultStateName
+        )
 
-    def RequestState(self, target_state_name,Teleport:bool=False): #TODO teleport means dont find a path just switch
+    def RequestState(
+        self, target_state_name, Teleport: bool = False
+    ):  # TODO teleport means dont find a path just switch
         """Try to move to a target state. Returns (success, path)."""
         current_name = self.GetCurrentStateName()
         if not current_name:
-            Debug.log("No current state. Forcing switch.", LogType.Warning, LogGroup.WarningError)
+            Debug.log(
+                "No current state. Forcing switch.",
+                LogType.Warning,
+                LogGroup.WarningError,
+            )
             self.state_switcher.SwitchState(target_state_name)
             return True, [{"state": target_state_name, "current": True}]
 
         if target_state_name == current_name:
             Debug.log(f"Already in {target_state_name}", "Info", group="LIB")
             return True, [{"state": target_state_name, "current": True}]
-        
+
         if Teleport:
-            Debug.log(f"Teleported from: {current_name} to target_state_name", LogType.Info, LogGroup.LIB)
+            Debug.log(
+                f"Teleported from: {current_name} to target_state_name",
+                LogType.Info,
+                LogGroup.LIB,
+            )
             self.state_switcher.SwitchState(target_state_name)
             return True, [{"state": target_state_name, "current": True}]
 
         # BFS to find a valid path from current to target
         path = self._find_path(current_name, target_state_name)
         if not path:
-            Debug.log(f"No valid path from {current_name} to {target_state_name}", LogType.Warning, LogGroup.WarningError)
+            Debug.log(
+                f"No valid path from {current_name} to {target_state_name}",
+                LogType.Warning,
+                LogGroup.WarningError,
+            )
             return False, []
 
         Debug.log(f"Transition path: {path}", "Info", group="LIB")
@@ -67,19 +83,19 @@ class StateManager:
                     queue.append(path + [next_state])
         return None
 
-    def update(self,**kwargs):
+    def update(self, **kwargs):
         self.state_switcher(**kwargs)
 
-    def RequestDefaultState(self,Teleport:bool=False):
+    def RequestDefaultState(self, Teleport: bool = False):
         if Teleport:
             self.state_switcher.DefaultState()
             return
-        
+
         target_state_name = self.GetCurrentStateName()
         self.RequestState(target_state_name)
 
     def GetCurrentStateName(self):
         return self.state_switcher.GetCurrentStateName()
-    
+
     def GetDefaultStateName(self):
         return self.state_switcher.GetDefaultStateName()
