@@ -26,8 +26,29 @@ jobs:
       - name: Install dependencies
         run: python -m pip install --upgrade pip build
 
-      - name: Install package and test deps
-        run: python -m pip install -e ".[testing]"
+      - name: Install package and test deps (install inner package dir)
+        run: |
+          python -m pip install --upgrade pip
+          # install the package directory explicitly (editable) and extras for testing
+          python -m pip install -e ./GabesPythonToolBox[testing]
+
+      - name: Debug repository layout (helpful if imports still fail)
+        run: |
+          python - <<'PY'
+import sys, os
+print("cwd:", os.getcwd())
+print("PYTHONPATH env:", os.environ.get("PYTHONPATH"))
+print("sys.path:")
+for p in sys.path:
+    print(" ", p)
+print("\nTop-level files and dirs:")
+print(os.listdir("."))
+try:
+    import GabesPythonToolBox
+    print("Imported GabesPythonToolBox from:", getattr(GabesPythonToolBox, "__file__", repr(GabesPythonToolBox)))
+except Exception as e:
+    print("Importing GabesPythonToolBox failed:", type(e).__name__, e)
+PY
 
       - name: Ensure repo on PYTHONPATH for tests
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
