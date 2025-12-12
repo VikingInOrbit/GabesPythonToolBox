@@ -1,5 +1,10 @@
 # Updates
 
+## 1.10.2 Lib import update 
+
+### bug Fix
+- shood smoth the improt prosses
+
 ## 1.10.1 Lib structure update 
 
 ### braking changes
@@ -36,18 +41,6 @@
 - contol softwere
     - State machine
         - will not be tested at this moment
-
-### bug Fix
-
-- somthing
-
-### changes
-
-- somthing
-
-### breaking changes
-
-- somthing
 
 ## 1.9.1 location update 
 

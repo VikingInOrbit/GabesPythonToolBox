@@ -9,7 +9,7 @@ description = "A collection of useful Python tools"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Gabriel Røer", email = "NorgeSkiFollo@gmail.com" }]
-requires-python = ">=3.8"
+requires-python = ">=3.14"
 dependencies = [
   "matplotlib>=3.10.6,<3.11",
   "PyYAML>=6.0.2,<7.0",
@@ -20,6 +20,14 @@ testing = [
   "pytest>=8.0",
   "pytest-cov",
   "coverage",
+]
+
+dev = [
+  "pre-commit",
+  "black",
+  "isort",
+  "mypy",
+  "flake8",
 ]
 
 [project.urls]
