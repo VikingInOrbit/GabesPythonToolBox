@@ -1,20 +1,29 @@
 from GabesPythonToolBox.Utility.Debug import Debug
-Debug.add_group('Showcase', True)
-Debug.add_group('LIB', False)
+
+Debug.add_group("Showcase", True)
+Debug.add_group("LIB", False)
 
 path = "exsampleFiles/temp/log/"
 Debug.set_log_enabled(path, enabled=False)
 
 import matplotlib.pyplot as plt
+
+import GabesPythonToolBox.DataProsesing.map as map
 import GabesPythonToolBox.DataProsesing.PID as GTB
 import GabesPythonToolBox.Utility.DeltaTime as DT
-import GabesPythonToolBox.DataProsesing.map as map
 
 
 # A simple system simulation (heater cartridge)
 class SimpleSystem:
-    def __init__(self, initial_value=0, gain=1, resistance=0.1, delay=0.1, min_control_signal: float = None,
-                 max_control_signal: float = None):
+    def __init__(
+        self,
+        initial_value=0,
+        gain=1,
+        resistance=0.1,
+        delay=0.1,
+        min_control_signal: float = None,
+        max_control_signal: float = None,
+    ):
         self.current_value = initial_value
         self.gain = gain
         self.resistance = resistance  # Resistance to change
@@ -25,14 +34,22 @@ class SimpleSystem:
 
     def update(self, control_signal):
         """Update system state based on control signal (no real-time delay)."""
-        Debug.log(f"Step Update - state: {self.current_value}", "Info", group="Showcase")
+        Debug.log(
+            f"Step Update - state: {self.current_value}", "Info", group="Showcase"
+        )
 
-        control_signal = map.Clamp(control_signal,minOutput=self.min_control_signal,maxOutput=self.max_control_signal)
+        control_signal = map.Clamp(
+            control_signal,
+            minOutput=self.min_control_signal,
+            maxOutput=self.max_control_signal,
+        )
 
         Debug.log(f"Control signal: {control_signal}", "Info", group="Showcase")
 
         # Simulate physical response with delay and resistance
-        resistance_effect = self.resistance * self.current_value if self.resistance > 0 else 0
+        resistance_effect = (
+            self.resistance * self.current_value if self.resistance > 0 else 0
+        )
         next_value = self.gain * control_signal - resistance_effect
 
         if self.delay > 0:
@@ -53,17 +70,22 @@ def test():
     deltaTime = DT.StartDeltaTime()
     deltaTime()  # reset timer
 
-    min_control_signal=None
-    max_control_signal=None
+    min_control_signal = None
+    max_control_signal = None
 
-    pid = GTB.NewPID(P=8, I=10,D=0.0, integral_limit=None, Debug_enable=False)
+    pid = GTB.NewPID(P=8, I=10, D=0.0, integral_limit=None, Debug_enable=False)
 
     SetResetIntegral = False  # flag to enable reset integral on setpoint change
 
+    system = SimpleSystem(
+        initial_value=0,
+        gain=1,
+        resistance=0.1,
+        delay=0.1,
+        min_control_signal=min_control_signal,
+        max_control_signal=max_control_signal,
+    )
 
-
-    system = SimpleSystem(initial_value=0, gain=1, resistance=0.1, delay=0.1, min_control_signal=min_control_signal, max_control_signal=max_control_signal)
-    
     pid.prev_value = system.get_value()
 
     setpoint = 10
@@ -75,16 +97,37 @@ def test():
     time_steps = int(sim_time / time_delay)
 
     Debug.log("Starting PID simulation", "Header", group="Showcase")
-    results = simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps, required_hits, SetResetIntegral)
-    Debug.log(f"Real time elapsed: {deltaTime():.4f}s, Sim time elapsed: {sim_time}s", "Info", group="Showcase")
+    results = simulate(
+        system,
+        pid,
+        setpoint,
+        setpointDiff,
+        time_delay,
+        time_steps,
+        required_hits,
+        SetResetIntegral,
+    )
+    Debug.log(
+        f"Real time elapsed: {deltaTime():.4f}s, Sim time elapsed: {sim_time}s",
+        "Info",
+        group="Showcase",
+    )
     Debug.log(f"Simulation finished. ", "End", group="Showcase")
 
     graph(results)
-    #val_graph(results)
+    # val_graph(results)
 
 
-
-def simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps, required_hits, SetResetIntegral):
+def simulate(
+    system,
+    pid,
+    setpoint,
+    setpointDiff,
+    time_delay,
+    time_steps,
+    required_hits,
+    SetResetIntegral,
+):
     orgSetpoint = setpoint
     tolerance = 0.1
     results = []
@@ -96,7 +139,9 @@ def simulate(system, pid, setpoint, setpointDiff, time_delay, time_steps, requir
     for t in range(time_steps):
         # Simulated dt is constant per step
         dt = time_delay
-        hitTarget, result = simulateStep(system, pid, setpoint, tolerance, time_delay, t, resetIntegral, dt)
+        hitTarget, result = simulateStep(
+            system, pid, setpoint, tolerance, time_delay, t, resetIntegral, dt
+        )
         results.append(result)
 
         if hitTarget:
@@ -130,31 +175,61 @@ def simulateStep(system, pid, setpoint, tolerance, time_delay, t, resetIntegral,
 
     current_value = system.get_value()
 
-    control_signal,P_,I_,D_,error, dt = pid(current_value, setpoint, dt, resetIntegral)
-    
+    control_signal, P_, I_, D_, error, dt = pid(
+        current_value, setpoint, dt, resetIntegral
+    )
 
     corrected_control_signal = system.update(control_signal)
 
-    #print(f"control_signal: {control_signal},P: {P_},I: {I_},D: {D_},error: {error}, dt {dt}, control_signal: {control_signal}, corrected_control_signal: {corrected_control_signal}")
+    # print(f"control_signal: {control_signal},P: {P_},I: {I_},D: {D_},error: {error}, dt {dt}, control_signal: {control_signal}, corrected_control_signal: {corrected_control_signal}")
 
-    result = (t * time_delay, current_value, control_signal, setpoint,P_,I_,D_,error, dt,corrected_control_signal)
+    result = (
+        t * time_delay,
+        current_value,
+        control_signal,
+        setpoint,
+        P_,
+        I_,
+        D_,
+        error,
+        dt,
+        corrected_control_signal,
+    )
 
     # No real-time delay — fully simulated time
     # time.sleep(time_delay)  <-- removed
 
     if abs(current_value - setpoint) < tolerance:
-        Debug.log(f"Step {t} hit target: {current_value:.2f} within tolerance of {setpoint}", "Info", group="Showcase")
+        Debug.log(
+            f"Step {t} hit target: {current_value:.2f} within tolerance of {setpoint}",
+            "Info",
+            group="Showcase",
+        )
         Debug.log(f"Step {t} end", "End", group="Showcase")
         return True, result
 
-    Debug.log(f"Step {t} value: {current_value:.2f}, setpoint: {setpoint}", "Info", group="Showcase")
+    Debug.log(
+        f"Step {t} value: {current_value:.2f}, setpoint: {setpoint}",
+        "Info",
+        group="Showcase",
+    )
     Debug.log(f"Step {t} end", "End", group="Showcase")
     return False, result
 
 
 def graph(results):
-    (time_data, value_data, control_data, setpoints,
-     P_data, I_data, D_data, error_data, dt_data,corrected_control_signal_data) = zip(*results)
+    (
+        time_data,
+        value_data,
+        control_data,
+        setpoints,
+        P_data,
+        I_data,
+        D_data,
+        error_data,
+        dt_data,
+        corrected_control_signal_data,
+    ) = zip(*results)
 
     plt.figure(figsize=(12, 6))
 
@@ -176,23 +251,98 @@ def graph(results):
     plt.tight_layout()
     plt.show()
 
+
 def val_graph(results):
     # Unpack results
-    (time_data, value_data, control_data, setpoints,
-     P_data, I_data, D_data, error_data, dt_data,corrected_control_signal_data) = zip(*results)
+    (
+        time_data,
+        value_data,
+        control_data,
+        setpoints,
+        P_data,
+        I_data,
+        D_data,
+        error_data,
+        dt_data,
+        corrected_control_signal_data,
+    ) = zip(*results)
 
     plt.figure(figsize=(14, 10))
-    plt.style.use('dark_background')
+    plt.style.use("dark_background")
 
     # PID contributions, error, setpoint, control signals
-    plt.plot(time_data, P_data, color="#00FF44", linestyle="-", alpha=1, linewidth=1, label="P term")
-    plt.plot(time_data, I_data, color="#00BFFF", linestyle="-", alpha=1, linewidth=1, label="I term")
-    plt.plot(time_data, D_data, color="#FF44C1", linestyle="-", alpha=1, linewidth=1, label="D term")
-    plt.plot(time_data, error_data, color="#FF0000", linestyle="--", alpha=0.5, linewidth=1, label="Error")
-    plt.plot(time_data, setpoints, color="#FFFFFF", linestyle="--", alpha=0.5, linewidth=4, label="Setpoint")
-    plt.plot(time_data, control_data, color="#FF0000", linestyle="-", alpha=0.2, linewidth=5, label="Control Signal")
-    plt.plot(time_data, corrected_control_signal_data, color="#B05BFF", linestyle="-.", alpha=0.7, linewidth=2, label="Corrected Control Signal")
-    plt.plot(time_data, value_data, color="#FF7300", linestyle="-", alpha=1, linewidth=1, label="sys value")
+    plt.plot(
+        time_data,
+        P_data,
+        color="#00FF44",
+        linestyle="-",
+        alpha=1,
+        linewidth=1,
+        label="P term",
+    )
+    plt.plot(
+        time_data,
+        I_data,
+        color="#00BFFF",
+        linestyle="-",
+        alpha=1,
+        linewidth=1,
+        label="I term",
+    )
+    plt.plot(
+        time_data,
+        D_data,
+        color="#FF44C1",
+        linestyle="-",
+        alpha=1,
+        linewidth=1,
+        label="D term",
+    )
+    plt.plot(
+        time_data,
+        error_data,
+        color="#FF0000",
+        linestyle="--",
+        alpha=0.5,
+        linewidth=1,
+        label="Error",
+    )
+    plt.plot(
+        time_data,
+        setpoints,
+        color="#FFFFFF",
+        linestyle="--",
+        alpha=0.5,
+        linewidth=4,
+        label="Setpoint",
+    )
+    plt.plot(
+        time_data,
+        control_data,
+        color="#FF0000",
+        linestyle="-",
+        alpha=0.2,
+        linewidth=5,
+        label="Control Signal",
+    )
+    plt.plot(
+        time_data,
+        corrected_control_signal_data,
+        color="#B05BFF",
+        linestyle="-.",
+        alpha=0.7,
+        linewidth=2,
+        label="Corrected Control Signal",
+    )
+    plt.plot(
+        time_data,
+        value_data,
+        color="#FF7300",
+        linestyle="-",
+        alpha=1,
+        linewidth=1,
+        label="sys value",
+    )
 
     plt.xlabel("Simulated Time (s)")
     plt.ylabel("PID / System Signals")
@@ -201,7 +351,6 @@ def val_graph(results):
     plt.grid(alpha=0.3)  # optional: light grid for reference
     plt.tight_layout()
     plt.show()
-
 
 
 if __name__ == "__main__":

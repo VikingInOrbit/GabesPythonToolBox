@@ -1,8 +1,11 @@
 import pytest
-import GabesPythonToolBox.DataProsesing.map as map
-from GabesPythonToolBox.Tests.UnitTestComon.UntTestUtility import almost_equal
 
+import GabesPythonToolBox.DataProsesing.map as map
+from Tests.UnitTestComon.UnitTestUtility import almost_equal
+
+# TODO
 # Map tests
+
 
 def test_map_basic_linear_mapping():
     # Simple case: map 5 from range 0–10 → 0–100
@@ -33,7 +36,6 @@ def test_map_type_error():
         map.Map(0, 0, 10, "a", 100)
     with pytest.raises(TypeError):
         map.Map(100, 0, 10, 0, "a")
-
 
 
 # ClampMap tests
@@ -69,7 +71,9 @@ def test_clampmap_type_error():
     with pytest.raises(TypeError):
         map.Map(100, 0, 10, 0, "a")
 
+
 # ClampMap tests
+
 
 def test_clamp_basic():
     assert map.Clamp(5, 0, 10) == 5
@@ -98,4 +102,3 @@ def test_clamp_type_error():
         map.Map(0, "a", 10)
     with pytest.raises(TypeError):
         map.Map(10, 0, "a")
-        

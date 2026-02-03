@@ -11,10 +11,41 @@ in terminal for project
 py -m pip install git+https://github.com/VikingInOrbit/GabesPythonToolBox.git
 '''
 
-Import what you need, when you need it. 
-using "import GabesPythonToolBox as GTB" for all
-or import "GabesPythonToolBox.Category.lib as (XX)"
-That’s it. You're good to go.
+
+## How to install
+
+Quick install for development and testing:
+
+```bash
+python -m venv .venv
+python -m pip install pip-tools
+pip-compile requirements.in
+python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+
+## Development Setup
+
+How to commit code destined for dev:
+
+```bash
+pip install pre-commit
+pre-commit install
+pre-commit install --hook-type pre-push
+pre-commit install --hook-type commit-msg
+pre-commit run --all-files
+```
+
+
+If pre-commit fails:
+
+```bash
+pytest -q --maxfail=1  
+tox 
+isort .  
+black .
+```
+
 
 ### comands
 #### unit test

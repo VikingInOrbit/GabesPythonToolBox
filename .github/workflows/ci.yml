@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.14]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show Python and pip info (debug)
+        run: |
+          python -V
+          python -c "import sys; print(sys.executable)"
+          python -m pip --version
+          python -m pip list
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+            ${{ runner.os }}-pip-
+
+      - name: Install build tools
+        run: python -m pip install --upgrade pip build setuptools wheel
+
+      - name: Install package and test deps (editable)
+        run: python -m pip install -e ".[testing]"
+
+      - name: Install pre-commit
+        run: python -m pip install pre-commit
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files
+      - name: Ensure repo on PYTHONPATH (optional)
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Debug Python path and import package
+        run: |
+          python - <<'PY'
+          import sys, importlib
+          print("=== sys.path ===")
+          for p in sys.path:
+              print(" -", p)
+          print("=== Import package ===")
+
+      - name: Run tests with coverage
+        run: pytest --cov=src --cov-report=xml
+
+      - name: Enforce coverage threshold
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          python tools/ci_check_coverage.py "$BRANCH"
+
+      - name: Upload coverage to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml

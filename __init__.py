@@ -1,74 +1,14 @@
-""""import as GTB"""
-"""pip install . --upgrade"""
+"""Project root package shim for src layout."""
 
-# -----------------------------
-# DataProsesing
-# -----------------------------
-from .DataProsesing.DataConsolPrinter import *
-from .DataProsesing.DataFormater import *
-from .DataProsesing.DataHelperFunctions import *
-from .DataProsesing.DataPrettifyer import *
-from .DataProsesing.PID import *
-from .DataProsesing.csvDataPipeline import *
-from .DataProsesing.filter import *
-from .DataProsesing.map import *
+from __future__ import annotations
 
-# -----------------------------
-# Suporting
-# -----------------------------
-from .Suporting.csvReader import *
-from .Suporting.csvWriter import *
-from .Suporting.jsonReader import *
-from .Suporting.jsonWriter import *
-from .Suporting.yamlReader import *
-from .Suporting.yamlWriter import *
+from pathlib import Path
+from pkgutil import extend_path
 
+# Allow imports to resolve to src/GabesPythonToolBox when running from repo root.
+__path__ = extend_path(__path__, __name__)
+_src_pkg = Path(__file__).resolve().parent / "src" / __name__
+if _src_pkg.exists():
+    __path__.append(str(_src_pkg))
 
-# -----------------------------
-# Utility
-# -----------------------------
-from .Utility.Collor import *
-from .Utility.ConfigManager import *
-from .Utility.Debug import *
-from .Utility.DeltaTime import *
-from .Utility.Logger import *
-from .Utility.UnitConverter import *
-
-# -----------------------------
-# Utility
-# -----------------------------
-from .Tests.UnitTestComon.UntTestUtility import*
-
-# -----------------------------
-# Public Exports
-# -----------------------------
-__all__ = [ #TODO må lese mer om hvordan __all__ fungerer
-    # DataProsesing
-    "DataConsolPrinter",
-    "DataFormater",
-    "DataHelperFunctions",
-    "DataPrettifyer",
-    "PID",
-    "csvDataPipeline",
-    "filter",
-    "map",
-
-    # Suport
-    "csvReader",
-    "csvWriter",
-    "jsonReader",
-    "jsonWriter",
-    "yamlReader",
-    "yamlWriter",
-
-    # Utility
-    "Collor",
-    "ConfigManager",
-    "Debug",
-    "DeltaTime",
-    "Logger",
-    "UnitConverter",
-
-    # UnitTest
-    "UntTestUtility"
-]
+__all__: list[str] = []

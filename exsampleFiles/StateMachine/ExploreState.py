@@ -1,13 +1,14 @@
 import GabesPythonToolBox.ControllSoftwere.StateMachine.BaseState as Base
 
+
 class ExploreState(Base.BaseState):
     def __init__(self, pointerTOScript=None):
         super().__init__(
             name="ExploreState",
             canSwitchTo=["IdleState"],  # list, not string
-            pointerTOScript=pointerTOScript
+            pointerTOScript=pointerTOScript,
         )
-        #print("ExploreState __init__")
+        # print("ExploreState __init__")
 
     def Enter(self, **kwargs):
         print("Get plases to exsplore")
@@ -17,5 +18,3 @@ class ExploreState(Base.BaseState):
 
     def Update(self, **kwargs):
         print("Oh a new fancy place to exsplore")
-
-

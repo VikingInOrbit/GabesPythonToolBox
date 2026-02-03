@@ -1,3 +1,66 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "GabesPythonToolBox"
+version = "1.0.0"
+description = "a colection of boilerplate code"
+readme = "README.md"
+authors = [{ name = "Gabriel Røer", email = "NorgeSkiFollo@gmail.com" }]
+          
+  
+requires-python = ">=3.11"
+dependencies = [
+  "meshio==5.3.5",
+  "pytest>=8.0",
+  "pytest-cov",
+  "tox",
+  "PyYAML>=6.0.2,<7.0",
+  "meshio==5.3.5",
+  "matplotlib==3.10.8",
+  "opencv-python>=4.8.0"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Topic :: Simulation :: Simulation"
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[tool.setuptools]
+script-files = []
+include-package-data = true
+
+[tool.tox]
+requires = ["tox>=4.32"]
+env_list = ["format", "3.14"]
+
+[tool.tox.env_run_base]
+deps = ["pytest", "pytest-cov"]
+description = "Run test under {base_python}"
+commands = [["pytest", "--cov", "student_sim"]]
+
+[tool.tox.env.format]
+deps = ["flake8"]
+description = "Check code style using flake8"
+skip_install = false
+commands = [["flake8", "--max-line-length", "120", "src", "test", "Examples"]]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*", "docs*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
