@@ -1,0 +1,8 @@
+Cross-import audit report
+=======================
+
+Root: C:\Gabriel_Røer\(02) Gabriel\(01) Projekts\Python\custom lib\GabesPythonToolBox
+Top-level packages under src/: GabesPythonToolBox
+Total Python files scanned: 34
+
+No cross-imports found.
