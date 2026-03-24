@@ -1,8 +1,6 @@
 # Gabriel's Toolbox 
 ## What is this?
-Think of this as your coding Swiss Army knife. Gabe's Python Toolbox is a collection code snippets—perfect for those "I swear I've written this before" moments. It's not a specialized library for one thing; it's a general-purpose grab-n-go bag for useful, reusable boilerplate code.
-
-If you're tired of writing the same functions over and over, this might save you a few headaches (and keystrokes).
+Gabe's Python Toolbox is a collection code snippets. It's not a specialized library for one thing. it's a general-purpose grab-n-go for code snippets i find usful.
 
 ## Setup Guide
 in terminal for project 
